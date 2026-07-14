@@ -1,3 +1,6 @@
+# Datasets - too large for GitHub (store separately or use DVC/Kaggle/Drive)
+Datasets/
+
 # Python virtual environment - DO NOT UPLOAD (recreate with: pip install -r requirements.txt)
 venv/
 .venv/
