@@ -1,0 +1,19 @@
+{
+  "input_dim": 75,
+  "config": {
+    "hidden_layer_1": 128,
+    "hidden_layer_2": 64,
+    "dropout_rate": 0.3,
+    "learning_rate": 0.001,
+    "activation": "relu",
+    "output_activation": "sigmoid",
+    "loss": "binary_crossentropy",
+    "metrics": [
+      "accuracy",
+      "precision",
+      "recall"
+    ]
+  },
+  "trained_at": "2026-02-08T05:46:39.657885",
+  "model_type": "DDoSDetector"
+}

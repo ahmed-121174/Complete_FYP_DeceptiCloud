@@ -1,0 +1,144 @@
+<!-- DeceptiCloud Custom Wazuh Rules -->
+<!-- Place this file in /var/ossec/etc/rules/local_rules.xml -->
+
+<group name="decepticloud,web_attacks,">
+  
+  <!-- SQL Injection Detection -->
+  <rule id="100001" level="10">
+    <if_sid>31100</if_sid>
+    <match>UNION|SELECT|INSERT|UPDATE|DELETE|DROP|CREATE|ALTER|'|--|;|/*|*/</match>
+    <description>SQL Injection attempt detected</description>
+    <group>sql_injection,attack,</group>
+  </rule>
+
+  <rule id="100002" level="12">
+    <if_sid>100001</if_sid>
+    <match>UNION.*SELECT|' OR '1'='1|' OR 1=1|admin'--</match>
+    <description>High confidence SQL Injection attack</description>
+    <group>sql_injection,attack,</group>
+  </rule>
+
+  <!-- XSS Detection -->
+  <rule id="100010" level="10">
+    <if_sid>31100</if_sid>
+    <match>&lt;script|javascript:|onerror=|onload=|&lt;img|&lt;iframe</match>
+    <description>Cross-Site Scripting (XSS) attempt detected</description>
+    <group>xss,attack,</group>
+  </rule>
+
+  <rule id="100011" level="12">
+    <if_sid>100010</if_sid>
+    <match>&lt;script&gt;alert|document.cookie|eval\(</match>
+    <description>High confidence XSS attack</description>
+    <group>xss,attack,</group>
+  </rule>
+
+  <!-- Path Traversal Detection -->
+  <rule id="100020" level="10">
+    <if_sid>31100</if_sid>
+    <match>../|..\\|/etc/passwd|/etc/shadow|C:\\Windows</match>
+    <description>Path Traversal attempt detected</description>
+    <group>path_traversal,attack,</group>
+  </rule>
+
+  <!-- Command Injection Detection -->
+  <rule id="100030" level="12">
+    <if_sid>31100</if_sid>
+    <match>; ls|; cat|; rm|; wget|; curl|`|$\(</match>
+    <description>Command Injection attempt detected</description>
+    <group>command_injection,attack,</group>
+  </rule>
+
+  <!-- NoSQL Injection Detection -->
+  <rule id="100040" level="10">
+    <if_sid>31100</if_sid>
+    <match>\$gt|\$lt|\$ne|\$regex|\$where</match>
+    <description>NoSQL Injection attempt detected</description>
+    <group>nosql_injection,attack,</group>
+  </rule>
+
+  <!-- Scanner Detection -->
+  <rule id="100050" level="8">
+    <if_sid>31100</if_sid>
+    <match>sqlmap|nikto|nmap|burp|metasploit|hydra|dirb|gobuster|wpscan</match>
+    <description>Security scanner detected</description>
+    <group>scanner,recon,</group>
+  </rule>
+
+  <rule id="100051" level="10">
+    <if_sid>100050</if_sid>
+    <match>sqlmap</match>
+    <description>SQLmap scanner detected</description>
+    <group>scanner,sql_injection,</group>
+  </rule>
+
+  <!-- Brute Force Detection -->
+  <rule id="100060" level="8">
+    <if_sid>5503</if_sid>
+    <description>Multiple failed login attempts</description>
+    <group>brute_force,attack,</group>
+  </rule>
+
+  <rule id="100061" level="10" frequency="5" timeframe="60">
+    <if_matched_sid>100060</if_matched_sid>
+    <same_source_ip />
+    <description>Brute force attack detected (5+ failed logins in 60s)</description>
+    <group>brute_force,attack,</group>
+  </rule>
+
+  <!-- Port Scan Detection -->
+  <rule id="100070" level="8" frequency="10" timeframe="10">
+    <if_sid>5710</if_sid>
+    <same_source_ip />
+    <description>Port scan detected (10+ connection attempts in 10s)</description>
+    <group>port_scan,recon,</group>
+  </rule>
+
+  <!-- DDoS Detection -->
+  <rule id="100080" level="10" frequency="100" timeframe="10">
+    <if_sid>31100</if_sid>
+    <same_source_ip />
+    <description>Possible DDoS attack (100+ requests in 10s)</description>
+    <group>ddos,attack,</group>
+  </rule>
+
+  <rule id="100081" level="12" frequency="500" timeframe="60">
+    <if_sid>31100</if_sid>
+    <same_source_ip />
+    <description>DDoS attack confirmed (500+ requests in 60s)</description>
+    <group>ddos,attack,</group>
+  </rule>
+
+  <!-- Honeypot Access -->
+  <rule id="100090" level="8">
+    <if_sid>31100</if_sid>
+    <match>:4001|:4002|:4003|:4004|:4005|:4006|:4007</match>
+    <description>Attacker routed to honeypot</description>
+    <group>honeypot,deception,</group>
+  </rule>
+
+  <!-- Credential Stuffing -->
+  <rule id="100100" level="10" frequency="20" timeframe="60">
+    <if_sid>5503</if_sid>
+    <same_source_ip />
+    <description>Credential stuffing attack detected (20+ login attempts in 60s)</description>
+    <group>credential_stuffing,attack,</group>
+  </rule>
+
+  <!-- MITM Indicators -->
+  <rule id="100110" level="12">
+    <if_sid>31100</if_sid>
+    <match>ARP spoofing|DNS poisoning|SSL strip</match>
+    <description>Man-in-the-Middle attack indicator detected</description>
+    <group>mitm,attack,</group>
+  </rule>
+
+  <!-- Suspicious User-Agent -->
+  <rule id="100120" level="6">
+    <if_sid>31100</if_sid>
+    <match>python-requests|curl|wget|Go-http-client</match>
+    <description>Suspicious automated User-Agent detected</description>
+    <group>suspicious,recon,</group>
+  </rule>
+
+</group>

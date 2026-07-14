@@ -1,0 +1,74 @@
+<!-- DeceptiCloud Custom Wazuh Decoders -->
+<!-- Place this file in /var/ossec/etc/decoders/local_decoder.xml -->
+
+<!-- ── DeceptiCloud JSON log writer decoder ─────────────────────────────── -->
+<!-- Matches lines written by wazuh/decepticloud_log_writer.py             -->
+
+<decoder name="decepticloud">
+  <prematch>{"program": "decepticloud"</prematch>
+</decoder>
+
+<decoder name="decepticloud-attack">
+  <parent>decepticloud</parent>
+  <plugin_decoder>JSON_Decoder</plugin_decoder>
+</decoder>
+
+<decoder name="decepticloud-proxy">
+  <program_name>decepticloud-proxy</program_name>
+</decoder>
+
+<decoder name="decepticloud-proxy-attack">
+  <parent>decepticloud-proxy</parent>
+  <regex offset="after_parent">^(\S+) - (\S+) - (\S+) - (\S+) - (.+)$</regex>
+  <order>timestamp,ip,attack_type,confidence,url</order>
+</decoder>
+
+<decoder name="decepticloud-honeypot">
+  <program_name>decepticloud-honeypot</program_name>
+</decoder>
+
+<decoder name="decepticloud-honeypot-event">
+  <parent>decepticloud-honeypot</parent>
+  <regex offset="after_parent">^(\S+) - (\S+) - (\S+) - (.+)$</regex>
+  <order>timestamp,ip,event_type,details</order>
+</decoder>
+
+<decoder name="web-attack">
+  <type>web-log</type>
+  <prematch>GET|POST|PUT|DELETE|HEAD|OPTIONS|PATCH</prematch>
+</decoder>
+
+<decoder name="web-attack-sqli">
+  <parent>web-attack</parent>
+  <regex>UNION SELECT|INSERT INTO|DROP TABLE|1=1|OR 1</regex>
+  <order>sqli_pattern</order>
+</decoder>
+
+<decoder name="web-attack-xss">
+  <parent>web-attack</parent>
+  <regex>&lt;script|javascript:|onerror=|onload=|&lt;img|&lt;iframe</regex>
+  <order>xss_pattern</order>
+</decoder>
+
+<decoder name="web-attack-traversal">
+  <parent>web-attack</parent>
+  <regex>\.\./|\.\.\\|/etc/passwd|/etc/shadow</regex>
+  <order>traversal_pattern</order>
+</decoder>
+
+<decoder name="web-attack-cmdi">
+  <parent>web-attack</parent>
+  <regex>; ls|; cat|; rm|; wget|; curl|`|\$\(</regex>
+  <order>cmdi_pattern</order>
+</decoder>
+
+<decoder name="scanner-useragent">
+  <type>web-log</type>
+  <prematch>User-Agent:</prematch>
+</decoder>
+
+<decoder name="scanner-useragent-tools">
+  <parent>scanner-useragent</parent>
+  <regex>sqlmap|nikto|nmap|burp|metasploit|hydra|dirb|gobuster|wpscan</regex>
+  <order>scanner_tool</order>
+</decoder>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="4" skipped="23" tests="30" time="40.474" timestamp="2026-04-20T21:25:59.698691+05:00" hostname="amei302-HP-EliteBook-840-G8-Notebook-PC"><testcase classname="tests.system.test_end_to_end_deception.TestEndToEndDeception" name="test_benign_traffic_flow" time="15.078"><failure message="requests.exceptions.ReadTimeout: HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)">/usr/lib/python3/dist-packages/urllib3/connectionpool.py:446: in _make_request
+    six.raise_from(e, None)
+/usr/lib/python3/dist-packages/urllib3/connectionpool.py:441: in _make_request
+    httplib_response = conn.getresponse()
+/usr/lib/python3.10/http/client.py:1395: in getresponse
+    response.begin()
+/usr/lib/python3.10/http/client.py:323: in begin
+    version, status, reason = self._read_status()
+/usr/lib/python3.10/http/client.py:284: in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+/usr/lib/python3.10/socket.py:705: in readinto
+    return self._sock.recv_into(b)
+E   TimeoutError: timed out
+
+During handling of the above exception, another exception occurred:
+/home/amei-302/.local/lib/python3.10/site-packages/requests/adapters.py:644: in send
+    resp = conn.urlopen(
+/usr/lib/python3/dist-packages/urllib3/connectionpool.py:756: in urlopen
+    retries = retries.increment(
+/usr/lib/python3/dist-packages/urllib3/util/retry.py:534: in increment
+    raise six.reraise(type(error), error, _stacktrace)
+/usr/lib/python3/dist-packages/six.py:719: in reraise
+    raise value
+/usr/lib/python3/dist-packages/urllib3/connectionpool.py:700: in urlopen
+    httplib_response = self._make_request(
+/usr/lib/python3/dist-packages/urllib3/connectionpool.py:448: in _make_request
+    self._raise_timeout(err=e, url=url, timeout_value=read_timeout)
+/usr/lib/python3/dist-packages/urllib3/connectionpool.py:337: in _raise_timeout
+    raise ReadTimeoutError(
+E   urllib3.exceptions.ReadTimeoutError: HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)
+
+During handling of the above exception, another exception occurred:
+tests/system/test_end_to_end_deception.py:69: in test_benign_traffic_flow
+    r = requests.get(url, timeout=5)
+/home/amei-302/.local/lib/python3.10/site-packages/requests/api.py:73: in get
+    return request("get", url, params=params, **kwargs)
+/home/amei-302/.local/lib/python3.10/site-packages/requests/api.py:59: in request
+    return session.request(method=method, url=url, **kwargs)
+/home/amei-302/.local/lib/python3.10/site-packages/requests/sessions.py:589: in request
+    resp = self.send(prep, **send_kwargs)
+/home/amei-302/.local/lib/python3.10/site-packages/requests/sessions.py:703: in send
+    r = adapter.send(request, **kwargs)
+/home/amei-302/.local/lib/python3.10/site-packages/requests/adapters.py:690: in send
+    raise ReadTimeout(e, request=request)
+E   requests.exceptions.ReadTimeout: HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)</failure></testcase><testcase classname="tests.system.test_end_to_end_deception.TestEndToEndDeception" name="test_malicious_traffic_redirection" time="5.007"><failure message="requests.exceptions.ReadTimeout: HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)">/usr/lib/python3/dist-packages/urllib3/connectionpool.py:446: in _make_request
+    six.raise_from(e, None)
+/usr/lib/python3/dist-packages/urllib3/connectionpool.py:441: in _make_request
+    httplib_response = conn.getresponse()
+/usr/lib/python3.10/http/client.py:1395: in getresponse
+    response.begin()
+/usr/lib/python3.10/http/client.py:323: in begin
+    version, status, reason = self._read_status()
+/usr/lib/python3.10/http/client.py:284: in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+/usr/lib/python3.10/socket.py:705: in readinto
+    return self._sock.recv_into(b)
+E   TimeoutError: timed out
+
+During handling of the above exception, another exception occurred:
+/home/amei-302/.local/lib/python3.10/site-packages/requests/adapters.py:644: in send
+    resp = conn.urlopen(
+/usr/lib/python3/dist-packages/urllib3/connectionpool.py:756: in urlopen
+    retries = retries.increment(
+/usr/lib/python3/dist-packages/urllib3/util/retry.py:534: in increment
+    raise six.reraise(type(error), error, _stacktrace)
+/usr/lib/python3/dist-packages/six.py:719: in reraise
+    raise value
+/usr/lib/python3/dist-packages/urllib3/connectionpool.py:700: in urlopen
+    httplib_response = self._make_request(
+/usr/lib/python3/dist-packages/urllib3/connectionpool.py:448: in _make_request
+    self._raise_timeout(err=e, url=url, timeout_value=read_timeout)
+/usr/lib/python3/dist-packages/urllib3/connectionpool.py:337: in _raise_timeout
+    raise ReadTimeoutError(
+E   urllib3.exceptions.ReadTimeoutError: HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)
+
+During handling of the above exception, another exception occurred:
+tests/system/test_end_to_end_deception.py:78: in test_malicious_traffic_redirection
+    r = requests.get(url, timeout=5)
+/home/amei-302/.local/lib/python3.10/site-packages/requests/api.py:73: in get
+    return request("get", url, params=params, **kwargs)
+/home/amei-302/.local/lib/python3.10/site-packages/requests/api.py:59: in request
+    return session.request(method=method, url=url, **kwargs)
+/home/amei-302/.local/lib/python3.10/site-packages/requests/sessions.py:589: in request
+    resp = self.send(prep, **send_kwargs)
+/home/amei-302/.local/lib/python3.10/site-packages/requests/sessions.py:703: in send
+    r = adapter.send(request, **kwargs)
+/home/amei-302/.local/lib/python3.10/site-packages/requests/adapters.py:690: in send
+    raise ReadTimeout(e, request=request)
+E   requests.exceptions.ReadTimeout: HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=5)</failure></testcase><testcase classname="tests.system.test_end_to_end_deception.TestEndToEndDeception" name="test_attacker_session_jailing" time="19.798"><failure message="AssertionError: assert 'Test HP' in '&lt;!DOCTYPE html&gt;\n&lt;html&gt;\n&lt;head&gt;\n&lt;title&gt;Query Result&lt;/title&gt;\n&lt;/head&gt;\n&lt;body&gt;\n\n&lt;h1&gt;Query Result&lt;/h1&gt;\n\n&lt;table&gt;\n  &lt;thead&gt;\n    &lt;tr&gt;\n      &lt;th&gt;ID&lt;/th&gt;\n      &lt;th&gt;Username&lt;/th&gt;\n      &lt;th&gt;Email&lt;/th&gt;\n      &lt;th&gt;PasswordHash&lt;/th&gt;\n    &lt;/tr&gt;\n  &lt;/thead&gt;\n  &lt;tbody&gt;\n    &lt;tr&gt;\n      &lt;td&gt;admin&lt;/td&gt;'&#10; +  where '&lt;!DOCTYPE html&gt;\n&lt;html&gt;\n&lt;head&gt;\n&lt;title&gt;Query Result&lt;/title&gt;\n&lt;/head&gt;\n&lt;body&gt;\n\n&lt;h1&gt;Query Result&lt;/h1&gt;\n\n&lt;table&gt;\n  &lt;thead&gt;\n    &lt;tr&gt;\n      &lt;th&gt;ID&lt;/th&gt;\n      &lt;th&gt;Username&lt;/th&gt;\n      &lt;th&gt;Email&lt;/th&gt;\n      &lt;th&gt;PasswordHash&lt;/th&gt;\n    &lt;/tr&gt;\n  &lt;/thead&gt;\n  &lt;tbody&gt;\n    &lt;tr&gt;\n      &lt;td&gt;admin&lt;/td&gt;' = &lt;Response [200]&gt;.text">tests/system/test_end_to_end_deception.py:101: in test_attacker_session_jailing
+    assert "Test HP" in r.text
+E   AssertionError: assert 'Test HP' in '&lt;!DOCTYPE html&gt;\n&lt;html&gt;\n&lt;head&gt;\n&lt;title&gt;Query Result&lt;/title&gt;\n&lt;/head&gt;\n&lt;body&gt;\n\n&lt;h1&gt;Query Result&lt;/h1&gt;\n\n&lt;table&gt;\n  &lt;thead&gt;\n    &lt;tr&gt;\n      &lt;th&gt;ID&lt;/th&gt;\n      &lt;th&gt;Username&lt;/th&gt;\n      &lt;th&gt;Email&lt;/th&gt;\n      &lt;th&gt;PasswordHash&lt;/th&gt;\n    &lt;/tr&gt;\n  &lt;/thead&gt;\n  &lt;tbody&gt;\n    &lt;tr&gt;\n      &lt;td&gt;admin&lt;/td&gt;'
+E    +  where '&lt;!DOCTYPE html&gt;\n&lt;html&gt;\n&lt;head&gt;\n&lt;title&gt;Query Result&lt;/title&gt;\n&lt;/head&gt;\n&lt;body&gt;\n\n&lt;h1&gt;Query Result&lt;/h1&gt;\n\n&lt;table&gt;\n  &lt;thead&gt;\n    &lt;tr&gt;\n      &lt;th&gt;ID&lt;/th&gt;\n      &lt;th&gt;Username&lt;/th&gt;\n      &lt;th&gt;Email&lt;/th&gt;\n      &lt;th&gt;PasswordHash&lt;/th&gt;\n    &lt;/tr&gt;\n  &lt;/thead&gt;\n  &lt;tbody&gt;\n    &lt;tr&gt;\n      &lt;td&gt;admin&lt;/td&gt;' = &lt;Response [200]&gt;.text</failure></testcase><testcase classname="tests.system.test_end_to_end_deception.TestEndToEndDeception" name="test_proxy_status_api" time="0.097" /><testcase classname="tests.system.test_full_attack_flow.TestFullAttackFlow" name="test_sqli_attack_end_to_end" time="0.001"><skipped type="pytest.skip" message="Full system not running — start with: python3 launch_decepticloud.py">/media/amei-302/New Volume2/SEMESTER VIII/Ahmed Fype-II/tests/system/test_full_attack_flow.py:59: Full system not running — start with: python3 launch_decepticloud.py</skipped></testcase><testcase classname="tests.system.test_full_attack_flow.TestFullAttackFlow" name="test_xss_attack_end_to_end" time="0.000"><skipped type="pytest.skip" message="Full system not running — start with: python3 launch_decepticloud.py">/media/amei-302/New Volume2/SEMESTER VIII/Ahmed Fype-II/tests/system/test_full_attack_flow.py:76: Full system not running — start with: python3 launch_decepticloud.py</skipped></testcase><testcase classname="tests.system.test_full_attack_flow.TestFullAttackFlow" name="test_path_traversal_end_to_end" time="0.000"><skipped type="pytest.skip" message="Full system not running — start with: python3 launch_decepticloud.py">/media/amei-302/New Volume2/SEMESTER VIII/Ahmed Fype-II/tests/system/test_full_attack_flow.py:90: Full system not running — start with: python3 launch_decepticloud.py</skipped></testcase><testcase classname="tests.system.test_full_attack_flow.TestFullAttackFlow" name="test_attack_appears_in_dashboard_stats" time="0.000"><skipped type="pytest.skip" message="Full system not running — start with: python3 launch_decepticloud.py">/media/amei-302/New Volume2/SEMESTER VIII/Ahmed Fype-II/tests/system/test_full_attack_flow.py:104: Full system not running — start with: python3 launch_decepticloud.py</skipped></testcase><testcase classname="tests.system.test_full_attack_flow.TestFullAttackFlow" name="test_attack_log_valid_json" time="0.000"><skipped type="pytest.skip" message="Full system not running — start with: python3 launch_decepticloud.py">/media/amei-302/New Volume2/SEMESTER VIII/Ahmed Fype-II/tests/system/test_full_attack_flow.py:125: Full system not running — start with: python3 launch_decepticloud.py</skipped></testcase><testcase classname="tests.system.test_full_attack_flow.TestBlockchainIntegrity" name="test_blockchain_chain_valid" time="0.000"><skipped type="pytest.skip" message="Full system not running — start with: python3 launch_decepticloud.py">/media/amei-302/New Volume2/SEMESTER VIII/Ahmed Fype-II/tests/system/test_full_attack_flow.py:143: Full system not running — start with: python3 launch_decepticloud.py</skipped></testcase><testcase classname="tests.system.test_full_attack_flow.TestBlockchainIntegrity" name="test_blockchain_grows_after_attack" time="0.000"><skipped type="pytest.skip" message="Full system not running — start with: python3 launch_decepticloud.py">/media/amei-302/New Volume2/SEMESTER VIII/Ahmed Fype-II/tests/system/test_full_attack_flow.py:153: Full system not running — start with: python3 launch_decepticloud.py</skipped></testcase><testcase classname="tests.system.test_full_attack_flow.TestBlockchainIntegrity" name="test_blockchain_singleton" time="0.000"><skipped type="pytest.skip" message="Full system not running — start with: python3 launch_decepticloud.py">/media/amei-302/New Volume2/SEMESTER VIII/Ahmed Fype-II/tests/system/test_full_attack_flow.py:177: Full system not running — start with: python3 launch_decepticloud.py</skipped></testcase><testcase classname="tests.system.test_full_attack_flow.TestRateLimiting" name="test_ml_api_rate_limit" time="0.000"><skipped type="pytest.skip" message="Full system not running — start with: python3 launch_decepticloud.py">/media/amei-302/New Volume2/SEMESTER VIII/Ahmed Fype-II/tests/system/test_full_attack_flow.py:188: Full system not running — start with: python3 launch_decepticloud.py</skipped></testcase><testcase classname="tests.system.test_full_attack_flow.TestRateLimiting" name="test_proxy_handles_rapid_requests" time="0.000"><skipped type="pytest.skip" message="Full system not running — start with: python3 launch_decepticloud.py">/media/amei-302/New Volume2/SEMESTER VIII/Ahmed Fype-II/tests/system/test_full_attack_flow.py:202: Full system not running — start with: python3 launch_decepticloud.py</skipped></testcase><testcase classname="tests.system.test_full_system.TestSystemHealth" name="test_ml_api_running" time="0.003"><skipped type="pytest.skip" message="ML API not running - start with: python ml_pipeline/model_api.py">/media/amei-302/New Volume2/SEMESTER VIII/Ahmed Fype-II/tests/system/test_full_system.py:33: ML API not running - start with: python ml_pipeline/model_api.py</skipped></testcase><testcase classname="tests.system.test_full_system.TestSystemHealth" name="test_proxy_running" time="0.003"><skipped type="pytest.skip" message="Proxy not running - start with: python proxy/routing_proxy.py">/media/amei-302/New Volume2/SEMESTER VIII/Ahmed Fype-II/tests/system/test_full_system.py:44: Proxy not running - start with: python proxy/routing_proxy.py</skipped></testcase><testcase classname="tests.system.test_full_system.TestSystemHealth" name="test_dashboard_running" time="0.003"><skipped type="pytest.skip" message="Dashboard not running - start with: python dashboard/app.py">/media/amei-302/New Volume2/SEMESTER VIII/Ahmed Fype-II/tests/system/test_full_system.py:53: Dashboard not running - start with: python dashboard/app.py</skipped></testcase><testcase classname="tests.system.test_full_system.TestSystemHealth" name="test_database_accessible" time="0.012" /><testcase classname="tests.system.test_full_system.TestEndToEndAttackDetection" name="test_sqli_attack_detection_flow" time="0.002"><skipped type="pytest.skip" message="Services not running">/media/amei-302/New Volume2/SEMESTER VIII/Ahmed Fype-II/tests/system/test_full_system.py:113: Services not running</skipped></testcase><testcase classname="tests.system.test_full_system.TestEndToEndAttackDetection" name="test_xss_attack_detection_flow" time="0.001"><skipped type="pytest.skip" message="Services not running">/media/amei-302/New Volume2/SEMESTER VIII/Ahmed Fype-II/tests/system/test_full_system.py:138: Services not running</skipped></testcase><testcase classname="tests.system.test_full_system.TestEndToEndAttackDetection" name="test_benign_request_flow" time="0.001"><skipped type="pytest.skip" message="Services not running">/media/amei-302/New Volume2/SEMESTER VIII/Ahmed Fype-II/tests/system/test_full_system.py:163: Services not running</skipped></testcase><testcase classname="tests.system.test_full_system.TestAttackerTracking" name="test_repeated_attacks_tracking" time="0.002"><skipped type="pytest.skip" message="Proxy not running">/media/amei-302/New Volume2/SEMESTER VIII/Ahmed Fype-II/tests/system/test_full_system.py:201: Proxy not running</skipped></testcase><testcase classname="tests.system.test_full_system.TestDashboardIntegration" name="test_dashboard_displays_attacks" time="0.001"><skipped type="pytest.skip" message="Dashboard not running">/media/amei-302/New Volume2/SEMESTER VIII/Ahmed Fype-II/tests/system/test_full_system.py:227: Dashboard not running</skipped></testcase><testcase classname="tests.system.test_full_system.TestDashboardIntegration" name="test_dashboard_statistics" time="0.001"><skipped type="pytest.skip" message="Dashboard not running">/media/amei-302/New Volume2/SEMESTER VIII/Ahmed Fype-II/tests/system/test_full_system.py:238: Dashboard not running</skipped></testcase><testcase classname="tests.system.test_full_system.TestMLModels" name="test_all_models_loaded" time="0.001"><skipped type="pytest.skip" message="ML API not running">/media/amei-302/New Volume2/SEMESTER VIII/Ahmed Fype-II/tests/system/test_full_system.py:275: ML API not running</skipped></testcase><testcase classname="tests.system.test_full_system.TestMLModels" name="test_model_prediction_accuracy" time="0.001"><skipped type="pytest.skip" message="ML API not running">/media/amei-302/New Volume2/SEMESTER VIII/Ahmed Fype-II/tests/system/test_full_system.py:301: ML API not running</skipped></testcase><testcase classname="tests.system.test_full_system.TestSystemPerformance" name="test_classification_response_time" time="0.001"><skipped type="pytest.skip" message="Proxy not running">/media/amei-302/New Volume2/SEMESTER VIII/Ahmed Fype-II/tests/system/test_full_system.py:337: Proxy not running</skipped></testcase><testcase classname="tests.system.test_full_system.TestSystemPerformance" name="test_concurrent_requests" time="0.008"><failure message="assert 0.0 &gt;= 0.8">tests/system/test_full_system.py:374: in test_concurrent_requests
+    assert success_rate &gt;= 0.8  # At least 80% success
+E   assert 0.0 &gt;= 0.8</failure></testcase><testcase classname="tests.system.test_full_system.TestDataPersistence" name="test_database_persistence" time="0.003" /><testcase classname="tests.system.test_full_system.TestSystemRecovery" name="test_ml_api_unavailable_fallback" time="0.001"><skipped type="pytest.skip" message="Proxy not running">/media/amei-302/New Volume2/SEMESTER VIII/Ahmed Fype-II/tests/system/test_full_system.py:440: Proxy not running</skipped></testcase></testsuite></testsuites>

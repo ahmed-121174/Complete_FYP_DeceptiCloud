@@ -1,0 +1,224 @@
+version: '3.8'
+
+services:
+  # Wazuh Manager
+  wazuh-manager:
+    image: wazuh/wazuh-manager:4.14.4
+    hostname: wazuh-manager
+    container_name: wazuh-manager
+    restart: always
+    ports:
+      - "1514:1514"      # Agent communication
+      - "1515:1515"      # Agent enrollment
+      - "514:514/udp"    # Syslog
+      - "55000:55000"    # Wazuh API
+    environment:
+      - INDEXER_URL=https://wazuh-indexer:9200
+      - INDEXER_USERNAME=admin
+      - INDEXER_PASSWORD=SecretPassword
+      - FILEBEAT_SSL_VERIFICATION_MODE=none
+      - API_USERNAME=wazuh-wui
+      - API_PASSWORD=MyS3cr37P450r.*-
+    volumes:
+      - wazuh-manager-data:/var/ossec/data
+      - wazuh-manager-logs:/var/ossec/logs
+      - wazuh-manager-etc:/var/ossec/etc
+    networks:
+      - decepticloud-network
+
+  # Wazuh Indexer (OpenSearch)
+  wazuh-indexer:
+    image: wazuh/wazuh-indexer:4.14.4
+    hostname: wazuh-indexer
+    container_name: wazuh-indexer
+    restart: always
+    ports:
+      - "9200:9200"
+    environment:
+      - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m"
+      - "bootstrap.memory_lock=true"
+      - "discovery.type=single-node"
+      - "network.host=0.0.0.0"
+      - "plugins.security.ssl.http.enabled=false"
+      - "plugins.security.disabled=true"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    volumes:
+      - wazuh-indexer-data:/var/lib/wazuh-indexer
+    networks:
+      - decepticloud-network
+
+  # Wazuh Dashboard
+  wazuh-dashboard:
+    image: wazuh/wazuh-dashboard:4.14.4
+    hostname: wazuh-dashboard
+    container_name: wazuh-dashboard
+    restart: always
+    ports:
+      - "5601:5601"
+    environment:
+      - INDEXER_USERNAME=admin
+      - INDEXER_PASSWORD=SecretPassword
+      - WAZUH_API_URL=https://wazuh-manager
+      - API_USERNAME=wazuh-wui
+      - API_PASSWORD=MyS3cr37P450r.*-
+    depends_on:
+      - wazuh-indexer
+      - wazuh-manager
+    networks:
+      - decepticloud-network
+
+  # Wazuh Agent for DeceptiCloud Proxy
+  wazuh-agent-proxy:
+    image: wazuh/wazuh-agent:4.14.4
+    hostname: decepticloud-proxy
+    container_name: wazuh-agent-proxy
+    restart: always
+    environment:
+      - WAZUH_MANAGER=wazuh-manager
+      - WAZUH_AGENT_NAME=decepticloud-proxy
+      - WAZUH_AGENT_GROUP=decepticloud
+    volumes:
+      - ../proxy/logs:/var/log/decepticloud/proxy:ro
+      - ../logs:/var/log/decepticloud/system:ro
+    depends_on:
+      - wazuh-manager
+    networks:
+      - decepticloud-network
+
+  # Wazuh Agent for Banking Honeypot
+  wazuh-agent-banking-honeypot:
+    image: wazuh/wazuh-agent:4.14.4
+    hostname: banking-honeypot
+    container_name: wazuh-agent-banking-honeypot
+    restart: always
+    environment:
+      - WAZUH_MANAGER=wazuh-manager
+      - WAZUH_AGENT_NAME=banking-honeypot
+      - WAZUH_AGENT_GROUP=honeypots
+    volumes:
+      - ../logs:/var/log/decepticloud:ro
+    depends_on:
+      - wazuh-manager
+    networks:
+      - decepticloud-network
+
+  # Wazuh Agent for E-commerce Honeypot
+  wazuh-agent-ecommerce-honeypot:
+    image: wazuh/wazuh-agent:4.14.4
+    hostname: ecommerce-honeypot
+    container_name: wazuh-agent-ecommerce-honeypot
+    restart: always
+    environment:
+      - WAZUH_MANAGER=wazuh-manager
+      - WAZUH_AGENT_NAME=ecommerce-honeypot
+      - WAZUH_AGENT_GROUP=honeypots
+    volumes:
+      - ../logs:/var/log/decepticloud:ro
+    depends_on:
+      - wazuh-manager
+    networks:
+      - decepticloud-network
+
+  # Wazuh Agent for Healthcare Honeypot
+  wazuh-agent-healthcare-honeypot:
+    image: wazuh/wazuh-agent:4.14.4
+    hostname: healthcare-honeypot
+    container_name: wazuh-agent-healthcare-honeypot
+    restart: always
+    environment:
+      - WAZUH_MANAGER=wazuh-manager
+      - WAZUH_AGENT_NAME=healthcare-honeypot
+      - WAZUH_AGENT_GROUP=honeypots
+    volumes:
+      - ../logs:/var/log/decepticloud:ro
+    depends_on:
+      - wazuh-manager
+    networks:
+      - decepticloud-network
+
+  # Wazuh Agent for Blog Honeypot
+  wazuh-agent-blog-honeypot:
+    image: wazuh/wazuh-agent:4.14.4
+    hostname: blog-honeypot
+    container_name: wazuh-agent-blog-honeypot
+    restart: always
+    environment:
+      - WAZUH_MANAGER=wazuh-manager
+      - WAZUH_AGENT_NAME=blog-honeypot
+      - WAZUH_AGENT_GROUP=honeypots
+    volumes:
+      - ../logs:/var/log/decepticloud:ro
+    depends_on:
+      - wazuh-manager
+    networks:
+      - decepticloud-network
+
+  # Wazuh Agent for API Service Honeypot
+  wazuh-agent-api-honeypot:
+    image: wazuh/wazuh-agent:4.14.4
+    hostname: api-service-honeypot
+    container_name: wazuh-agent-api-honeypot
+    restart: always
+    environment:
+      - WAZUH_MANAGER=wazuh-manager
+      - WAZUH_AGENT_NAME=api-service-honeypot
+      - WAZUH_AGENT_GROUP=honeypots
+    volumes:
+      - ../logs:/var/log/decepticloud:ro
+    depends_on:
+      - wazuh-manager
+    networks:
+      - decepticloud-network
+
+  # Wazuh Agent for Corporate Honeypot
+  wazuh-agent-corporate-honeypot:
+    image: wazuh/wazuh-agent:4.14.4
+    hostname: corporate-honeypot
+    container_name: wazuh-agent-corporate-honeypot
+    restart: always
+    environment:
+      - WAZUH_MANAGER=wazuh-manager
+      - WAZUH_AGENT_NAME=corporate-honeypot
+      - WAZUH_AGENT_GROUP=honeypots
+    volumes:
+      - ../logs:/var/log/decepticloud:ro
+    depends_on:
+      - wazuh-manager
+    networks:
+      - decepticloud-network
+
+  # Wazuh Agent for Admin Panel Honeypot
+  wazuh-agent-admin-honeypot:
+    image: wazuh/wazuh-agent:4.14.4
+    hostname: admin-panel-honeypot
+    container_name: wazuh-agent-admin-honeypot
+    restart: always
+    environment:
+      - WAZUH_MANAGER=wazuh-manager
+      - WAZUH_AGENT_NAME=admin-panel-honeypot
+      - WAZUH_AGENT_GROUP=honeypots
+    volumes:
+      - ../logs:/var/log/decepticloud:ro
+    depends_on:
+      - wazuh-manager
+    networks:
+      - decepticloud-network
+
+volumes:
+  wazuh-manager-data:
+  wazuh-manager-logs:
+  wazuh-manager-etc:
+  wazuh-indexer-data:
+
+networks:
+  decepticloud-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.25.0.0/16

@@ -1,0 +1,354 @@
+version: '3.8'
+
+x-website-common: &website-common
+  build:
+    context: ..
+    dockerfile: docker/website.Dockerfile
+  volumes:
+    - databases:/app/websites/databases
+    - logs:/app/logs
+  networks:
+    - cyberdefense
+  restart: unless-stopped
+
+services:
+  # ML Detection API
+  ml-api:
+    build:
+      context: ..
+      dockerfile: docker/ml-api.Dockerfile
+    container_name: decepticloud-ml-api
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./ml_pipeline/models:/app/ml_pipeline/models:ro
+    environment:
+      - ML_API_PORT=5000
+      - FLASK_ENV=production
+    networks:
+      - cyberdefense
+    restart: unless-stopped
+    healthcheck:
+      test: [ "CMD", "curl", "-sf", "http://localhost:5000/api/health" ]
+      interval: 30s
+      timeout: 15s
+      start_period: 45s
+      retries: 5
+
+  # Routing Proxy
+  proxy:
+    build:
+      context: ..
+      dockerfile: docker/proxy.Dockerfile
+    container_name: decepticloud-proxy
+    ports:
+      - "8080:8080"
+    volumes:
+      - logs:/app/logs
+      - attack_logs:/app/proxy/logs
+    environment:
+      - ML_API_URL=http://ml-api:5000
+      - PROXY_PORT=8080
+      - HONEYPOT_SITE_BASE_PORT=4001
+      - REAL_SITE_BASE_PORT=3001
+    depends_on:
+      ml-api:
+        condition: service_healthy
+    networks:
+      - cyberdefense
+    restart: unless-stopped
+    healthcheck:
+      test: [ "CMD", "curl", "-sf", "http://localhost:8080/proxy/status" ]
+      interval: 30s
+      timeout: 10s
+      start_period: 20s
+      retries: 3
+
+  # Dashboard
+  dashboard:
+    build:
+      context: ..
+      dockerfile: docker/dashboard.Dockerfile
+    container_name: decepticloud-dashboard
+    ports:
+      - "9000:9000"
+    volumes:
+      - attack_logs:/app/proxy/logs:ro
+      - logs:/app/logs:ro
+    environment:
+      - PROXY_URL=http://proxy:8080
+      - ML_API_URL=http://ml-api:5000
+      - DASHBOARD_PORT=9000
+      - HONEYPOT_SITE_BASE_PORT=4001
+    depends_on:
+      proxy:
+        condition: service_healthy
+    networks:
+      - cyberdefense
+    restart: unless-stopped
+    healthcheck:
+      test: [ "CMD", "curl", "-sf", "http://localhost:9000/" ]
+      interval: 30s
+      timeout: 10s
+      start_period: 20s
+      retries: 3
+
+  # Real Websites (3001–3007)
+  banking-real:
+    <<: *website-common
+    container_name: decepticloud-banking-real
+    ports: [ "3001:3001" ]
+    environment:
+      SITE_TYPE: banking
+      SITE_VARIANT: real
+      SITE_PORT: "3001"
+      SITE_NAME: SecureBank
+      THEME_COLOR: "#1a5276"
+    healthcheck:
+      test: [ "CMD", "curl", "-sf", "http://localhost:3001/" ]
+      interval: 30s
+      timeout: 10s
+      start_period: 15s
+      retries: 3
+
+  ecommerce-real:
+    <<: *website-common
+    container_name: decepticloud-ecommerce-real
+    ports: [ "3002:3002" ]
+    environment:
+      SITE_TYPE: ecommerce
+      SITE_VARIANT: real
+      SITE_PORT: "3002"
+      SITE_NAME: MegaStore
+      THEME_COLOR: "#e67e22"
+    healthcheck:
+      test: [ "CMD", "curl", "-sf", "http://localhost:3002/" ]
+      interval: 30s
+      timeout: 10s
+      start_period: 15s
+      retries: 3
+
+  healthcare-real:
+    <<: *website-common
+    container_name: decepticloud-healthcare-real
+    ports: [ "3003:3003" ]
+    environment:
+      SITE_TYPE: healthcare
+      SITE_VARIANT: real
+      SITE_PORT: "3003"
+      SITE_NAME: MedClinic
+      THEME_COLOR: "#27ae60"
+    healthcheck:
+      test: [ "CMD", "curl", "-sf", "http://localhost:3003/" ]
+      interval: 30s
+      timeout: 10s
+      start_period: 15s
+      retries: 3
+
+  blog-real:
+    <<: *website-common
+    container_name: decepticloud-blog-real
+    ports: [ "3004:3004" ]
+    environment:
+      SITE_TYPE: blog
+      SITE_VARIANT: real
+      SITE_PORT: "3004"
+      SITE_NAME: TechBlog
+      THEME_COLOR: "#8e44ad"
+    healthcheck:
+      test: [ "CMD", "curl", "-sf", "http://localhost:3004/" ]
+      interval: 30s
+      timeout: 10s
+      start_period: 15s
+      retries: 3
+
+  api-service-real:
+    <<: *website-common
+    container_name: decepticloud-api-service-real
+    ports: [ "3005:3005" ]
+    environment:
+      SITE_TYPE: api_service
+      SITE_VARIANT: real
+      SITE_PORT: "3005"
+      SITE_NAME: DataAPI
+      THEME_COLOR: "#2980b9"
+    healthcheck:
+      test: [ "CMD", "curl", "-sf", "http://localhost:3005/" ]
+      interval: 30s
+      timeout: 10s
+      start_period: 15s
+      retries: 3
+
+  corporate-real:
+    <<: *website-common
+    container_name: decepticloud-corporate-real
+    ports: [ "3006:3006" ]
+    environment:
+      SITE_TYPE: corporate
+      SITE_VARIANT: real
+      SITE_PORT: "3006"
+      SITE_NAME: "NexaGen Corp"
+      THEME_COLOR: "#34495e"
+    healthcheck:
+      test: [ "CMD", "curl", "-sf", "http://localhost:3006/" ]
+      interval: 30s
+      timeout: 10s
+      start_period: 15s
+      retries: 3
+
+  admin-panel-real:
+    <<: *website-common
+    container_name: decepticloud-admin-panel-real
+    ports: [ "3007:3007" ]
+    environment:
+      SITE_TYPE: admin_panel
+      SITE_VARIANT: real
+      SITE_PORT: "3007"
+      SITE_NAME: "SysNet Admin"
+      THEME_COLOR: "#c0392b"
+    healthcheck:
+      test: [ "CMD", "curl", "-sf", "http://localhost:3007/" ]
+      interval: 30s
+      timeout: 10s
+      start_period: 15s
+      retries: 3
+
+  # Honeypot Clones (4001–4007)
+  banking-honeypot:
+    <<: *website-common
+    container_name: decepticloud-banking-honeypot
+    ports: [ "4001:4001" ]
+    environment:
+      SITE_TYPE: banking
+      SITE_VARIANT: honeypot
+      SITE_PORT: "4001"
+      SITE_NAME: SecureBank
+      THEME_COLOR: "#1a5276"
+      IS_HONEYPOT: "true"
+    healthcheck:
+      test: [ "CMD", "curl", "-sf", "http://localhost:4001/" ]
+      interval: 30s
+      timeout: 10s
+      start_period: 15s
+      retries: 3
+
+  ecommerce-honeypot:
+    <<: *website-common
+    container_name: decepticloud-ecommerce-honeypot
+    ports: [ "4002:4002" ]
+    environment:
+      SITE_TYPE: ecommerce
+      SITE_VARIANT: honeypot
+      SITE_PORT: "4002"
+      SITE_NAME: MegaStore
+      THEME_COLOR: "#e67e22"
+      IS_HONEYPOT: "true"
+    healthcheck:
+      test: [ "CMD", "curl", "-sf", "http://localhost:4002/" ]
+      interval: 30s
+      timeout: 10s
+      start_period: 15s
+      retries: 3
+
+  healthcare-honeypot:
+    <<: *website-common
+    container_name: decepticloud-healthcare-honeypot
+    ports: [ "4003:4003" ]
+    environment:
+      SITE_TYPE: healthcare
+      SITE_VARIANT: honeypot
+      SITE_PORT: "4003"
+      SITE_NAME: MedClinic
+      THEME_COLOR: "#27ae60"
+      IS_HONEYPOT: "true"
+    healthcheck:
+      test: [ "CMD", "curl", "-sf", "http://localhost:4003/" ]
+      interval: 30s
+      timeout: 10s
+      start_period: 15s
+      retries: 3
+
+  blog-honeypot:
+    <<: *website-common
+    container_name: decepticloud-blog-honeypot
+    ports: [ "4004:4004" ]
+    environment:
+      SITE_TYPE: blog
+      SITE_VARIANT: honeypot
+      SITE_PORT: "4004"
+      SITE_NAME: TechBlog
+      THEME_COLOR: "#8e44ad"
+      IS_HONEYPOT: "true"
+    healthcheck:
+      test: [ "CMD", "curl", "-sf", "http://localhost:4004/" ]
+      interval: 30s
+      timeout: 10s
+      start_period: 15s
+      retries: 3
+
+  api-service-honeypot:
+    <<: *website-common
+    container_name: decepticloud-api-service-honeypot
+    ports: [ "4005:4005" ]
+    environment:
+      SITE_TYPE: api_service
+      SITE_VARIANT: honeypot
+      SITE_PORT: "4005"
+      SITE_NAME: DataAPI
+      THEME_COLOR: "#2980b9"
+      IS_HONEYPOT: "true"
+    healthcheck:
+      test: [ "CMD", "curl", "-sf", "http://localhost:4005/" ]
+      interval: 30s
+      timeout: 10s
+      start_period: 15s
+      retries: 3
+
+  corporate-honeypot:
+    <<: *website-common
+    container_name: decepticloud-corporate-honeypot
+    ports: [ "4006:4006" ]
+    environment:
+      SITE_TYPE: corporate
+      SITE_VARIANT: honeypot
+      SITE_PORT: "4006"
+      SITE_NAME: "NexaGen Corp"
+      THEME_COLOR: "#34495e"
+      IS_HONEYPOT: "true"
+    healthcheck:
+      test: [ "CMD", "curl", "-sf", "http://localhost:4006/" ]
+      interval: 30s
+      timeout: 10s
+      start_period: 15s
+      retries: 3
+
+  admin-panel-honeypot:
+    <<: *website-common
+    container_name: decepticloud-admin-panel-honeypot
+    ports: [ "4007:4007" ]
+    environment:
+      SITE_TYPE: admin_panel
+      SITE_VARIANT: honeypot
+      SITE_PORT: "4007"
+      SITE_NAME: "SysNet Admin"
+      THEME_COLOR: "#c0392b"
+      IS_HONEYPOT: "true"
+    healthcheck:
+      test: [ "CMD", "curl", "-sf", "http://localhost:4007/" ]
+      interval: 30s
+      timeout: 10s
+      start_period: 15s
+      retries: 3
+# Named Volumes & Network
+volumes:
+  databases:
+  logs:
+  attack_logs:
+
+
+networks:
+  cyberdefense:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16

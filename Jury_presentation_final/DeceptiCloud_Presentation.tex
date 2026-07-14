@@ -1,0 +1,909 @@
+% ============================================================
+% DeceptiCloud — FYP-II Beamer Presentation (Fixed)
+% Compile: pdflatex DeceptiCloud_Presentation.tex  (run twice)
+% ============================================================
+\documentclass[aspectratio=169,12pt]{beamer}
+
+% ---- Packages ----
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{listings}
+\usepackage{colortbl}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{upquote}
+
+% ---- Color Palette ----
+\definecolor{dcNavy}{HTML}{0A0E1A}
+\definecolor{dcDark}{HTML}{0F1629}
+\definecolor{dcMid}{HTML}{1A2744}
+\definecolor{dcCyan}{HTML}{00D4E8}
+\definecolor{dcGreen}{HTML}{00E676}
+\definecolor{dcRed}{HTML}{FF3366}
+\definecolor{dcYellow}{HTML}{FFAA00}
+\definecolor{dcPurple}{HTML}{BB86FC}
+\definecolor{dcGray}{HTML}{8899AA}
+\definecolor{dcWhite}{HTML}{DDE8FF}
+
+% ---- Beamer Theme ----
+\usetheme{default}
+\setbeamercolor{background canvas}{bg=dcNavy}
+\setbeamercolor{normal text}{fg=dcWhite}
+\setbeamercolor{frametitle}{fg=dcCyan,bg=dcDark}
+\setbeamercolor{title}{fg=dcCyan}
+\setbeamercolor{subtitle}{fg=dcWhite}
+\setbeamercolor{author}{fg=dcGray}
+\setbeamercolor{date}{fg=dcGray}
+\setbeamercolor{structure}{fg=dcCyan}
+\setbeamercolor{itemize item}{fg=dcCyan}
+\setbeamercolor{itemize subitem}{fg=dcGreen}
+\setbeamercolor{enumerate item}{fg=dcCyan}
+\setbeamercolor{block title}{bg=dcMid,fg=dcCyan}
+\setbeamercolor{block body}{bg=dcDark,fg=dcWhite}
+\setbeamercolor{alerted text}{fg=dcRed}
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{itemize item}{\textcolor{dcCyan}{\small$\blacktriangleright$}}
+\setbeamertemplate{itemize subitem}{\textcolor{dcGreen}{\small$\bullet$}}
+
+% ---- Frame title ----
+\setbeamertemplate{frametitle}{%
+  \vspace{0.3em}%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=2.2em,dp=0.8em,leftskip=0.8em]{frametitle}%
+    \usebeamerfont{frametitle}\insertframetitle
+    \hfill\textcolor{dcGray}{\tiny DeceptiCloud FYP-II}%
+  \end{beamercolorbox}%
+  \vspace{-0.5em}%
+  {\color{dcCyan}\hrule height 0.5pt}%
+  \vspace{0.3em}%
+}
+
+% ---- Footer ----
+\setbeamertemplate{footline}{%
+  \leavevmode%
+  \hbox{%
+    \begin{beamercolorbox}[wd=.4\paperwidth,ht=2.0ex,dp=1ex,leftskip=1em]{author in head/foot}%
+      \textcolor{dcGray}{\tiny Ahmed Ali \textbar{} Waleed Khan Kiyani \textbar{} Shoaib Akhtar}%
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.35\paperwidth,ht=2.0ex,dp=1ex,center]{title in head/foot}%
+      \textcolor{dcGray}{\tiny DeceptiCloud --- FYP-II}%
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.25\paperwidth,ht=2.0ex,dp=1ex,rightskip=1em,right]{date in head/foot}%
+      \textcolor{dcGray}{\tiny \insertframenumber{} / \inserttotalframenumber}%
+    \end{beamercolorbox}%
+  }%
+}
+
+% ---- Code listing style ----
+\lstset{%
+  basicstyle=\ttfamily\tiny\color{dcGreen},%
+  backgroundcolor=\color{dcDark},%
+  frame=single,%
+  rulecolor=\color{dcCyan},%
+  breaklines=true,%
+  keepspaces=true,%
+  showstringspaces=false,%
+  upquote=true,%
+}
+
+% ---- Convenience commands ----
+\newcommand{\yes}{\textcolor{dcGreen}{$\checkmark$}}
+\newcommand{\no}{\textcolor{dcRed}{$\times$}}
+
+% ============================================================
+\begin{document}
+% ============================================================
+
+% -----------------------------------------------------------
+% SLIDE 1 — TITLE
+% -----------------------------------------------------------
+\begin{frame}[plain]
+  \begin{tikzpicture}[overlay,remember picture]
+    \fill[dcNavy] (current page.south west) rectangle (current page.north east);
+    \fill[dcMid]  (current page.south west) rectangle +(\paperwidth,1.2cm);
+    \fill[dcDark] (current page.north west) ++(0,-1.2cm) rectangle +(\paperwidth,-0.4pt);
+    \draw[dcCyan,line width=1.2pt]
+      (current page.north west)++(0,-1.2cm) -- +(\paperwidth,0);
+  \end{tikzpicture}
+
+  \vspace{1.2cm}
+  \begin{center}
+    {\Huge\bfseries\textcolor{dcCyan}{DECEPTICLOUD}}\\[0.5em]
+    {\small\textcolor{dcWhite}{\textit{An AI-Driven Cyber Deception System using}}}\\
+    {\small\textcolor{dcWhite}{\textit{Dynamic Honeypots in Cloud Environment}}}\\[1.2em]
+    {\color{dcCyan!40}\hrule height 0.4pt}\vspace{0.6em}
+    {\footnotesize\textcolor{dcGray}{Ahmed Ali \quad\textbar\quad Waleed Khan Kiyani \quad\textbar\quad Shoaib Akhtar}}\\[0.3em]
+    {\scriptsize\textcolor{dcGray}{Supervisor: [Supervisor Name] \quad\textbar\quad [Department] \quad\textbar\quad [University]}}\\[0.25em]
+    {\scriptsize\textcolor{dcGray}{March 2026}}
+  \end{center}
+\end{frame}
+
+% -----------------------------------------------------------
+% SLIDE 2 — PROJECT DESCRIPTION
+% -----------------------------------------------------------
+\begin{frame}{Project Description}
+  \textbf{\textcolor{dcCyan}{What is DeceptiCloud?}}\\[0.3em]
+  An AI-powered cyber deception platform that protects cloud-hosted web applications
+  by intelligently detecting cyberattacks and luring attackers into convincing fake
+  environments (honeypots), while keeping real systems completely secure.
+
+  \vspace{0.5em}
+  \textbf{\textcolor{dcCyan}{The Core Idea:}}
+  \begin{itemize}
+    \item Every incoming HTTP request passes through an AI gateway
+    \item Machine Learning classifies it as \textcolor{dcRed}{malicious} or \textcolor{dcGreen}{benign} in real time
+    \item Malicious requests are silently rerouted to \textcolor{dcYellow}{honeypots}
+    \item Attacker interacts with a fake system --- revealing their techniques
+    \item All activity logged to a \textcolor{dcPurple}{tamper-proof blockchain}
+  \end{itemize}
+
+  \vspace{0.4em}
+  \begin{block}{}
+    \centering\textit{``We deceive the attacker before they can deceive us.''}
+  \end{block}
+\end{frame}
+
+% -----------------------------------------------------------
+% SLIDE 3 — PROBLEM STATEMENT
+% -----------------------------------------------------------
+\begin{frame}{Problem Statement}
+  \textbf{\textcolor{dcRed}{Why does this project matter?}}
+  \begin{itemize}
+    \item Cyberattacks cost the global economy \textbf{\$8 trillion in 2023} (Cybersecurity Ventures)
+    \item Traditional security only \textbf{blocks} attacks --- it does not \textbf{study} them
+    \item Attackers probe systems repeatedly, improving techniques each run
+    \item No existing open-source system combines:\\[0.2em]
+          \hspace{1em}\textcolor{dcCyan}{ML detection}
+          \texttt{+} \textcolor{dcGreen}{LLM deception}
+          \texttt{+} \textcolor{dcPurple}{blockchain evidence} in one platform
+    \item Cloud-hosted systems are especially vulnerable due to public exposure
+  \end{itemize}
+
+  \vspace{0.5em}
+  \begin{block}{The Gap}
+    Existing tools \textbf{detect} attacks.\\
+    DeceptiCloud \textbf{detects, deceives, documents, and learns}.
+  \end{block}
+\end{frame}
+
+% -----------------------------------------------------------
+% SLIDE 4 — FYP-I WORK
+% -----------------------------------------------------------
+\begin{frame}{FYP-I Work Completed}
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \textbf{\textcolor{dcCyan}{1. Web Application Infrastructure}}
+      \begin{itemize}\small
+        \item 7 real + 7 honeypot websites (Flask / SQLite)
+        \item SecureBank, MegaStore, MedClinic, TechBlog,\\DataAPI, NexaGen Corp, AdminPanel
+        \item Honeypots visually identical to real sites
+      \end{itemize}
+      \vspace{0.25em}
+      \textbf{\textcolor{dcCyan}{2. Dataset Collection}}
+      \begin{itemize}\small
+        \item SQLi, XSS, DDoS labeled datasets
+        \item CIC-DDoS2019 + custom web-attack dataset
+      \end{itemize}
+      \vspace{0.25em}
+      \textbf{\textcolor{dcCyan}{3. Preprocessing}}
+      \begin{itemize}\small
+        \item Cleaned logs, label encoding, 80/20 split
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \textbf{\textcolor{dcCyan}{4. Feature Engineering}}
+      \begin{itemize}\small
+        \item 15+ features: URL, method, user-agent,\\ payload length, request frequency, headers
+      \end{itemize}
+      \vspace{0.3em}
+      \textbf{\textcolor{dcCyan}{5. ML Models (v1)}}\\[0.2em]
+      \centering\small
+      \begin{tabular}{@{}ll@{}}
+        \toprule
+        \rowcolor{dcMid}
+        \textcolor{dcCyan}{Model} & \textcolor{dcCyan}{Algorithm}\\
+        \midrule
+        SQLi Detection & Random Forest\\
+        DDoS Detection & Decision Tree\\
+        \bottomrule
+      \end{tabular}\\[0.3em]
+      \raggedright
+      \begin{itemize}\small
+        \item Saved as \texttt{.pkl}, served via REST API
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% -----------------------------------------------------------
+% SLIDE 5 — FYP-II MODULES TABLE
+% -----------------------------------------------------------
+\begin{frame}{New Progress in FYP-II --- All Modules}
+  \centering\footnotesize
+  \begin{tabular}{@{}c l l c@{}}
+    \toprule
+    \rowcolor{dcMid}
+    \textcolor{dcCyan}{\#} & \textcolor{dcCyan}{Module Name} &
+    \textcolor{dcCyan}{File} & \textcolor{dcCyan}{Port}\\
+    \midrule
+    1 & AI Routing Proxy           & \texttt{proxy/routing\_proxy.py}            & 8080\\
+    \rowcolor{dcDark}
+    2 & ML Model API               & \texttt{ml\_models/model\_api.py}           & 5000\\
+    3 & LLM Response Engine        & \texttt{honeypot/llm\_response\_engine.py}  & ---\\
+    \rowcolor{dcDark}
+    4 & GAN Synthetic Data Gen.    & \texttt{gan\_data\_generator.py}            & ---\\
+    5 & Blockchain Ledger          & \texttt{honeypot/blockchain\_ledger.py}     & ---\\
+    \rowcolor{dcDark}
+    6 & Real-Time SOC Dashboard    & \texttt{dashboard/app.py}                   & 9000\\
+    7 & Canary Token System        & \texttt{honeypot/canary\_tokens.py}         & ---\\
+    \rowcolor{dcDark}
+    8 & Behavioral Fingerprinting  & \texttt{honeypot/fingerprint.py}            & ---\\
+    9 & K8s Auto-Recovery Watchdog & \texttt{attacks/ddos\_attack.sh}            & ---\\
+    \rowcolor{dcMid}
+    \textbf{10} & \textbf{Dynamic Honeypot System} &
+    \texttt{websites/} (7$\times$2 apps) + all modules & 4001--4007\\
+    \bottomrule
+  \end{tabular}
+\end{frame}
+
+% -----------------------------------------------------------
+% SLIDE 5b — DYNAMIC HONEYPOT: STATIC vs DYNAMIC
+% -----------------------------------------------------------
+\begin{frame}{Dynamic Honeypot System --- Core Module}
+  \textbf{\textcolor{dcCyan}{What is a Honeypot?}}
+  A decoy system that attracts attackers, appears vulnerable, and records everything
+  without exposing any real data or real users.
+
+  \vspace{0.3em}
+  \centering\footnotesize
+  \begin{tabular}{@{} p{2.3cm} p{3.0cm} p{5.0cm} @{}}
+    \toprule
+    \rowcolor{dcMid}
+    \textcolor{dcCyan}{Dimension} &
+    \textcolor{dcRed}{Static Honeypot} &
+    \textcolor{dcGreen}{DeceptiCloud Dynamic}\\
+    \midrule
+    Content       & Fixed HTML, never changes     & LLM generates unique content per session\\
+    \rowcolor{dcDark}
+    Database      & Empty / manual fake data      & GAN: 35 realistic fake users per site\\
+    Routing       & All traffic hits blindly      & ML-only routes confirmed attackers\\
+    \rowcolor{dcDark}
+    Detectability & Fingerprintable               & New LLM output each session\\
+    Monitoring    & Basic logs                    & Blockchain + canary + SOC dashboard\\
+    \rowcolor{dcDark}
+    Recovery      & No self-healing               & K8s watchdog restarts in $\sim$15s\\
+    \bottomrule
+  \end{tabular}
+
+  \vspace{0.4em}
+  \begin{block}{}
+    \centering\small\textit{``A static honeypot looks like a trap.
+    A dynamic honeypot looks like the real thing.''}
+  \end{block}
+\end{frame}
+
+% -----------------------------------------------------------
+% SLIDE 5c — 5 DIMENSIONS OF DYNAMISM
+% -----------------------------------------------------------
+\begin{frame}{Dynamic Honeypot --- 5 Dimensions of Dynamism}
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \textbf{\textcolor{dcCyan}{D1 --- Dynamic Routing (ML)}}
+      \begin{itemize}\small
+        \item Real users $\rightarrow$ Real sites (:3001--3007)
+        \item Attackers $\rightarrow$ Honeypots (:4001--4007)
+        \item Per-request ML decision, not IP blocklist
+      \end{itemize}
+      \vspace{0.25em}
+      \textbf{\textcolor{dcGreen}{D2 --- Dynamic Content (LLM)}}
+      \begin{itemize}\small
+        \item Unique fake HTML per attack per session
+        \item Fake SQL dumps, \texttt{/etc/passwd}, API keys
+      \end{itemize}
+      \vspace{0.25em}
+      \textbf{\textcolor{dcYellow}{D3 --- Dynamic Data (GAN)}}
+      \begin{itemize}\small
+        \item CTGAN: 35 fake users per honeypot DB
+        \item Statistically realistic, zero real data
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \textbf{\textcolor{dcPurple}{D4 --- Dynamic Traps (Canary)}}
+      \begin{itemize}\small
+        \item Hidden URLs: \texttt{/.env}, \texttt{/backup.sql}, \texttt{/.git/config}
+        \item Instant alert on access
+        \item Reveals reconnaissance intent
+      \end{itemize}
+      \vspace{0.25em}
+      \textbf{\textcolor{dcRed}{D5 --- Dynamic Intelligence}}
+      \begin{itemize}\small
+        \item Behavioral hash per attacker session
+        \item Clusters attackers across IPs / tools
+        \item Attributes multi-IP attacks to one actor
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% -----------------------------------------------------------
+% SLIDE 6 — AI ROUTING PROXY
+% -----------------------------------------------------------
+\begin{frame}[fragile]{Module 1: AI Routing Proxy (Port 8080)}
+  \textbf{\textcolor{dcCyan}{Purpose:}} Central intelligence gateway --- every HTTP request passes through it.
+
+  \vspace{0.3em}
+  \begin{columns}[T]
+    \begin{column}{0.5\textwidth}
+      \textbf{What it does:}
+      \begin{itemize}\small
+        \item Extracts 15+ features from every request
+        \item Rule-based engine (regex) + ML model
+        \item \textcolor{dcRed}{Malicious} $\rightarrow$ Honeypot (4001--4007)
+        \item \textcolor{dcGreen}{Benign} $\rightarrow$ Real site (3001--3007)
+        \item Attacker never knows they were rerouted
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.46\textwidth}
+\begin{lstlisting}
+Request
+ -> Feature Extraction
+ -> Rule Score (regex)
+ -> ML Model Score
+ -> Score >= 0.5?
+    YES -> Honeypot
+           -> LLM Response
+    NO  -> Real Site
+           -> Normal response
+\end{lstlisting}
+    \end{column}
+  \end{columns}
+
+  \vspace{0.3em}
+  \begin{block}{Key Achievement}
+    \textbf{100\% detection rate} on all 16 tested attack types.
+    Zero impact on legitimate users.
+  \end{block}
+\end{frame}
+
+% -----------------------------------------------------------
+% SLIDE 7 — LLM RESPONSE ENGINE
+% -----------------------------------------------------------
+\begin{frame}{Module 3: LLM Response Engine}
+  \textbf{\textcolor{dcCyan}{Purpose:}} Generate unique, convincing fake content for every attacker using \textbf{Ollama} (local LLM).
+
+  \vspace{0.3em}
+  \centering\footnotesize
+  \begin{tabular}{@{} l p{7.2cm} @{}}
+    \toprule
+    \rowcolor{dcMid}
+    \textcolor{dcCyan}{Attack Type} & \textcolor{dcCyan}{LLM-Generated Response}\\
+    \midrule
+    SQL Injection     & Fake SQL error + believable rows (names, emails, accounts)\\
+    \rowcolor{dcDark}
+    XSS               & Page appears to reflect XSS --- attacker thinks it worked\\
+    Path Traversal    & Fake \texttt{/etc/passwd} with plausible usernames\\
+    \rowcolor{dcDark}
+    Command Injection & Fake shell output as if command executed successfully\\
+    \bottomrule
+  \end{tabular}
+
+  \vspace{0.4em}
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \textbf{\textcolor{dcGreen}{Why LLM, not static pages?}}
+      \begin{itemize}\small
+        \item Static pages are fingerprintable
+        \item LLM generates unique, contextual HTML per session
+        \item Attacker believes they compromised the system
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \textbf{\textcolor{dcYellow}{Technical:}}
+      \begin{itemize}\small
+        \item Runs entirely on-device (no cloud API)
+        \item Cached within session for speed
+        \item Cache cleared on restart for variety
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% -----------------------------------------------------------
+% SLIDE 8 — GAN SYNTHETIC DATA
+% -----------------------------------------------------------
+\begin{frame}{Module 4: GAN Synthetic Data Generator}
+  \begin{columns}[T]
+    \begin{column}{0.5\textwidth}
+      \textbf{\textcolor{dcCyan}{What it does:}}
+      \begin{itemize}
+        \item Populates each honeypot DB with \textbf{35 fake user profiles}
+        \item Generated using \textbf{CTGAN} (Conditional Tabular GAN)
+        \item Realistic: names, accounts, emails, balances
+      \end{itemize}
+      \vspace{0.3em}
+      \textbf{\textcolor{dcCyan}{Why GAN?}}
+      \begin{itemize}
+        \item Empty DBs signal ``honeypot'' to smart attackers
+        \item Manual fake data is inconsistent / detectable
+        \item GAN output is statistically indistinguishable
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.46\textwidth}
+      \textbf{\textcolor{dcYellow}{Watermarking:}}
+      \begin{itemize}
+        \item Hidden marker in \texttt{balance} field
+        \item Invisible to attacker
+        \item Identifies leaked data later
+      \end{itemize}
+      \vspace{0.4em}
+      \begin{block}{Practical Value}
+        \small Attacker who extracts the honeypot DB gets
+        \textbf{100\% fake data}. Real users completely protected.
+      \end{block}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% -----------------------------------------------------------
+% SLIDE 9 — BLOCKCHAIN LEDGER
+% -----------------------------------------------------------
+\begin{frame}[fragile]{Module 5: Blockchain Ledger}
+  \begin{columns}[T]
+    \begin{column}{0.5\textwidth}
+      \textbf{\textcolor{dcCyan}{What it does:}}
+      \begin{itemize}
+        \item Logs every attack as \textbf{immutable SHA-256 block}
+        \item Stored in \texttt{attack\_chain.json}
+        \item Chain validity verified on every dashboard load
+      \end{itemize}
+      \vspace{0.3em}
+      \textbf{\textcolor{dcCyan}{Why Blockchain?}}
+      \begin{itemize}
+        \item Traditional logs can be deleted / modified
+        \item Modifying any block breaks the entire chain
+        \item Provides \textbf{forensic-grade evidence}
+      \end{itemize}
+      \vspace{0.3em}
+      \textcolor{dcGreen}{\textbf{Current:}} 380+ blocks, chain integrity verified.
+    \end{column}
+    \begin{column}{0.46\textwidth}
+\begin{lstlisting}
+Block {
+  index: 42,
+  timestamp: "2026-03-02",
+  data: {
+    attacker_ip,
+    attack_type,
+    payload,
+    confidence
+  },
+  previous_hash: "a3f9d2...",
+  hash: SHA256(
+    index + timestamp
+    + data + prev_hash
+    + nonce )
+}
+\end{lstlisting}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% -----------------------------------------------------------
+% SLIDE 10 — SOC DASHBOARD
+% -----------------------------------------------------------
+\begin{frame}{Module 6: Real-Time SOC Dashboard (Port 9000)}
+  \textbf{\textcolor{dcCyan}{Full Security Operations Center interface.}}
+
+  \vspace{0.3em}
+  \centering\footnotesize
+  \begin{tabular}{@{} l p{7.5cm} @{}}
+    \toprule
+    \rowcolor{dcMid}
+    \textcolor{dcCyan}{Panel} & \textcolor{dcCyan}{Shows}\\
+    \midrule
+    Command Overview       & Attacks, honeypot events, avg confidence, system health\\
+    \rowcolor{dcDark}
+    Attack Analysis        & Full table: type, IP, confidence per attack\\
+    Infrastructure Health  & Live 17/17 green/red dots --- updates every \textbf{2 seconds}\\
+    \rowcolor{dcDark}
+    ML Models              & Accuracy, Precision, Recall, F1 for both models\\
+    LLM Response Engine    & Requests, success rate, fallback rate\\
+    \rowcolor{dcDark}
+    GAN Identities         & Synthetic user count, \% synthetic\\
+    Blockchain Ledger      & Block count, recent blocks, chain validity\\
+    \rowcolor{dcDark}
+    Canary Tokens          & Trigger count by type\\
+    Behavioral Fingerprints& Attacker behavioral clusters\\
+    \bottomrule
+  \end{tabular}
+
+  \vspace{0.3em}
+  \begin{block}{Live Demo Highlight}
+    Health drops \textbf{17/17 $\rightarrow$ 16/17} when honeypot crashes during DDoS;
+    returns to \textbf{17/17} when K8s restarts it.
+  \end{block}
+\end{frame}
+
+% -----------------------------------------------------------
+% SLIDE 11 — CANARY TOKENS & FINGERPRINTING
+% -----------------------------------------------------------
+\begin{frame}{Modules 7 \& 8: Canary Tokens \& Behavioral Fingerprinting}
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \textbf{\textcolor{dcYellow}{Canary Token System}}
+      \begin{itemize}
+        \item Hidden ``tripwire'' URLs in honeypot responses
+        \item Examples: \texttt{/.env}, \texttt{/backup.sql},\\
+              \texttt{/wp-admin}, \texttt{/.git/config}
+        \item Attacker access $\rightarrow$ instant high-priority alert
+        \item Reveals reconnaissance intent
+        \item 8 token types across all 7 honeypots
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \textbf{\textcolor{dcPurple}{Behavioral Fingerprinting Engine}}
+      \begin{itemize}
+        \item Tracks each attacker IP across sessions
+        \item Profile: attack types, order, timing, tools
+        \item Assigns unique \texttt{behavioral\_hash}
+        \item Clusters similar attackers together
+        \item Attributes multi-IP attacks to one actor
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% -----------------------------------------------------------
+% SLIDE 12 — MODEL IMPROVEMENTS
+% -----------------------------------------------------------
+\begin{frame}{Model Improvements: FYP-I vs FYP-II}
+  \textbf{\textcolor{dcCyan}{Web Attack Detection Model}}\\[0.2em]
+  \centering\footnotesize
+  \begin{tabular}{@{} l l l @{}}
+    \toprule
+    \rowcolor{dcMid}
+    \textcolor{dcCyan}{Metric} & \textcolor{dcGray}{v1 (FYP-I)} & \textcolor{dcGreen}{v2 (FYP-II)}\\
+    \midrule
+    Algorithm         & Random Forest       & Gradient Boosting + Feature Eng.\\
+    \rowcolor{dcDark}
+    Balanced Accuracy & $\sim$75\%          & \textbf{93.97\%}\\
+    Attack Types      & SQLi only           & SQLi, XSS, NoSQLi, Traversal, CMDi\\
+    \bottomrule
+  \end{tabular}
+
+  \vspace{0.5em}
+  \textbf{\textcolor{dcCyan}{DDoS Detection Model}}\\[0.2em]
+  \begin{tabular}{@{} l l l @{}}
+    \toprule
+    \rowcolor{dcMid}
+    \textcolor{dcCyan}{Metric} & \textcolor{dcGray}{v1 (FYP-I)} & \textcolor{dcGreen}{v2 (FYP-II)}\\
+    \midrule
+    Algorithm   & Decision Tree        & Neural Net + Random Forest ensemble\\
+    \rowcolor{dcDark}
+    Accuracy    & $\sim$85\%           & \textbf{99.9\%}\\
+    Dataset     & CIC-DDoS2019 partial & CIC-DDoS2019 full (14 attack types)\\
+    \bottomrule
+  \end{tabular}
+
+  \vspace{0.3em}
+  \raggedright
+  \textcolor{dcGray}{\small Both models served as REST API on port 5000,
+  called in real time by the proxy.}
+\end{frame}
+
+% -----------------------------------------------------------
+% SLIDE 13 — ARCHITECTURE DIAGRAM
+% -----------------------------------------------------------
+\begin{frame}{System Architecture}
+  \centering
+  \begin{tikzpicture}[
+    box/.style={rectangle,rounded corners=3pt,draw=dcCyan,fill=dcMid,
+                text=dcWhite,font=\tiny,minimum width=2.8cm,
+                minimum height=0.55cm,align=center},
+    sbox/.style={rectangle,rounded corners=2pt,draw=dcGreen!60,fill=dcDark,
+                 text=dcWhite,font=\tiny,minimum width=2.6cm,
+                 minimum height=0.5cm,align=center},
+    arr/.style={->,draw=dcCyan,thick},
+    garr/.style={->,draw=dcGreen,thick},
+    rarr/.style={->,draw=dcRed,thick},
+    node distance=0.6cm and 1.2cm
+  ]
+    \node[box,draw=dcRed,fill=dcDark]          (atk)  {ATTACKER};
+    \node[box, below=0.5cm of atk]             (prx)
+      {AI Routing Proxy\\Port 8080\\ML + Rule Engine};
+    \node[sbox, below left=0.8cm and 1.0cm of prx]  (hp)
+      {Honeypots\\:4001--4007\\GAN Fake Data};
+    \node[sbox, draw=dcGreen!60, below right=0.8cm and 1.0cm of prx] (re)
+      {Real Sites\\:3001--3007\\Normal Response};
+    \node[sbox, below=0.55cm of hp]  (llm) {LLM Response Engine\\(Ollama)};
+    \node[sbox, below=0.55cm of llm] (bc)  {Blockchain Ledger\\SHA-256 chain};
+    \node[sbox, below=0.55cm of bc]  (ds)  {SOC Dashboard\\Port 9000};
+
+    \draw[rarr] (atk)  -- (prx);
+    \draw[rarr] (prx.south west) -- (hp.north)
+        node[midway,left,font=\tiny,color=dcRed]{Malicious};
+    \draw[garr] (prx.south east) -- (re.north)
+        node[midway,right,font=\tiny,color=dcGreen]{Benign};
+    \draw[arr]  (hp)  -- (llm);
+    \draw[arr]  (llm) -- (bc);
+    \draw[arr]  (bc)  -- (ds);
+    \node[font=\tiny,color=dcYellow, right=0.05cm of llm] {Canary Tokens};
+    \node[font=\tiny,color=dcPurple, right=0.05cm of bc]  {Fingerprinting};
+  \end{tikzpicture}
+\end{frame}
+
+% -----------------------------------------------------------
+% SLIDE 14 — K8s AUTO-RECOVERY
+% -----------------------------------------------------------
+\begin{frame}{Module 9: K8s Auto-Recovery Watchdog}
+  \textbf{\textcolor{dcCyan}{Live Demo Scenario:}}
+
+  \vspace{0.3em}
+  \begin{enumerate}\small
+    \item Attacker launches \textbf{4-wave DDoS} against corporate honeypot (\texttt{:4006})
+    \item Flood overwhelms the process ---
+          \textcolor{dcRed}{\textbf{port 4006 genuinely goes DOWN (process killed)}}
+    \item Dashboard shows \textcolor{dcRed}{\textbf{16/17 --- red dot on corporate honeypot}}
+    \item K8s-style watchdog detects crash within \textbf{2 seconds}
+    \item Watchdog restarts honeypot Flask process automatically
+    \item Dashboard returns to \textcolor{dcGreen}{\textbf{17/17 --- green dot restored}}
+    \item \textcolor{dcGreen}{\textbf{Real corporate site (:3006) unaffected throughout}}
+  \end{enumerate}
+
+  \vspace{0.3em}
+  \begin{columns}[T]
+    \begin{column}{0.5\textwidth}
+      \begin{block}{Key Point for Jury}
+        \small Attacker DDoS'd the \textbf{honeypot} --- not the real system.\\
+        Real users experienced \textbf{zero downtime}.
+      \end{block}
+    \end{column}
+    \begin{column}{0.46\textwidth}
+      \textbf{\textcolor{dcGray}{Cloud Relevance:}}\\
+      \small Same pattern as Kubernetes ReplicaSets\\
+      in \textbf{AWS EKS}, \textbf{Google GKE}, \textbf{Azure AKS}.
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% -----------------------------------------------------------
+% SLIDE 15 — TIMELINE
+% -----------------------------------------------------------
+\begin{frame}{Project Timeline}
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \textbf{\textcolor{dcCyan}{FYP-I (Aug 2025 -- Dec 2025)}}\\[0.2em]
+      \centering\tiny
+      \begin{tabular}{@{}ll@{}}
+        \toprule
+        \rowcolor{dcMid}
+        \textcolor{dcCyan}{Phase} & \textcolor{dcCyan}{Deliverable}\\
+        \midrule
+        Research (Aug--Sep)  & Literature review, tech selection\\
+        \rowcolor{dcDark}
+        Requirements         & SRS document, use cases\\
+        System Design (Oct)  & Architecture, DB schema\\
+        \rowcolor{dcDark}
+        Development (Nov--Dec) & 14 Flask apps, ML models v1\\
+        Integration (Dec)    & Initial proxy concept\\
+        \rowcolor{dcDark}
+        Documentation        & FYP-I report draft\\
+        \bottomrule
+      \end{tabular}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \textbf{\textcolor{dcGreen}{FYP-II (Jan 2026 -- Jun 2026)}}\\[0.2em]
+      \centering\tiny
+      \begin{tabular}{@{}ll@{}}
+        \toprule
+        \rowcolor{dcMid}
+        \textcolor{dcCyan}{Phase} & \textcolor{dcCyan}{Deliverable}\\
+        \midrule
+        Development (Jan--Mar) & 10 new modules built\\
+        \rowcolor{dcDark}
+        Integration            & Full pipeline integrated\\
+        Model Retraining       & v2: 93.97\%, 99.9\%\\
+        \rowcolor{dcDark}
+        Testing (Feb--Apr)     & 100\% detection verified\\
+        Evaluation             & Benchmarking, demo prep\\
+        \rowcolor{dcDark}
+        Documentation          & FYP-II report\\
+        Deployment (Mar+)      & Demo-ready system\\
+        \bottomrule
+      \end{tabular}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% -----------------------------------------------------------
+% SLIDE 16 — TESTING & VALIDATION
+% -----------------------------------------------------------
+\begin{frame}{Testing \& Validation}
+  \begin{columns}[T]
+    \begin{column}{0.5\textwidth}
+      \textbf{\textcolor{dcCyan}{Web Attack Testing:}}
+      \begin{itemize}\small
+        \item 16 attacks across all types simulated
+        \item \textcolor{dcGreen}{\textbf{16/16 detected --- 100\% detection rate}}
+        \item Zero malicious requests reached real sites
+        \item Avg ML confidence: \textbf{93.2\%}
+      \end{itemize}
+      \vspace{0.3em}
+      \textbf{\textcolor{dcRed}{DDoS Testing (4 Waves):}}
+      \begin{itemize}\small
+        \item Ramp-up $\rightarrow$ Sustained $\rightarrow$ Kill $\rightarrow$ Slowloris
+        \item Port 4006 \textbf{genuinely killed} (not simulated)
+        \item Real site :3006 unaffected throughout
+        \item K8s recovery in \textbf{$\sim$15 seconds}
+        \item Dashboard: 16/17 $\rightarrow$ 17/17 live
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.46\textwidth}
+      \textbf{\textcolor{dcCyan}{Dashboard Metrics:}}\\[0.2em]
+      \centering\footnotesize
+      \begin{tabular}{@{} l l @{}}
+        \toprule
+        \rowcolor{dcMid}
+        \textcolor{dcCyan}{Metric} & \textcolor{dcGreen}{Value}\\
+        \midrule
+        Total Attacks    & 216+\\
+        \rowcolor{dcDark}
+        Honeypot Events  & 216+\\
+        Avg Confidence   & 93.2\%\\
+        \rowcolor{dcDark}
+        Detection Rate   & 100\%\\
+        Blockchain Blocks& 380+\\
+        \rowcolor{dcDark}
+        System Health    & 17/17\\
+        \bottomrule
+      \end{tabular}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% -----------------------------------------------------------
+% SLIDE 17 — REMAINING WORK
+% -----------------------------------------------------------
+\begin{frame}{Remaining Work}
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \textbf{\textcolor{dcCyan}{1. Continuous Learning Model}}
+      \begin{itemize}\small
+        \item Current models are \textbf{static} (trained offline)
+        \item Planned: Online learning via \texttt{scikit-learn partial\_fit}
+        \item New attack patterns from proxy retrain model periodically
+        \item Model versioning: old kept until new is better
+      \end{itemize}
+      \vspace{0.3em}
+      \begin{block}{Why Important}
+        \small Zero-day attacks evade static models.
+        Self-updating model stays effective as threats evolve.
+      \end{block}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \textbf{\textcolor{dcYellow}{2. Wazuh SIEM Integration}}
+      \begin{itemize}\small
+        \item Wazuh = open-source SIEM platform
+        \item Ingest \texttt{proxy\_attacks.jsonl} + blockchain logs
+        \item Correlation, alerting, compliance reporting
+        \item Integrates with enterprise security infrastructure
+      \end{itemize}
+      \vspace{0.3em}
+      \begin{block}{Why Important}
+        \small Makes DeceptiCloud enterprise-deployable
+        and compliant with \textbf{ISO 27001 / NIST} frameworks.
+      \end{block}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% -----------------------------------------------------------
+% SLIDE 18 — CONCLUSION
+% -----------------------------------------------------------
+\begin{frame}{Conclusion}
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \textbf{\textcolor{dcCyan}{DeceptiCloud delivers:}}
+      \begin{itemize}\small
+        \item Detects attacks with \textbf{93--99.9\% accuracy}
+        \item Deceives attackers using \textbf{LLM fake content}
+        \item Populates honeypots with \textbf{GAN synthetic data}
+        \item Logs to \textbf{tamper-proof blockchain}
+        \item Monitors via \textbf{real-time SOC dashboard (9 panels)}
+        \item K8s \textbf{cloud resilience} demonstrated live
+      \end{itemize}
+      \vspace{0.2em}
+      \textbf{\textcolor{dcGreen}{Key Achievements:}}
+      \begin{itemize}\small
+        \item[\yes] 100\% detection on all 16 attack types
+        \item[\yes] 7 honeypots with AI-generated data
+        \item[\yes] Immutable blockchain (380+ blocks)
+        \item[\yes] 17-service health monitoring
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \textbf{\textcolor{dcYellow}{Practical Applications:}}
+      \begin{itemize}\small
+        \item Enterprise cloud security (AWS, GCP, Azure)
+        \item Government / defence infrastructure
+        \item Security research (passive TTP collection)
+        \item Compliance (financial, healthcare audits)
+        \item Threat intelligence \& actor attribution
+      \end{itemize}
+      \vspace{0.2em}
+      \textbf{\textcolor{dcPurple}{Future Scope:}}
+      \begin{itemize}\small
+        \item Continuous learning model
+        \item Wazuh SIEM integration
+        \item Full Kubernetes deployment manifest
+        \item Multi-region distributed honeypots
+        \item Mobile SOC dashboard
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% -----------------------------------------------------------
+% SLIDE 19 — SYSTEM COMPARISON
+% -----------------------------------------------------------
+\begin{frame}{DeceptiCloud vs Traditional Security}
+  \centering\small
+  \begin{tabular}{@{} p{4.4cm} c c @{}}
+    \toprule
+    \rowcolor{dcMid}
+    \textcolor{dcCyan}{Feature} &
+    \textcolor{dcGray}{Firewall / IDS} &
+    \textcolor{dcGreen}{DeceptiCloud}\\
+    \midrule
+    Blocks attacks                  & \yes & \yes\\
+    \rowcolor{dcDark}
+    Learns attacker techniques      & \no  & \yes\ (behavioral fingerprinting)\\
+    Deceives attacker               & \no  & \yes\ (LLM deception)\\
+    \rowcolor{dcDark}
+    Tamper-proof evidence           & \no  & \yes\ (blockchain)\\
+    Real-time SOC monitoring        & partial & \yes\ (9-panel dashboard)\\
+    \rowcolor{dcDark}
+    Self-healing recovery           & \no  & \yes\ (K8s watchdog, 15s)\\
+    AI-generated fake data          & \no  & \yes\ (GAN synthetic identities)\\
+    \rowcolor{dcDark}
+    Open-source \& cloud-deployable & varies & \yes\ (Docker-ready)\\
+    \bottomrule
+  \end{tabular}
+
+  \vspace{0.4em}
+  \begin{block}{}
+    \centering\textit{``Traditional security asks: `Did we block it?'\\
+    DeceptiCloud asks: `What did we learn from it?'\,''}
+  \end{block}
+\end{frame}
+
+% -----------------------------------------------------------
+% SLIDE 20 — THANK YOU
+% -----------------------------------------------------------
+\begin{frame}[plain]
+  \begin{tikzpicture}[overlay,remember picture]
+    \fill[dcNavy] (current page.south west) rectangle (current page.north east);
+    \fill[dcMid]  (current page.south west) rectangle +(\paperwidth,1.2cm);
+    \draw[dcCyan,line width=1.2pt]
+      (current page.north west)++(0,-1.2cm) -- +(\paperwidth,0);
+  \end{tikzpicture}
+
+  \vspace{1.6cm}
+  \begin{center}
+    {\Huge\bfseries\textcolor{dcCyan}{Thank You}}\\[0.7em]
+    {\small\textcolor{dcWhite!70}{\textit{``Security is not a product.
+    It is a process --- and AI makes it adaptive.''}}}\\[1.2em]
+    {\color{dcCyan!40}\hrule height 0.4pt}\vspace{0.5em}
+    {\footnotesize\textcolor{dcGray}{Ahmed Ali \quad\textbar\quad
+    Waleed Khan Kiyani \quad\textbar\quad Shoaib Akhtar}}\\[0.3em]
+    {\scriptsize\textcolor{dcGray}{\textbf{DECEPTICLOUD} --- FYP-II
+    \quad\textbar\quad [University] \quad\textbar\quad March 2026}}
+  \end{center}
+\end{frame}
+
+\end{document}

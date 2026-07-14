@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<div class="hero">
+    <h1>Welcome to {{ site.name }}</h1>
+    <p>{{ site.tagline }}</p>
+    <div class="hero-actions">
+        <a href="/items" class="btn btn-primary">Browse {{ site.items_label | default('Items') }}</a>
+        <a href="/register" class="btn btn-secondary">Get Started</a>
+    </div>
+</div>
+
+<div class="page-header">
+    <h2>Featured {{ site.items_label | default('Items') }}</h2>
+    <p>Explore our latest offerings</p>
+</div>
+
+<div class="card-grid">
+    {% for item in items %}
+    <a href="/item/{{ item.id }}" class="card" style="text-decoration:none;color:inherit;">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+            <div
+                style="width:48px;height:48px;background:var(--primary-light);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;">
+                {% if site.type == 'banking' %}{% elif site.type == 'ecommerce' %}{% elif site.type == 'healthcare'
+                %}{% elif site.type == 'blog' %}{% elif site.type == 'api_service' %}{% elif site.type ==
+                'corporate' %}{% else %}{% endif %}
+            </div>
+            <div>
+                <h3>{{ item.name }}</h3>
+                <span class="badge">{{ item.category }}</span>
+            </div>
+        </div>
+        <p>{{ item.description }}</p>
+        <div class="card-meta">
+            {% if item.price > 0 %}
+            <span class="price">${{ "%.2f"|format(item.price) }}</span>
+            {% else %}
+            <span class="price" style="color:var(--success)">Free</span>
+            {% endif %}
+            <span style="color:var(--text-muted);font-size:0.8rem;">{{ item.stock }} available</span>
+        </div>
+    </a>
+    {% endfor %}
+</div>
+{% endblock %}

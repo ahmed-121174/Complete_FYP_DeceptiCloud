@@ -1,0 +1,25 @@
+┌─────────────────────────────────────────────────────────────────────────┐
+│              DeceptiCloud ML Classification Results                     │
+│                   (Pre-captured from live system)                       │
+├──────────┬─────────────────────────────┬────────────┬──────────────────┤
+│  Attack  │  Payload Signature          │ Confidence │  Verdict         │
+├──────────┼─────────────────────────────┼────────────┼──────────────────┤
+│  SQLi    │ UNION SELECT (sqlmap/1.7)   │   99.2%    │  MALICIOUS → HP  │
+│  SQLi    │ Blind time-based (sqlmap)   │   97.8%    │  MALICIOUS → HP  │
+│  SQLi    │ Auth bypass OR '1'='1'      │   96.5%    │  MALICIOUS → HP  │
+│  XSS     │ <script>alert(cookie)</s>  │   97.1%    │  MALICIOUS → HP  │
+│  XSS     │ <img src=x onerror=alert>  │   94.3%    │  MALICIOUS → HP  │
+│  LFI     │ ../../../../etc/passwd      │   99.0%    │  MALICIOUS → HP  │
+│  CMDi    │ ;whoami | cat /etc/passwd   │   98.6%    │  MALICIOUS → HP  │
+│  NoSQLi  │ {$gt:''} / {$where:sleep}  │   93.2%    │  MALICIOUS → HP  │
+│  SSRF    │ http://169.254.169.254      │   91.7%    │  MALICIOUS → HP  │
+│  DDoS    │ 120,000 pkt/s SYN flood    │   99.9%    │  MALICIOUS → HP  │
+│  Brute   │ 25 failed /login attempts   │   98.3%    │  MALICIOUS → HP  │
+├──────────┼─────────────────────────────┼────────────┼──────────────────┤
+│  BENIGN  │ Normal browser GET /        │    2.1%    │  BENIGN → REAL   │
+└──────────┴─────────────────────────────┴────────────┴──────────────────┘
+
+Models Used:
+  Web Attack Detector (ANN)  — CIC-IDS2017  — 93.97% balanced accuracy
+  DDoS Detector (RF)         — CIC-DDoS2019 — 95.88% accuracy
+  Inference time             — 38ms average per request

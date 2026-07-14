@@ -1,0 +1,15 @@
+--- ATTACK DETECTION TEST (و 23:55:11 PKT ت 27 فروری 2026) ---
+Sending 8 diverse attacks through proxy :8080...
+SQLi → HTTP 200
+XSS → HTTP 200
+Traversal → HTTP 000000
+CMDi → HTTP 000000
+SQLi2 → HTTP 000000
+
+=== Phase 2 stats after attacks ===
+LLM: req=4  success=2  fallback=0
+GAN: 35 users 100.0% synthetic
+FP:  1 profiles, 1 clusters
+
+=== GAN honeypot users ===
+[{"email":"admin@quickbank.net","id":1,"role":"admin","username":"admin"},{"email":"linda@quickbank.net","id":2,"role":"admin","username":"cfo_linda"},{"email":"david@email.com","id":3,"role":"user","username":"david.k"},{"email":"priya@corp.com","id":4,"role":"manager","username":"priya.s"},{"email":"omar@mail.com","id":5,"role":"user","username":"omar.h"}]

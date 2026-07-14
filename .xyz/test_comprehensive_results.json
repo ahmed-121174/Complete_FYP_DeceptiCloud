@@ -1,0 +1,1051 @@
+{
+  "passed": 163,
+  "failed": 4,
+  "skipped": 0,
+  "tests": [
+    {
+      "name": "Real [banking] :3001 responds",
+      "status": "PASS",
+      "details": "",
+      "category": "System Health"
+    },
+    {
+      "name": "Real [ecommerce] :3002 responds",
+      "status": "PASS",
+      "details": "",
+      "category": "System Health"
+    },
+    {
+      "name": "Real [healthcare] :3003 responds",
+      "status": "PASS",
+      "details": "",
+      "category": "System Health"
+    },
+    {
+      "name": "Real [blog] :3004 responds",
+      "status": "PASS",
+      "details": "",
+      "category": "System Health"
+    },
+    {
+      "name": "Real [api_service] :3005 responds",
+      "status": "PASS",
+      "details": "",
+      "category": "System Health"
+    },
+    {
+      "name": "Real [corporate] :3006 responds",
+      "status": "PASS",
+      "details": "",
+      "category": "System Health"
+    },
+    {
+      "name": "Real [admin_panel] :3007 responds",
+      "status": "PASS",
+      "details": "",
+      "category": "System Health"
+    },
+    {
+      "name": "Honeypot [banking] :4001 responds",
+      "status": "PASS",
+      "details": "",
+      "category": "System Health"
+    },
+    {
+      "name": "Honeypot [ecommerce] :4002 responds",
+      "status": "PASS",
+      "details": "",
+      "category": "System Health"
+    },
+    {
+      "name": "Honeypot [healthcare] :4003 responds",
+      "status": "PASS",
+      "details": "",
+      "category": "System Health"
+    },
+    {
+      "name": "Honeypot [blog] :4004 responds",
+      "status": "PASS",
+      "details": "",
+      "category": "System Health"
+    },
+    {
+      "name": "Honeypot [api_service] :4005 responds",
+      "status": "PASS",
+      "details": "",
+      "category": "System Health"
+    },
+    {
+      "name": "Honeypot [corporate] :4006 responds",
+      "status": "PASS",
+      "details": "",
+      "category": "System Health"
+    },
+    {
+      "name": "Honeypot [admin_panel] :4007 responds",
+      "status": "PASS",
+      "details": "",
+      "category": "System Health"
+    },
+    {
+      "name": "Routing proxy responds",
+      "status": "PASS",
+      "details": "",
+      "category": "System Health"
+    },
+    {
+      "name": "Database banking_real.db exists",
+      "status": "PASS",
+      "details": "",
+      "category": "System Health"
+    },
+    {
+      "name": "Database banking_honeypot.db exists",
+      "status": "PASS",
+      "details": "",
+      "category": "System Health"
+    },
+    {
+      "name": "Database ecommerce_real.db exists",
+      "status": "PASS",
+      "details": "",
+      "category": "System Health"
+    },
+    {
+      "name": "Database ecommerce_honeypot.db exists",
+      "status": "PASS",
+      "details": "",
+      "category": "System Health"
+    },
+    {
+      "name": "Database healthcare_real.db exists",
+      "status": "PASS",
+      "details": "",
+      "category": "System Health"
+    },
+    {
+      "name": "Database healthcare_honeypot.db exists",
+      "status": "PASS",
+      "details": "",
+      "category": "System Health"
+    },
+    {
+      "name": "Database blog_real.db exists",
+      "status": "PASS",
+      "details": "",
+      "category": "System Health"
+    },
+    {
+      "name": "Database blog_honeypot.db exists",
+      "status": "PASS",
+      "details": "",
+      "category": "System Health"
+    },
+    {
+      "name": "Database api_service_real.db exists",
+      "status": "PASS",
+      "details": "",
+      "category": "System Health"
+    },
+    {
+      "name": "Database api_service_honeypot.db exists",
+      "status": "PASS",
+      "details": "",
+      "category": "System Health"
+    },
+    {
+      "name": "Database corporate_real.db exists",
+      "status": "PASS",
+      "details": "",
+      "category": "System Health"
+    },
+    {
+      "name": "Database corporate_honeypot.db exists",
+      "status": "PASS",
+      "details": "",
+      "category": "System Health"
+    },
+    {
+      "name": "Database admin_panel_real.db exists",
+      "status": "PASS",
+      "details": "",
+      "category": "System Health"
+    },
+    {
+      "name": "Database admin_panel_honeypot.db exists",
+      "status": "PASS",
+      "details": "",
+      "category": "System Health"
+    },
+    {
+      "name": "Benign GET / \u2192 200 OK",
+      "status": "PASS",
+      "details": "",
+      "category": "Proxy Routing"
+    },
+    {
+      "name": "Benign response has HTML body",
+      "status": "PASS",
+      "details": "24914 bytes",
+      "category": "Proxy Routing"
+    },
+    {
+      "name": "Benign POST /login \u2192 processed",
+      "status": "PASS",
+      "details": "",
+      "category": "Proxy Routing"
+    },
+    {
+      "name": "SQLi routed (200)",
+      "status": "PASS",
+      "details": "",
+      "category": "Proxy Routing"
+    },
+    {
+      "name": "SQLi gets HTML response",
+      "status": "PASS",
+      "details": "",
+      "category": "Proxy Routing"
+    },
+    {
+      "name": "XSS routed (200)",
+      "status": "PASS",
+      "details": "",
+      "category": "Proxy Routing"
+    },
+    {
+      "name": "Path traversal attempt",
+      "status": "FAIL",
+      "details": "HTTPConnectionPool(host='localhost', port=8080): Read timed out. (read timeout=15)",
+      "category": "Proxy Routing"
+    },
+    {
+      "name": "Command injection routed",
+      "status": "PASS",
+      "details": "",
+      "category": "Proxy Routing"
+    },
+    {
+      "name": "Proxy route /ecommerce/ works",
+      "status": "FAIL",
+      "details": "",
+      "category": "Proxy Routing"
+    },
+    {
+      "name": "Proxy route /healthcare/ works",
+      "status": "FAIL",
+      "details": "",
+      "category": "Proxy Routing"
+    },
+    {
+      "name": "Proxy route /blog/ works",
+      "status": "FAIL",
+      "details": "",
+      "category": "Proxy Routing"
+    },
+    {
+      "name": "Real [banking] rejects /.env",
+      "status": "PASS",
+      "details": "Got 404",
+      "category": "Cross-Site Isolation"
+    },
+    {
+      "name": "Real [banking] rejects /backup.sql",
+      "status": "PASS",
+      "details": "Got 404",
+      "category": "Cross-Site Isolation"
+    },
+    {
+      "name": "Real [banking] rejects /wp-admin",
+      "status": "PASS",
+      "details": "Got 404",
+      "category": "Cross-Site Isolation"
+    },
+    {
+      "name": "Real [banking] rejects /phpmyadmin/",
+      "status": "PASS",
+      "details": "Got 404",
+      "category": "Cross-Site Isolation"
+    },
+    {
+      "name": "Real [banking] rejects /api/v2/config",
+      "status": "PASS",
+      "details": "Got 404",
+      "category": "Cross-Site Isolation"
+    },
+    {
+      "name": "Real [banking] rejects /server-status",
+      "status": "PASS",
+      "details": "Got 404",
+      "category": "Cross-Site Isolation"
+    },
+    {
+      "name": "Real [banking] rejects /debug/",
+      "status": "PASS",
+      "details": "Got 404",
+      "category": "Cross-Site Isolation"
+    },
+    {
+      "name": "Real [banking] rejects /.git/config",
+      "status": "PASS",
+      "details": "Got 404",
+      "category": "Cross-Site Isolation"
+    },
+    {
+      "name": "Real [ecommerce] rejects /.env",
+      "status": "PASS",
+      "details": "",
+      "category": "Cross-Site Isolation"
+    },
+    {
+      "name": "Real [healthcare] rejects /.env",
+      "status": "PASS",
+      "details": "",
+      "category": "Cross-Site Isolation"
+    },
+    {
+      "name": "Real [banking] rejects /api/fingerprint",
+      "status": "PASS",
+      "details": "Got 404",
+      "category": "Cross-Site Isolation"
+    },
+    {
+      "name": "Real [ecommerce] rejects /api/fingerprint",
+      "status": "PASS",
+      "details": "Got 404",
+      "category": "Cross-Site Isolation"
+    },
+    {
+      "name": "Real [healthcare] rejects /api/fingerprint",
+      "status": "PASS",
+      "details": "Got 404",
+      "category": "Cross-Site Isolation"
+    },
+    {
+      "name": "Real [blog] rejects /api/fingerprint",
+      "status": "PASS",
+      "details": "Got 404",
+      "category": "Cross-Site Isolation"
+    },
+    {
+      "name": "Real [api_service] rejects /api/fingerprint",
+      "status": "PASS",
+      "details": "Got 404",
+      "category": "Cross-Site Isolation"
+    },
+    {
+      "name": "Real [corporate] rejects /api/fingerprint",
+      "status": "PASS",
+      "details": "Got 404",
+      "category": "Cross-Site Isolation"
+    },
+    {
+      "name": "Real [admin_panel] rejects /api/fingerprint",
+      "status": "PASS",
+      "details": "Got 404",
+      "category": "Cross-Site Isolation"
+    },
+    {
+      "name": "Real [banking] no fingerprint JS",
+      "status": "PASS",
+      "details": "",
+      "category": "Cross-Site Isolation"
+    },
+    {
+      "name": "Real [ecommerce] no fingerprint JS",
+      "status": "PASS",
+      "details": "",
+      "category": "Cross-Site Isolation"
+    },
+    {
+      "name": "Real [healthcare] no fingerprint JS",
+      "status": "PASS",
+      "details": "",
+      "category": "Cross-Site Isolation"
+    },
+    {
+      "name": "Honeypot [banking] has fingerprint JS",
+      "status": "PASS",
+      "details": "",
+      "category": "Cross-Site Isolation"
+    },
+    {
+      "name": "Honeypot [ecommerce] has fingerprint JS",
+      "status": "PASS",
+      "details": "",
+      "category": "Cross-Site Isolation"
+    },
+    {
+      "name": "Honeypot [healthcare] has fingerprint JS",
+      "status": "PASS",
+      "details": "",
+      "category": "Cross-Site Isolation"
+    },
+    {
+      "name": "Canary [robots_txt] responds",
+      "status": "PASS",
+      "details": "",
+      "category": "Canary Tokens"
+    },
+    {
+      "name": "Canary [env_file] responds",
+      "status": "PASS",
+      "details": "",
+      "category": "Canary Tokens"
+    },
+    {
+      "name": "Canary [database_backup] responds",
+      "status": "PASS",
+      "details": "",
+      "category": "Canary Tokens"
+    },
+    {
+      "name": "Canary [wordpress_admin] responds",
+      "status": "PASS",
+      "details": "",
+      "category": "Canary Tokens"
+    },
+    {
+      "name": "Canary [phpmyadmin] responds",
+      "status": "PASS",
+      "details": "",
+      "category": "Canary Tokens"
+    },
+    {
+      "name": "Canary [api_config] responds",
+      "status": "PASS",
+      "details": "",
+      "category": "Canary Tokens"
+    },
+    {
+      "name": "Canary [server_status] responds",
+      "status": "PASS",
+      "details": "",
+      "category": "Canary Tokens"
+    },
+    {
+      "name": "Canary [debug_endpoint] responds",
+      "status": "PASS",
+      "details": "",
+      "category": "Canary Tokens"
+    },
+    {
+      "name": "Canary [git_config] responds",
+      "status": "PASS",
+      "details": "",
+      "category": "Canary Tokens"
+    },
+    {
+      "name": "Canary [tracking_pixel] responds",
+      "status": "PASS",
+      "details": "",
+      "category": "Canary Tokens"
+    },
+    {
+      "name": ".env has AWS_ACCESS_KEY_ID",
+      "status": "PASS",
+      "details": "",
+      "category": "Canary Tokens"
+    },
+    {
+      "name": ".env has DB_PASSWORD",
+      "status": "PASS",
+      "details": "",
+      "category": "Canary Tokens"
+    },
+    {
+      "name": ".env has STRIPE key",
+      "status": "PASS",
+      "details": "",
+      "category": "Canary Tokens"
+    },
+    {
+      "name": ".env has realistic length",
+      "status": "PASS",
+      "details": "995 chars",
+      "category": "Canary Tokens"
+    },
+    {
+      "name": "backup.sql has SQL header",
+      "status": "PASS",
+      "details": "",
+      "category": "Canary Tokens"
+    },
+    {
+      "name": "backup.sql has CREATE TABLE",
+      "status": "PASS",
+      "details": "",
+      "category": "Canary Tokens"
+    },
+    {
+      "name": "backup.sql has INSERT INTO",
+      "status": "PASS",
+      "details": "",
+      "category": "Canary Tokens"
+    },
+    {
+      "name": "backup.sql has watermark",
+      "status": "PASS",
+      "details": "",
+      "category": "Canary Tokens"
+    },
+    {
+      "name": "backup.sql is substantial",
+      "status": "PASS",
+      "details": "2628 chars",
+      "category": "Canary Tokens"
+    },
+    {
+      "name": "API config has aws section",
+      "status": "PASS",
+      "details": "",
+      "category": "Canary Tokens"
+    },
+    {
+      "name": "API config has database section",
+      "status": "PASS",
+      "details": "",
+      "category": "Canary Tokens"
+    },
+    {
+      "name": "API config has jwt_secret",
+      "status": "PASS",
+      "details": "",
+      "category": "Canary Tokens"
+    },
+    {
+      "name": "robots.txt mentions sensitive paths",
+      "status": "PASS",
+      "details": "",
+      "category": "Canary Tokens"
+    },
+    {
+      "name": "Canary stats total > 0",
+      "status": "PASS",
+      "details": "Triggers: 14",
+      "category": "Canary Tokens"
+    },
+    {
+      "name": "Canary stats has types",
+      "status": "PASS",
+      "details": "Types: ['admin_panel_scan', 'api_config', 'database_backup', 'debug_endpoint', 'env_file']",
+      "category": "Canary Tokens"
+    },
+    {
+      "name": "Canary .env active on [ecommerce]",
+      "status": "PASS",
+      "details": "",
+      "category": "Canary Tokens"
+    },
+    {
+      "name": "Canary .env active on [healthcare]",
+      "status": "PASS",
+      "details": "",
+      "category": "Canary Tokens"
+    },
+    {
+      "name": "Canary .env active on [blog]",
+      "status": "PASS",
+      "details": "",
+      "category": "Canary Tokens"
+    },
+    {
+      "name": "Blockchain file exists",
+      "status": "PASS",
+      "details": "",
+      "category": "Blockchain Ledger"
+    },
+    {
+      "name": "Chain has genesis block",
+      "status": "PASS",
+      "details": "",
+      "category": "Blockchain Ledger"
+    },
+    {
+      "name": "Genesis block type is 'genesis'",
+      "status": "PASS",
+      "details": "",
+      "category": "Blockchain Ledger"
+    },
+    {
+      "name": "Genesis has 64-char hash",
+      "status": "PASS",
+      "details": "",
+      "category": "Blockchain Ledger"
+    },
+    {
+      "name": "Genesis previous_hash is all zeros",
+      "status": "PASS",
+      "details": "",
+      "category": "Blockchain Ledger"
+    },
+    {
+      "name": "Chain has attack blocks",
+      "status": "PASS",
+      "details": "Total blocks: 79",
+      "category": "Blockchain Ledger"
+    },
+    {
+      "name": "Hash chain linkage valid",
+      "status": "PASS",
+      "details": "",
+      "category": "Blockchain Ledger"
+    },
+    {
+      "name": "Proof-of-work valid (hashes start with 00)",
+      "status": "PASS",
+      "details": "",
+      "category": "Blockchain Ledger"
+    },
+    {
+      "name": "Hash recomputation matches",
+      "status": "PASS",
+      "details": "Expected: 00c89ad9a42c14b2... Got: 00c89ad9a42c14b2...",
+      "category": "Blockchain Ledger"
+    },
+    {
+      "name": "Attack block has IP field",
+      "status": "PASS",
+      "details": "",
+      "category": "Blockchain Ledger"
+    },
+    {
+      "name": "Attack block has timestamp",
+      "status": "PASS",
+      "details": "",
+      "category": "Blockchain Ledger"
+    },
+    {
+      "name": "Tamper detection: modified block hash differs",
+      "status": "PASS",
+      "details": "",
+      "category": "Blockchain Ledger"
+    },
+    {
+      "name": "Fingerprint accepted (200)",
+      "status": "PASS",
+      "details": "",
+      "category": "Behavioral Fingerprinting"
+    },
+    {
+      "name": "Returns behavioral_hash",
+      "status": "PASS",
+      "details": "Hash: 51b836525c58f853...",
+      "category": "Behavioral Fingerprinting"
+    },
+    {
+      "name": "Returns cluster_id",
+      "status": "PASS",
+      "details": "Cluster: 0",
+      "category": "Behavioral Fingerprinting"
+    },
+    {
+      "name": "Same fingerprint \u2192 same hash",
+      "status": "PASS",
+      "details": "",
+      "category": "Behavioral Fingerprinting"
+    },
+    {
+      "name": "Different fingerprint \u2192 different hash",
+      "status": "PASS",
+      "details": "",
+      "category": "Behavioral Fingerprinting"
+    },
+    {
+      "name": "Cross-site fingerprint accepted",
+      "status": "PASS",
+      "details": "",
+      "category": "Behavioral Fingerprinting"
+    },
+    {
+      "name": "Cross-site same hash",
+      "status": "PASS",
+      "details": "Same browser identified across sites",
+      "category": "Behavioral Fingerprinting"
+    },
+    {
+      "name": "Fingerprint stats available",
+      "status": "PASS",
+      "details": "Total profiles: 2",
+      "category": "Behavioral Fingerprinting"
+    },
+    {
+      "name": "Partial fingerprint handled gracefully",
+      "status": "PASS",
+      "details": "",
+      "category": "Behavioral Fingerprinting"
+    },
+    {
+      "name": "SQLi \u2192 valid response",
+      "status": "PASS",
+      "details": "",
+      "category": "LLM Adaptive Responses"
+    },
+    {
+      "name": "SQLi \u2192 HTML content",
+      "status": "PASS",
+      "details": "",
+      "category": "LLM Adaptive Responses"
+    },
+    {
+      "name": "SQLi \u2192 meaningful response",
+      "status": "PASS",
+      "details": "Source: Dynamic honeypot (fallback) | Size: 20433 bytes | Time: 30.1s",
+      "category": "LLM Adaptive Responses"
+    },
+    {
+      "name": "XSS \u2192 valid response",
+      "status": "PASS",
+      "details": "",
+      "category": "LLM Adaptive Responses"
+    },
+    {
+      "name": "CmdInj \u2192 valid response",
+      "status": "PASS",
+      "details": "",
+      "category": "LLM Adaptive Responses"
+    },
+    {
+      "name": "Honeypot serves full dynamic HTML",
+      "status": "PASS",
+      "details": "Size: 24914 bytes",
+      "category": "LLM Adaptive Responses"
+    },
+    {
+      "name": "Honeypot has site branding",
+      "status": "PASS",
+      "details": "",
+      "category": "LLM Adaptive Responses"
+    },
+    {
+      "name": "Honeypot login succeeds (DB-backed)",
+      "status": "PASS",
+      "details": "Authenticated via database",
+      "category": "LLM Adaptive Responses"
+    },
+    {
+      "name": "GAN data in [banking] honeypot",
+      "status": "PASS",
+      "details": "Users: 55 | Watermarked: 50",
+      "category": "GAN Synthetic Data"
+    },
+    {
+      "name": "GAN data in [ecommerce] honeypot",
+      "status": "PASS",
+      "details": "Users: 55 | Watermarked: 50",
+      "category": "GAN Synthetic Data"
+    },
+    {
+      "name": "GAN data in [healthcare] honeypot",
+      "status": "PASS",
+      "details": "Users: 55 | Watermarked: 50",
+      "category": "GAN Synthetic Data"
+    },
+    {
+      "name": "GAN data in [blog] honeypot",
+      "status": "PASS",
+      "details": "Users: 55 | Watermarked: 50",
+      "category": "GAN Synthetic Data"
+    },
+    {
+      "name": "GAN data in [api_service] honeypot",
+      "status": "PASS",
+      "details": "Users: 55 | Watermarked: 50",
+      "category": "GAN Synthetic Data"
+    },
+    {
+      "name": "GAN data in [corporate] honeypot",
+      "status": "PASS",
+      "details": "Users: 55 | Watermarked: 50",
+      "category": "GAN Synthetic Data"
+    },
+    {
+      "name": "GAN data in [admin_panel] honeypot",
+      "status": "PASS",
+      "details": "Users: 55 | Watermarked: 50",
+      "category": "GAN Synthetic Data"
+    },
+    {
+      "name": "Real [banking] has NO watermarked data",
+      "status": "PASS",
+      "details": "Users: 5 | Watermarked: 0",
+      "category": "GAN Synthetic Data"
+    },
+    {
+      "name": "Real [ecommerce] has NO watermarked data",
+      "status": "PASS",
+      "details": "Users: 5 | Watermarked: 0",
+      "category": "GAN Synthetic Data"
+    },
+    {
+      "name": "Real [healthcare] has NO watermarked data",
+      "status": "PASS",
+      "details": "Users: 5 | Watermarked: 0",
+      "category": "GAN Synthetic Data"
+    },
+    {
+      "name": "All users have valid emails",
+      "status": "PASS",
+      "details": "55/55",
+      "category": "GAN Synthetic Data"
+    },
+    {
+      "name": "All users have full names",
+      "status": "PASS",
+      "details": "",
+      "category": "GAN Synthetic Data"
+    },
+    {
+      "name": "Balance range is realistic",
+      "status": "PASS",
+      "details": "Avg: $119,595.52 | Range: $17,261.87\u2013$303,111.97",
+      "category": "GAN Synthetic Data"
+    },
+    {
+      "name": "All usernames are unique",
+      "status": "PASS",
+      "details": "55 unique / 55 total",
+      "category": "GAN Synthetic Data"
+    },
+    {
+      "name": "Pre-trained models saved (generator + critic + normalizer)",
+      "status": "PASS",
+      "details": "7/7 complete models",
+      "category": "GAN Synthetic Data"
+    },
+    {
+      "name": "Training histories saved",
+      "status": "PASS",
+      "details": "7/7 histories",
+      "category": "GAN Synthetic Data"
+    },
+    {
+      "name": "Schema [banking_real] has required tables",
+      "status": "PASS",
+      "details": "Tables: ['items', 'messages', 'reviews', 'sqlite_sequence', 'transactions', 'users']",
+      "category": "Database Integrity"
+    },
+    {
+      "name": "Schema [banking_honeypot] has required tables",
+      "status": "PASS",
+      "details": "Tables: ['items', 'messages', 'reviews', 'sqlite_sequence', 'transactions', 'users']",
+      "category": "Database Integrity"
+    },
+    {
+      "name": "Schema [ecommerce_real] has required tables",
+      "status": "PASS",
+      "details": "Tables: ['items', 'messages', 'reviews', 'sqlite_sequence', 'transactions', 'users']",
+      "category": "Database Integrity"
+    },
+    {
+      "name": "Schema [ecommerce_honeypot] has required tables",
+      "status": "PASS",
+      "details": "Tables: ['items', 'messages', 'reviews', 'sqlite_sequence', 'transactions', 'users']",
+      "category": "Database Integrity"
+    },
+    {
+      "name": "Schema [healthcare_real] has required tables",
+      "status": "PASS",
+      "details": "Tables: ['items', 'messages', 'reviews', 'sqlite_sequence', 'transactions', 'users']",
+      "category": "Database Integrity"
+    },
+    {
+      "name": "Schema [healthcare_honeypot] has required tables",
+      "status": "PASS",
+      "details": "Tables: ['items', 'messages', 'reviews', 'sqlite_sequence', 'transactions', 'users']",
+      "category": "Database Integrity"
+    },
+    {
+      "name": "[banking] real vs honeypot data differs",
+      "status": "PASS",
+      "details": "Overlap: 0 emails",
+      "category": "Database Integrity"
+    },
+    {
+      "name": "[ecommerce] real vs honeypot data differs",
+      "status": "PASS",
+      "details": "Overlap: 0 emails",
+      "category": "Database Integrity"
+    },
+    {
+      "name": "[banking] honeypot has more users than real",
+      "status": "PASS",
+      "details": "Real: 5 | Honeypot: 55",
+      "category": "Database Integrity"
+    },
+    {
+      "name": "[ecommerce] honeypot has more users than real",
+      "status": "PASS",
+      "details": "Real: 5 | Honeypot: 55",
+      "category": "Database Integrity"
+    },
+    {
+      "name": "[healthcare] honeypot has more users than real",
+      "status": "PASS",
+      "details": "Real: 5 | Honeypot: 55",
+      "category": "Database Integrity"
+    },
+    {
+      "name": "Canary active on [banking] honeypot",
+      "status": "PASS",
+      "details": "",
+      "category": "Multi-Site Coverage"
+    },
+    {
+      "name": "Canary active on [ecommerce] honeypot",
+      "status": "PASS",
+      "details": "",
+      "category": "Multi-Site Coverage"
+    },
+    {
+      "name": "Canary active on [healthcare] honeypot",
+      "status": "PASS",
+      "details": "",
+      "category": "Multi-Site Coverage"
+    },
+    {
+      "name": "Canary active on [blog] honeypot",
+      "status": "PASS",
+      "details": "",
+      "category": "Multi-Site Coverage"
+    },
+    {
+      "name": "Canary active on [api_service] honeypot",
+      "status": "PASS",
+      "details": "",
+      "category": "Multi-Site Coverage"
+    },
+    {
+      "name": "Canary active on [corporate] honeypot",
+      "status": "PASS",
+      "details": "",
+      "category": "Multi-Site Coverage"
+    },
+    {
+      "name": "Canary active on [admin_panel] honeypot",
+      "status": "PASS",
+      "details": "",
+      "category": "Multi-Site Coverage"
+    },
+    {
+      "name": "Fingerprint API on [banking] honeypot",
+      "status": "PASS",
+      "details": "",
+      "category": "Multi-Site Coverage"
+    },
+    {
+      "name": "Fingerprint API on [ecommerce] honeypot",
+      "status": "PASS",
+      "details": "",
+      "category": "Multi-Site Coverage"
+    },
+    {
+      "name": "Fingerprint API on [healthcare] honeypot",
+      "status": "PASS",
+      "details": "",
+      "category": "Multi-Site Coverage"
+    },
+    {
+      "name": "Fingerprint API on [blog] honeypot",
+      "status": "PASS",
+      "details": "",
+      "category": "Multi-Site Coverage"
+    },
+    {
+      "name": "Fingerprint API on [api_service] honeypot",
+      "status": "PASS",
+      "details": "",
+      "category": "Multi-Site Coverage"
+    },
+    {
+      "name": "Fingerprint API on [corporate] honeypot",
+      "status": "PASS",
+      "details": "",
+      "category": "Multi-Site Coverage"
+    },
+    {
+      "name": "Fingerprint API on [admin_panel] honeypot",
+      "status": "PASS",
+      "details": "",
+      "category": "Multi-Site Coverage"
+    },
+    {
+      "name": "Login works on real [banking]",
+      "status": "PASS",
+      "details": "",
+      "category": "Multi-Site Coverage"
+    },
+    {
+      "name": "Login works on real [ecommerce]",
+      "status": "PASS",
+      "details": "",
+      "category": "Multi-Site Coverage"
+    },
+    {
+      "name": "Login works on real [healthcare]",
+      "status": "PASS",
+      "details": "",
+      "category": "Multi-Site Coverage"
+    },
+    {
+      "name": "Login works on honeypot [banking]",
+      "status": "PASS",
+      "details": "",
+      "category": "Multi-Site Coverage"
+    },
+    {
+      "name": "Login works on honeypot [ecommerce]",
+      "status": "PASS",
+      "details": "",
+      "category": "Multi-Site Coverage"
+    },
+    {
+      "name": "Login works on honeypot [healthcare]",
+      "status": "PASS",
+      "details": "",
+      "category": "Multi-Site Coverage"
+    }
+  ],
+  "categories": {
+    "System Health": {
+      "passed": 29,
+      "failed": 0
+    },
+    "Proxy Routing": {
+      "passed": 7,
+      "failed": 4
+    },
+    "Cross-Site Isolation": {
+      "passed": 23,
+      "failed": 0
+    },
+    "Canary Tokens": {
+      "passed": 28,
+      "failed": 0
+    },
+    "Blockchain Ledger": {
+      "passed": 12,
+      "failed": 0
+    },
+    "Behavioral Fingerprinting": {
+      "passed": 9,
+      "failed": 0
+    },
+    "LLM Adaptive Responses": {
+      "passed": 8,
+      "failed": 0
+    },
+    "GAN Synthetic Data": {
+      "passed": 16,
+      "failed": 0
+    },
+    "Database Integrity": {
+      "passed": 11,
+      "failed": 0
+    },
+    "Multi-Site Coverage": {
+      "passed": 20,
+      "failed": 0
+    }
+  }
+}

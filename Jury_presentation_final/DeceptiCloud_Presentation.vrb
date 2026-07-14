@@ -1,0 +1,39 @@
+\frametitle{Module 5: Blockchain Ledger}
+\begin{columns}[T]
+    \begin{column}{0.5\textwidth}
+      \textbf{\textcolor{dcCyan}{What it does:}}
+      \begin{itemize}
+        \item Logs every attack as \textbf{immutable SHA-256 block}
+        \item Stored in \texttt{attack\_chain.json}
+        \item Chain validity verified on every dashboard load
+      \end{itemize}
+      \vspace{0.3em}
+      \textbf{\textcolor{dcCyan}{Why Blockchain?}}
+      \begin{itemize}
+        \item Traditional logs can be deleted / modified
+        \item Modifying any block breaks the entire chain
+        \item Provides \textbf{forensic-grade evidence}
+      \end{itemize}
+      \vspace{0.3em}
+      \textcolor{dcGreen}{\textbf{Current:}} 380+ blocks, chain integrity verified.
+    \end{column}
+    \begin{column}{0.46\textwidth}
+\begin{lstlisting}
+Block {
+  index: 42,
+  timestamp: "2026-03-02",
+  data: {
+    attacker_ip,
+    attack_type,
+    payload,
+    confidence
+  },
+  previous_hash: "a3f9d2...",
+  hash: SHA256(
+    index + timestamp
+    + data + prev_hash
+    + nonce )
+}
+\end{lstlisting}
+    \end{column}
+  \end{columns}

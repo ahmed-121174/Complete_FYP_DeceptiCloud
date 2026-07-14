@@ -1,0 +1,11 @@
+Environment: Docker Container (Honeypot)
+File: docker/honeypot.Dockerfile
+Base Image: python:3.10-slim
+
+Explicitly Installed Dependencies (No versions specified in Dockerfile, installs latest):
+flask
+flask-cors
+requests
+pyyaml
+
+Note: This environment does NOT use requirements.txt during build, despite copying it.

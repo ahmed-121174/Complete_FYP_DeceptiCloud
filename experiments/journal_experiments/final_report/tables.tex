@@ -1,0 +1,55 @@
+% Table 1: Baseline Comparison
+\begin{table}[htbp]
+\centering
+\caption{Performance Comparison: DeceptiCloud vs Baseline Methods}
+\label{tab:baseline_comparison}
+\begin{tabular}{lcccccc}
+\toprule
+Model & Accuracy & Precision & Recall & F1 & FPR & Latency (ms) \\
+\midrule
+Rule-Based & 0.923 & 0.909 & 0.898 & 0.904 & 0.060 & 0.03 \\
+Random Forest & 0.960 & 0.940 & 0.962 & 0.951 & 0.041 & 28.35 \\
+Neural Network & 0.955 & 0.928 & 0.962 & 0.944 & 0.050 & 0.33 \\
+DeceptiCloud Ensemble & 0.955 & 0.929 & 0.962 & 0.945 & 0.049 & 28.09 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% Table 2: Ablation Study
+\begin{table}[htbp]
+\centering
+\caption{Ablation Study: Component Impact Analysis}
+\label{tab:ablation_study}
+\begin{tabular}{lccc}
+\toprule
+Configuration & Accuracy & FPR & Deception Quality \\
+\midrule
+Full System & 0.972 & 0.018 & 0.920 \\
+No GAN & 0.972 & 0.018 & 0.450 \\
+No Blockchain & 0.972 & 0.018 & 0.920 \\
+No Ensemble & 0.935 & 0.034 & 0.920 \\
+No Fingerprinting & 0.954 & 0.018 & 0.920 \\
+No Adaptive Learning & 0.972 & 0.018 & 0.920 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% Table 3: Zero-Day Detection Rates
+\begin{table}[htbp]
+\centering
+\caption{Zero-Day Attack Detection Performance}
+\label{tab:zero_day}
+\begin{tabular}{lccc}
+\toprule
+Attack Type & ML Detection & Behavioral & Ensemble \\
+\midrule
+Log4Shell & 0.600 & 0.747 & 0.673 \\
+Spring4Shell & 1.000 & 0.716 & 0.858 \\
+Proxyshell & 0.600 & 0.697 & 0.648 \\
+Novel Sqli & 1.000 & 0.642 & 0.821 \\
+Polymorphic Xss & 1.000 & 0.823 & 0.911 \\
+Http Smuggling & 1.000 & 0.789 & 0.895 \\
+Prototype Pollution & 0.800 & 0.716 & 0.758 \\
+\bottomrule
+\end{tabular}
+\end{table}

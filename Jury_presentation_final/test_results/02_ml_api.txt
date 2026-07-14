@@ -1,0 +1,9 @@
+--- ML API HEALTH (و 23:53:39 PKT ت 27 فروری 2026) ---
+{
+    "models": {
+        "ddos": true,
+        "web_attack": true
+    },
+    "status": "healthy",
+    "timestamp": "2026-02-27T23:53:39.949836"
+}

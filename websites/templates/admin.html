@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block title %}Admin Panel{% endblock %}
+{% block content %}
+<div class="page-header">
+    <h1> Admin Panel</h1>
+    <p>{{ site.name }} system administration</p>
+</div>
+
+<div class="stat-grid">
+    <div class="stat-card">
+        <div class="stat-value">{{ users|length }}</div>
+        <div class="stat-label">Users</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-value">{{ transactions|length }}</div>
+        <div class="stat-label">Recent Transactions</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-value" style="color:var(--success);">Active</div>
+        <div class="stat-label">System Status</div>
+    </div>
+</div>
+
+<!-- Users Table -->
+<h2 style="margin-bottom:1rem;">User Management</h2>
+<div class="table-wrap" style="margin-bottom:2rem;">
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Full Name</th>
+                <th>Role</th>
+                <th>Balance</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for u in users %}
+            <tr>
+                <td>{{ u.id }}</td>
+                <td><strong>{{ u.username }}</strong></td>
+                <td>{{ u.email }}</td>
+                <td>{{ u.full_name }}</td>
+                <td><span class="badge">{{ u.role }}</span></td>
+                <td>{% if u.balance %}${{ "%.2f"|format(u.balance) }}{% else %}—{% endif %}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- Transactions Table -->
+<h2 style="margin-bottom:1rem;">Recent Transactions</h2>
+<div class="table-wrap">
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Reference</th>
+                <th>Type</th>
+                <th>Amount</th>
+                <th>Status</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for tx in transactions %}
+            <tr>
+                <td>{{ tx.id }}</td>
+                <td><code style="font-size:0.8rem;">{{ tx.reference }}</code></td>
+                <td>{{ tx.type }}</td>
+                <td>{% if tx.amount %}${{ "%.2f"|format(tx.amount) }}{% else %}—{% endif %}</td>
+                <td>
+                    {% if tx.status == 'completed' or tx.status == 'delivered' or tx.status == 'active' %}
+                    <span style="color:var(--success);"> {{ tx.status }}</span>
+                    {% elif tx.status == 'pending' or tx.status == 'processing' or tx.status == 'scheduled' %}
+                    <span style="color:var(--warning);"> {{ tx.status }}</span>
+                    {% else %}
+                    <span style="color:var(--text-muted);"> {{ tx.status }}</span>
+                    {% endif %}
+                </td>
+                <td style="font-size:0.85rem;color:var(--text-muted);">{{ tx.created_at[:10] if tx.created_at else '' }}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

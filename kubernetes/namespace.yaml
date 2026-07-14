@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cyberdefense
+  labels:
+    name: cyberdefense
+    purpose: ai-driven-honeypot

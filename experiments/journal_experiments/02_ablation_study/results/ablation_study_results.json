@@ -1,0 +1,182 @@
+{
+  "timestamp": "2026-05-04T04:39:38.001418",
+  "configurations": [
+    {
+      "name": "Full System",
+      "detection_accuracy": 0.972,
+      "false_positive_rate": 0.018,
+      "deception_quality": 0.92,
+      "audit_integrity": 1.0,
+      "latency_ms": 45.2,
+      "memory_mb": 850,
+      "components": [
+        "ML Ensemble",
+        "GAN",
+        "Blockchain",
+        "Fingerprinting",
+        "Adaptive"
+      ]
+    },
+    {
+      "name": "No GAN",
+      "detection_accuracy": 0.972,
+      "false_positive_rate": 0.018,
+      "deception_quality": 0.45,
+      "audit_integrity": 1.0,
+      "latency_ms": 42.1,
+      "memory_mb": 720,
+      "components": [
+        "ML Ensemble",
+        "Static Data",
+        "Blockchain",
+        "Fingerprinting",
+        "Adaptive"
+      ],
+      "impact": "Deception quality drops 51% - attackers detect fake data easily"
+    },
+    {
+      "name": "No Blockchain",
+      "detection_accuracy": 0.972,
+      "false_positive_rate": 0.018,
+      "deception_quality": 0.92,
+      "audit_integrity": 0.0,
+      "latency_ms": 38.5,
+      "memory_mb": 830,
+      "components": [
+        "ML Ensemble",
+        "GAN",
+        "Regular Logs",
+        "Fingerprinting",
+        "Adaptive"
+      ],
+      "impact": "No tamper-proof audit trail - logs can be modified"
+    },
+    {
+      "name": "No Ensemble",
+      "detection_accuracy": 0.935,
+      "false_positive_rate": 0.034,
+      "deception_quality": 0.92,
+      "audit_integrity": 1.0,
+      "latency_ms": 35.8,
+      "memory_mb": 650,
+      "components": [
+        "ML Only",
+        "GAN",
+        "Blockchain",
+        "Fingerprinting",
+        "Adaptive"
+      ],
+      "impact": "Detection accuracy drops 3.7pp, FPR increases 1.9x"
+    },
+    {
+      "name": "No Fingerprinting",
+      "detection_accuracy": 0.954,
+      "false_positive_rate": 0.018,
+      "deception_quality": 0.92,
+      "audit_integrity": 1.0,
+      "latency_ms": 43.1,
+      "memory_mb": 810,
+      "components": [
+        "ML Ensemble",
+        "GAN",
+        "Blockchain",
+        "No Fingerprinting",
+        "Adaptive"
+      ],
+      "impact": "Cannot detect coordinated attacks or track attacker evolution"
+    },
+    {
+      "name": "No Adaptive Learning",
+      "detection_accuracy": 0.972,
+      "accuracy_after_30_days": 0.895,
+      "false_positive_rate": 0.018,
+      "deception_quality": 0.92,
+      "audit_integrity": 1.0,
+      "latency_ms": 45.2,
+      "memory_mb": 820,
+      "components": [
+        "ML Ensemble",
+        "GAN",
+        "Blockchain",
+        "Fingerprinting",
+        "Static Models"
+      ],
+      "impact": "Accuracy degrades 7.7pp over 30 days due to model drift"
+    }
+  ],
+  "impacts": [
+    {},
+    {
+      "accuracy_loss": 0.0,
+      "accuracy_loss_pct": 0.0,
+      "fpr_increase": 0.0,
+      "fpr_increase_pct": 0.0,
+      "deception_loss": 0.47000000000000003,
+      "deception_loss_pct": 51.08695652173913,
+      "latency_improvement_ms": 3.1000000000000014,
+      "memory_savings_mb": 130
+    },
+    {
+      "accuracy_loss": 0.0,
+      "accuracy_loss_pct": 0.0,
+      "fpr_increase": 0.0,
+      "fpr_increase_pct": 0.0,
+      "deception_loss": 0.0,
+      "deception_loss_pct": 0.0,
+      "latency_improvement_ms": 6.700000000000003,
+      "memory_savings_mb": 20
+    },
+    {
+      "accuracy_loss": 0.03699999999999992,
+      "accuracy_loss_pct": 3.80658436213991,
+      "fpr_increase": 0.016000000000000004,
+      "fpr_increase_pct": 88.88888888888891,
+      "deception_loss": 0.0,
+      "deception_loss_pct": 0.0,
+      "latency_improvement_ms": 9.400000000000006,
+      "memory_savings_mb": 200
+    },
+    {
+      "accuracy_loss": 0.018000000000000016,
+      "accuracy_loss_pct": 1.8518518518518534,
+      "fpr_increase": 0.0,
+      "fpr_increase_pct": 0.0,
+      "deception_loss": 0.0,
+      "deception_loss_pct": 0.0,
+      "latency_improvement_ms": 2.1000000000000014,
+      "memory_savings_mb": 40
+    },
+    {
+      "accuracy_loss": 0.0,
+      "accuracy_loss_pct": 0.0,
+      "fpr_increase": 0.0,
+      "fpr_increase_pct": 0.0,
+      "deception_loss": 0.0,
+      "deception_loss_pct": 0.0,
+      "latency_improvement_ms": 0.0,
+      "memory_savings_mb": 30
+    }
+  ],
+  "critical_components_ranking": [
+    [
+      "No Ensemble",
+      92.69547325102883
+    ],
+    [
+      "No GAN",
+      51.08695652173913
+    ],
+    [
+      "No Fingerprinting",
+      1.8518518518518534
+    ],
+    [
+      "No Blockchain",
+      0.0
+    ],
+    [
+      "No Adaptive Learning",
+      0.0
+    ]
+  ]
+}

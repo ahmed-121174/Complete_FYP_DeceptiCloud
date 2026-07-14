@@ -1,0 +1,61 @@
+{
+  "best_model": "random_forest_v2",
+  "version": "V2",
+  "trained_at": "2026-03-24T15:17:48.571002",
+  "n_features": 30,
+  "feature_names": [
+    " Bwd Header Length",
+    " Fwd Packet Length Max",
+    " Bwd Packets/s",
+    " Max Packet Length",
+    " Total Backward Packets",
+    " Bwd IAT Mean",
+    "Total Length of Fwd Packets",
+    "Bwd IAT Total",
+    " URG Flag Count",
+    "Init_Win_bytes_forward",
+    " Bwd Packet Length Mean",
+    "Flow Bytes/s",
+    " Bwd IAT Min",
+    " Init_Win_bytes_backward",
+    " Protocol",
+    " Flow IAT Mean",
+    " Flow Packets/s",
+    " Packet Length Variance",
+    " Fwd Header Length",
+    "Fwd PSH Flags",
+    " Down/Up Ratio",
+    " ACK Flag Count",
+    " Idle Std",
+    " Active Min",
+    " Total Fwd Packets",
+    "Active Mean",
+    " Bwd Packet Length Min",
+    " Flow Duration",
+    " Fwd Packet Length Std",
+    " Active Max"
+  ],
+  "threshold": 0.19857861950008385,
+  "hyperparameters": {
+    "n_estimators": 150,
+    "max_depth": 8,
+    "min_samples_split": 20,
+    "min_samples_leaf": 10,
+    "max_features": "sqrt",
+    "class_weight": "balanced"
+  },
+  "leaking_features_removed": [
+    " Inbound"
+  ],
+  "results": {
+    "random_forest_v2": {
+      "balanced_accuracy": 99.4814,
+      "auc": 0.999964,
+      "benign_recall": 98.998,
+      "attack_recall": 99.9648,
+      "cv_mean": 99.8719,
+      "cv_std": 0.0181,
+      "train_test_gap": 0.4599
+    }
+  }
+}

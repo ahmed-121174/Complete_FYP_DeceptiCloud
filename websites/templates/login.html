@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="form-card">
+    <div style="text-align:center;margin-bottom:2rem;">
+        <div class="brand-icon"
+            style="width:56px;height:56px;margin:0 auto 1rem;font-size:1.5rem;background:linear-gradient(135deg, var(--primary), var(--cyan));border-radius:14px;display:flex;align-items:center;justify-content:center;box-shadow:0 0 20px rgba(0,240,255,0.3);">
+            </div>
+        <h2>Sign In</h2>
+        <p style="color:var(--text-muted);font-size:0.9rem;">Access your {{ site.name }} account</p>
+    </div>
+
+    {% if error %}
+    <div class="alert alert-error">{{ error }}</div>
+    {% endif %}
+
+    <form method="POST" action="/login">
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" placeholder="admin" value="admin" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="DeceptiCloud" value="DeceptiCloud"
+                required>
+        </div>
+        <button type="submit" class="btn btn-primary btn-full"> Sign In</button>
+    </form>
+
+    <div
+        style="text-align:center;margin-top:1.2rem;padding:12px;background:rgba(0,240,255,0.04);border:1px solid rgba(0,240,255,0.1);border-radius:8px;">
+        <p style="font-size:0.72rem;color:var(--text-dim);font-family:'JetBrains Mono',monospace;">
+            Default: admin / DeceptiCloud
+        </p>
+    </div>
+
+    <p style="text-align:center;margin-top:1.2rem;font-size:0.85rem;color:var(--text-muted);">
+        Don't have an account? <a href="/register" style="color:var(--cyan);">Register here</a>
+    </p>
+</div>
+{% endblock %}

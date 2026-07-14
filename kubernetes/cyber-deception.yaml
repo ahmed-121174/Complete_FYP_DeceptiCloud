@@ -1,0 +1,329 @@
+# AI-Driven Cyber Deception System — Kubernetes Manifests
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cyberdefense
+  labels:
+    app: cyber-deception
+
+---
+# ConfigMap — Shared configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: system-config
+  namespace: cyberdefense
+data:
+  ml_api_url: "http://ml-api:5000"
+  proxy_url: "http://routing-proxy:8080"
+  rotation_interval: "60"
+
+---
+# ML API Deployment + Service
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ml-api
+  namespace: cyberdefense
+  labels:
+    app: ml-api
+    component: intelligence
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ml-api
+  template:
+    metadata:
+      labels:
+        app: ml-api
+        component: intelligence
+    spec:
+      containers:
+      - name: ml-api
+        image: cyberdefense/ml-api:latest
+        ports:
+        - containerPort: 5000
+        env:
+        - name: FLASK_ENV
+          value: "production"
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "250m"
+          limits:
+            memory: "2Gi"
+            cpu: "1000m"
+        livenessProbe:
+          httpGet:
+            path: /api/health
+            port: 5000
+          initialDelaySeconds: 30
+          periodSeconds: 30
+        readinessProbe:
+          httpGet:
+            path: /api/health
+            port: 5000
+          initialDelaySeconds: 10
+          periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ml-api
+  namespace: cyberdefense
+spec:
+  selector:
+    app: ml-api
+  ports:
+  - port: 5000
+    targetPort: 5000
+  type: ClusterIP
+
+---
+# Routing Proxy Deployment + Service
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: routing-proxy
+  namespace: cyberdefense
+  labels:
+    app: routing-proxy
+    component: routing
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: routing-proxy
+  template:
+    metadata:
+      labels:
+        app: routing-proxy
+        component: routing
+    spec:
+      containers:
+      - name: routing-proxy
+        image: cyberdefense/routing-proxy:latest
+        ports:
+        - containerPort: 8080
+        env:
+        - name: ML_API_URL
+          valueFrom:
+            configMapKeyRef:
+              name: system-config
+              key: ml_api_url
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: routing-proxy
+  namespace: cyberdefense
+spec:
+  selector:
+    app: routing-proxy
+  ports:
+  - port: 8080
+    targetPort: 8080
+  type: LoadBalancer
+
+---
+# Dashboard Deployment + Service
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dashboard
+  namespace: cyberdefense
+  labels:
+    app: dashboard
+    component: monitoring
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dashboard
+  template:
+    metadata:
+      labels:
+        app: dashboard
+        component: monitoring
+    spec:
+      containers:
+      - name: dashboard
+        image: cyberdefense/dashboard:latest
+        ports:
+        - containerPort: 9000
+        env:
+        - name: PROXY_URL
+          valueFrom:
+            configMapKeyRef:
+              name: system-config
+              key: proxy_url
+        - name: ML_API_URL
+          valueFrom:
+            configMapKeyRef:
+              name: system-config
+              key: ml_api_url
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "250m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dashboard
+  namespace: cyberdefense
+spec:
+  selector:
+    app: dashboard
+  ports:
+  - port: 9000
+    targetPort: 9000
+  type: LoadBalancer
+
+---
+# Website Deployments (7 Real + 7 Honeypot) — StatefulSet
+# Real Websites
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: websites-real
+  namespace: cyberdefense
+  labels:
+    app: website
+    tier: real
+spec:
+  serviceName: websites-real
+  replicas: 7
+  selector:
+    matchLabels:
+      app: website
+      tier: real
+  template:
+    metadata:
+      labels:
+        app: website
+        tier: real
+    spec:
+      containers:
+      - name: website
+        image: cyberdefense/website:latest
+        ports:
+        - containerPort: 3000
+        env:
+        - name: IS_HONEYPOT
+          value: "false"
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "50m"
+          limits:
+            memory: "128Mi"
+            cpu: "200m"
+---
+# Honeypot Websites
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: websites-honeypot
+  namespace: cyberdefense
+  labels:
+    app: website
+    tier: honeypot
+spec:
+  serviceName: websites-honeypot
+  replicas: 7
+  selector:
+    matchLabels:
+      app: website
+      tier: honeypot
+  template:
+    metadata:
+      labels:
+        app: website
+        tier: honeypot
+    spec:
+      containers:
+      - name: website
+        image: cyberdefense/website:latest
+        ports:
+        - containerPort: 4000
+        env:
+        - name: IS_HONEYPOT
+          value: "true"
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "50m"
+          limits:
+            memory: "128Mi"
+            cpu: "200m"
+---
+# Services for website access
+apiVersion: v1
+kind: Service
+metadata:
+  name: websites-real
+  namespace: cyberdefense
+spec:
+  selector:
+    app: website
+    tier: real
+  ports:
+  - port: 3000
+    targetPort: 3000
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: websites-honeypot
+  namespace: cyberdefense
+spec:
+  selector:
+    app: website
+    tier: honeypot
+  ports:
+  - port: 4000
+    targetPort: 4000
+  type: ClusterIP
+
+---
+# Network Policy — Isolate honeypots from real services
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: honeypot-isolation
+  namespace: cyberdefense
+spec:
+  podSelector:
+    matchLabels:
+      tier: honeypot
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          app: routing-proxy
+  egress:
+  - to:
+    - podSelector:
+        matchLabels:
+          app: ml-api
+  - to:
+    - podSelector:
+        matchLabels:
+          app: dashboard

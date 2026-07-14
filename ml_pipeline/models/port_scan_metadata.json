@@ -1,0 +1,22 @@
+{
+  "model_type": "Random Forest (Regularized)",
+  "accuracy": 0.8973333333333333,
+  "precision": 0.8995983935742972,
+  "recall": 0.8948069241011984,
+  "f1_score": 0.897196261682243,
+  "feature_names": [
+    "num_ports_accessed",
+    "unique_ports",
+    "avg_time_between_accesses",
+    "min_time_between_accesses",
+    "max_time_between_accesses",
+    "avg_port_diff",
+    "sequential_pattern",
+    "ports_per_second",
+    "has_scan_ua",
+    "avg_response_time",
+    "common_ports_ratio",
+    "high_port_ratio"
+  ],
+  "attack_type": "Port Scan"
+}

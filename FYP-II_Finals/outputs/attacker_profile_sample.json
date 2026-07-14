@@ -1,0 +1,45 @@
+{
+  "profiles": [
+    {
+      "session_id": "fp-a3f9b2",
+      "attacker_ip": "192.168.1.101",
+      "tool_signatures": ["sqlmap/1.7", "sqlmap/1.7.8"],
+      "attack_sequence": ["SQLi-UNION", "SQLi-BLIND", "SQLi-SLEEP", "SQLi-AUTH-BYPASS"],
+      "classification": "Automated Scanner — Database Exfiltration",
+      "risk_level": "CRITICAL",
+      "requests_count": 8,
+      "honeypots_hit": ["SecureBank:4001", "AdminPanel:4007"],
+      "deception_outcome": "GAN fake users served — attacker believes 35 accounts stolen",
+      "canary_tokens_triggered": 3,
+      "wazuh_rule_ids": ["31103", "31104", "100001"]
+    },
+    {
+      "session_id": "fp-b7c4d1",
+      "attacker_ip": "10.0.0.45",
+      "tool_signatures": ["Hydra/9.4", "Medusa/2.2"],
+      "attack_sequence": ["AUTH_PROBE", "AUTH_FAIL_x10", "AUTH_FAIL_x10", "AUTH_ACCEPTED_FAKE"],
+      "classification": "Credential Stuffing / Automated Brute Force",
+      "risk_level": "HIGH",
+      "requests_count": 25,
+      "credentials_captured": 8,
+      "real_accounts_compromised": 0,
+      "honeypots_hit": ["SecureBank:4001"],
+      "deception_outcome": "Attacker believes login succeeded — confined to honeypot jail",
+      "wazuh_rule_ids": ["5710", "5711", "31101"]
+    },
+    {
+      "session_id": "fp-ddos-01",
+      "attacker_ip": "DISTRIBUTED (spoofed)",
+      "tool_signatures": ["DDoS-Bot/1..60"],
+      "attack_sequence": ["RAMP_UP", "SUSTAINED_FLOOD", "TARGETED_CRASH", "SLOWLORIS"],
+      "classification": "Volumetric DDoS — SYN/UDP Flood",
+      "risk_level": "CRITICAL",
+      "total_requests": 3900,
+      "peak_rps": 111,
+      "target_crashed": "NexaGen Corp Honeypot :4006",
+      "k8s_recovery_time_sec": 8,
+      "real_sites_affected": 0,
+      "wazuh_rule_ids": ["31151", "31152"]
+    }
+  ]
+}

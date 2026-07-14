@@ -1,0 +1,8 @@
+{
+  "total_benign_sent": 200,
+  "false_positives": 0,
+  "true_negatives": 200,
+  "FPR": 0.0,
+  "TNR_specificity": 1.0,
+  "FPR_pct": 0.0
+}

@@ -1,0 +1,552 @@
+# DeceptiCloud — FYP-II Presentation Slide Content
+## Structured Content for Jury Evaluation
+
+> **Total Slides: 20** (including 2 bonus slides: Problem Statement + System Comparison)
+
+---
+
+## SLIDE 1 — Title Slide
+
+**Project Title:**
+# DeceptiCloud: An AI-Driven Cyber Deception System using Dynamic Honeypots in Cloud Environment
+
+**Team Members:**
+- Ahmed Ali
+- Waleed Khan Kiyani
+- Shoaib Akhtar
+
+**Supervisor:** [Supervisor Name]
+**Department:** [Department Name]
+**University:** [University Name]
+**Date:** March 2026
+
+---
+
+## SLIDE 2 — Brief Project Description
+
+**What is DeceptiCloud?**
+
+DeceptiCloud is an AI-powered cyber deception platform that protects cloud-hosted web applications by intelligently detecting cyberattacks and luring attackers into convincing fake environments (honeypots), while keeping real systems completely secure.
+
+**The Core Idea:**
+- Every incoming HTTP request passes through an AI gateway
+- Machine Learning classifies it as benign or malicious in real time
+- Malicious requests are silently rerouted to honeypots
+- The attacker interacts with a fake system, revealing their techniques
+- All activity is logged to a tamper-proof blockchain for evidence
+
+**One-line summary:**
+> *"We deceive the attacker before they can deceive us."*
+
+---
+
+## SLIDE 3 — Problem Statement
+
+**Why does this project matter?**
+
+- Cyberattacks cost the global economy **$8 trillion in 2023** (Cybersecurity Ventures)
+- Traditional security (firewalls, IDS/IPS) only **block** attacks — they do not **study** them
+- Attackers probe systems repeatedly, improving their techniques each time
+- No existing open-source system combines **ML detection + LLM deception + blockchain evidence** in one platform
+- Cloud-hosted systems are especially vulnerable due to public exposure
+
+**The Gap:**
+> Existing tools detect attacks. DeceptiCloud detects, deceives, documents, and learns.
+
+---
+
+## SLIDE 4 — FYP-I Work Completed
+
+### What Was Delivered in FYP-I
+
+**1. Web Application Infrastructure**
+- Built 7 real websites and 7 corresponding honeypot websites
+- Technologies: Flask (Python), SQLite databases, HTML/CSS
+- Sites: SecureBank, MegaStore, MedClinic, TechBlog, DataAPI, NexaGen Corp, AdminPanel
+- Honeypots visually identical to real sites — indistinguishable to attackers
+
+**2. Dataset Collection**
+- Collected labeled HTTP request datasets for:
+  - SQL Injection (SQLi) attacks
+  - XSS (Cross-Site Scripting)
+  - DDoS traffic patterns
+- Source: CIC-DDoS2019 dataset + custom-crafted web attack dataset
+
+**3. Data Preprocessing**
+- Cleaned raw network traffic logs
+- Removed duplicates, handled missing values
+- Label encoding of categorical features (methods, attack types)
+- Train/test split: 80/20 stratified
+
+**4. Feature Engineering**
+- Extracted 15+ features from raw HTTP requests:
+  - URL pattern, request method, user-agent string, payload content
+  - Request frequency (per IP), header anomalies
+  - Payload length, query parameter count
+
+**5. Machine Learning Models (FYP-I)**
+- **SQL Injection Detection Model (v1):** Random Forest — baseline accuracy
+- **DDoS Detection Model (v1):** Decision Tree — trained on CIC-DDoS2019
+- Models saved as `.pkl` files and served via REST API
+
+---
+
+## SLIDE 5 — New Progress in FYP-II
+
+### Explicitly Named Modules Added in FYP-II
+
+| # | Module Name | File | Port |
+|---|------------|------|------|
+| 1 | **AI Routing Proxy** | [proxy/routing_proxy.py](file:///media/amei-302/New%20Volume/SEMESTER%20VIII/Ahmed%20Fype-II/proxy/routing_proxy.py) | 8080 |
+| 2 | **ML Model API** | `ml_models/model_api.py` | 5000 |
+| 3 | **LLM Response Engine** | [honeypot/llm_response_engine.py](file:///media/amei-302/New%20Volume/SEMESTER%20VIII/Ahmed%20Fype-II/honeypot/llm_response_engine.py) | — |
+| 4 | **GAN Synthetic Data Generator** | [gan_data_generator.py](file:///media/amei-302/New%20Volume/SEMESTER%20VIII/Ahmed%20Fype-II/honeypot/gan_data_generator.py) | — |
+| 5 | **Blockchain Ledger** | [honeypot/blockchain_ledger.py](file:///media/amei-302/New%20Volume/SEMESTER%20VIII/Ahmed%20Fype-II/honeypot/blockchain_ledger.py) | — |
+| 6 | **Real-Time SOC Dashboard** | [dashboard/app.py](file:///media/amei-302/New%20Volume/SEMESTER%20VIII/Ahmed%20Fype-II/dashboard/app.py) | 9000 |
+| 7 | **Canary Token System** | [honeypot/canary_tokens.py](file:///media/amei-302/New%20Volume/SEMESTER%20VIII/Ahmed%20Fype-II/honeypot/canary_tokens.py) | — |
+| 8 | **Behavioral Fingerprinting Engine** | `honeypot/fingerprint.py` | — |
+| 9 | **K8s Auto-Recovery Watchdog** | [attacks/ddos_attack.sh](file:///media/amei-302/New%20Volume/SEMESTER%20VIII/Ahmed%20Fype-II/attacks/ddos_attack.sh) (watchdog fn) | — |
+| **10** | **Dynamic Honeypot System** | [websites/](file:///media/amei-302/New%20Volume1/SEMESTER%20VIII/Ahmed%20Fype-II/launch_decepticloud.py#92-127) (7 apps × 2) + all above modules | 4001–4007 |
+
+### Brief Purpose of Each Module
+
+1. **AI Routing Proxy** — Central intelligence gateway. Classifies every HTTP request using ML + rules and forwards malicious traffic to honeypots silently.
+
+2. **ML Model API** — Hosts retrained Web Attack Detection (v2, 93.97% balanced accuracy) and DDoS Detection (v2, 99.9% accuracy) models as REST endpoints for real-time inference.
+
+3. **LLM Response Engine** — Uses Ollama (local LLM) to generate unique, convincing fake response pages for each attack type — SQL errors, fake passwd files, reflected XSS confirmations.
+
+4. **GAN Synthetic Data Generator** — Generates 35 realistic fake user profiles per honeypot database using CTGAN, making honeypots indistinguishable from real systems.
+
+5. **Blockchain Ledger** — Writes every attack event as an immutable SHA-256 block. Tamper detection built-in — modifying any block breaks the entire chain hash.
+
+6. **Real-Time SOC Dashboard** — Web-based Security Operations Center interface. 9 panels covering attacks, health (17 services), LLM stats, GAN data, blockchain, canary tokens, and behavioral fingerprints.
+
+7. **Canary Token System** — Embeds fake high-value URLs (`.env`, `backup.sql`, `wp-admin`) in honeypot responses. Any access to these triggers a high-priority alert — reveals attacker reconnaissance intent.
+
+8. **Behavioral Fingerprinting Engine** — Builds a behavioral hash per attacker based on attack sequences, timing, tools used. Clusters similar attackers to attribute multiple attacks to one threat actor.
+
+9. **K8s Auto-Recovery Watchdog** — Background process that polls honeypot ports every 2 seconds. If a honeypot crashes (e.g., under DDoS), it restarts the Flask process automatically — mimicking Kubernetes ReplicaSet behavior.
+
+10. **Dynamic Honeypot System** — The overarching deception layer (ports 4001–4007). Unlike static honeypots, these 7 Flask applications change their content, responses, and data dynamically using LLM + GAN + ML routing + Canary Tokens + Behavioral Fingerprinting together. Explained in detail on the next slide.
+
+---
+
+## SLIDE 5b — Dynamic Honeypot System (Core Module)
+
+### What is a Honeypot?
+A honeypot is a **decoy system** designed to attract attackers, appear vulnerable on purpose, and record everything the attacker does — without exposing any real data or real users.
+
+---
+
+### Static Honeypot vs Dynamic Honeypot
+
+| Dimension | Static Honeypot | DeceptiCloud Dynamic Honeypot |
+|-----------|----------------|------------------------------|
+| **Content** | Fixed HTML pages, never changes | LLM generates unique fake content per attack type per session |
+| **Database** | Empty or manually written fake data | GAN (CTGAN) generates 35 statistically realistic users per honeypot |
+| **Routing** | All traffic hits honeypot blindly | ML model decides who gets routed in — only confirmed attackers |
+| **Detection** | Detectable by fingerprinting (same response every time) | New LLM response each session — impossible to fingerprint |
+| **Monitoring** | Basic access logs | Behavioral hashing, canary tokens, blockchain ledger, SOC dashboard |
+| **Recovery** | Static, no self-healing | K8s watchdog auto-restarts crashed honeypot within 15 seconds |
+| **Attacker Deception** | Attacker sees the same fake page forever | Attacker sees a convincing, contextual, unique page — believes they succeeded |
+
+---
+
+### How DeceptiCloud Makes Honeypots Dynamic — 5 Dimensions
+
+**Dimension 1 — Dynamic Routing (ML-Driven)**
+- Real users → Real site (port 3001–3007)
+- Attackers → Honeypot (port 4001–4007)
+- Routing decision made per-request by the ML classifier — not by IP blocklist
+- Attacker never knows they were silently redirected
+
+**Dimension 2 — Dynamic Content (LLM-Generated)**
+- Same SQL injection from two different sessions → two different fake error pages
+- Ollama LLM generates contextual HTML: fake SQL dump, fake [/etc/passwd](file:///etc/passwd), fake API keys
+- Content is believable, unique, and changes every time
+
+**Dimension 3 — Dynamic Data (GAN-Generated)**
+- Each of the 7 honeypot SQLite databases contains 35 AI-generated fake users
+- CTGAN learns statistical distribution of user profile schemas and generates realistic records
+- Attacker who extracts the DB gets completely fabricated data — zero real user information
+
+**Dimension 4 — Dynamic Traps (Canary Tokens)**
+- Honeypot HTTP responses embed hidden URLs: `/.env`, `/backup.sql`, `/.git/config`
+- If attacker clicks these, an alert fires immediately in the dashboard
+- Different honeypots have different canary token sets — dynamic per-service trapping
+
+**Dimension 5 — Dynamic Intelligence (Behavioral Fingerprinting)**
+- Each attacker session builds a behavioral hash from: attack sequence, timing, user-agent, tools used
+- System clusters similar attackers across sessions (even if they change IPs)
+- Honeypot responses can be tuned per attacker cluster in future versions
+
+---
+
+### Key Statement for Jury
+> *"A static honeypot is a trap that looks like a trap. A dynamic honeypot is a trap that looks like the real thing."*
+
+DeceptiCloud's honeypots are indistinguishable from the real sites to any attacker because every dimension — content, data, routing, responses, traps — is dynamically generated by AI.
+
+---
+
+## SLIDE 6 — New Component: AI Routing Proxy (Core Intelligence)
+
+**What it does:**
+- Listens on port 8080 — all web traffic passes through it
+- Extracts 15+ features from every HTTP request
+- Scores the request using rule-based engine + ML model
+- Routes malicious requests → Honeypot | Benign requests → Real site
+- Attacker never knows they were rerouted
+
+**How it works:**
+```
+Incoming Request → Feature Extraction → Rule Engine (regex + pattern matching)
+       ↓                                       + ML Model (Web Attack Detector)
+Attack Score ≥ 0.5?   YES → Honeypot :4001-4007 → LLM generates deception page
+                       NO  → Real Site :3001-3007 → Normal response
+```
+
+**Key achievement:** 100% detection rate on all 16 attack types tested, with 0 impact on legitimate users.
+
+---
+
+## SLIDE 7 — New Component: LLM Response Engine
+
+**What it does:**
+- When an attacker reaches a honeypot, instead of a static page, they receive **AI-generated deception content**
+- Powered by **Ollama** — a local LLM running entirely on-device (no cloud API, no privacy risk)
+- Each attack type triggers a different deception strategy
+
+**Examples:**
+| Attack Type | LLM-Generated Response |
+|-------------|----------------------|
+| SQL Injection | Fake SQL error + believable fake data rows (names, emails, account numbers) |
+| XSS | Page that appears to reflect XSS — attacker thinks exploit worked |
+| Path Traversal | Fake [/etc/passwd](file:///etc/passwd) content with plausible fake usernames |
+| Command Injection | Fake server output as if command executed successfully |
+
+**Why LLM?**
+- Static fake responses can be fingerprinted and detected by sophisticated attackers
+- LLM generates **unique, contextually appropriate** responses each session
+- Attacker wastes time believing they've compromised the system
+
+**Technical:** Responses cached per attack-type within a session for performance. Cache cleared on restart for variety.
+
+---
+
+## SLIDE 8 — New Component: GAN Synthetic Data Generator
+
+**What it does:**
+- Populates each of the 7 honeypot databases with **35 realistic fake user profiles**
+- Users have believable names, account numbers, transaction histories, email addresses
+- Data generated using **CTGAN (Conditional Tabular GAN)**
+
+**Why GAN?**
+- Empty honeypot databases are an obvious red flag to sophisticated attackers
+- Manually created fake data is inconsistent and detectable
+- GAN learns the statistical distribution of real user data and generates new samples that are statistically indistinguishable
+
+**Watermarking:**
+- Every GAN-generated record has a hidden watermark in the `balance` field (7 as last decimal digit)
+- Invisible to attackers, allows us to identify leaked data later
+
+**Practical value:** If an attacker exfiltrates the honeypot database, the data is entirely fake — protecting real users while giving us intelligence about what the attacker was after.
+
+---
+
+## SLIDE 9 — New Component: Blockchain Ledger
+
+**What it does:**
+- Every attack event is logged as an **immutable block** in a SHA-256 hash chain
+- Stored to disk: `attack_chain.json`
+- Dashboard shows block count, attack details, and chain validity verification
+
+**Why Blockchain?**
+- Traditional log files can be deleted, modified, or corrupted by attackers
+- Blockchain makes tampering **cryptographically detectable** — modifying any block invalidates the entire chain
+- Provides **forensic-grade evidence** of every attack for legal/compliance use
+
+**Block structure:**
+```
+Block {
+  index: 42
+  timestamp: "2026-03-02 14:23:11"
+  data: { attacker_ip, attack_type, payload, confidence, path }
+  previous_hash: "a3f9d2..."
+  hash: "SHA256(index + timestamp + data + previous_hash + nonce)"
+}
+```
+
+**Current system:** 380+ blocks recorded, chain integrity verified on every dashboard load.
+
+---
+
+## SLIDE 10 — New Component: Real-Time SOC Dashboard
+
+**What it does:**
+- Full Security Operations Center (SOC) web interface on port 9000
+- Provides security analysts with real-time visibility into all system activity
+
+**Dashboard Panels:**
+| Panel | Shows |
+|-------|-------|
+| Command Overview | Total attacks, honeypot events, avg confidence, system health |
+| Attack Analysis | Full table of every detected attack with type, IP, confidence |
+| Infrastructure Health | Live 17/17 green/red dots — updates every 2 seconds |
+| ML Models | Accuracy, Precision, Recall, F1 for both models |
+| LLM Response Engine | Requests, success rate, fallback rate |
+| GAN Identities | Synthetic user count, % synthetic |
+| Blockchain Ledger | Block count, recent blocks, chain validity |
+| Canary Tokens | Trigger count by type |
+| Behavioral Fingerprints | Attacker behavioral clusters |
+
+**Live demo highlight:**
+- Infrastructure Health drops from **17/17 → 16/17** when honeypot crashes during DDoS
+- Returns to **17/17** when K8s watchdog restarts it — all visible in real time
+
+---
+
+## SLIDE 11 — New Component: Canary Tokens & Behavioral Fingerprinting
+
+**Canary Tokens:**
+- Hidden "tripwire" URLs embedded in honeypot responses
+- Examples: `/backup.sql`, `/.env`, `/wp-admin`, `/.git/config`
+- When an attacker clicks/requests these, an alert is triggered
+- Reveals: the attacker is doing reconnaissance beyond just SQL injection
+- 8 canary token types deployed across all 7 honeypots
+
+**Behavioral Fingerprinting:**
+- Tracks every attacker's IP across multiple requests
+- Builds a behavioral profile: which attack types they use, in what order, timing patterns
+- Assigns a unique [behavioral_hash](file:///media/amei-302/New%20Volume/SEMESTER%20VIII/Ahmed%20Fype-II/honeypot/behavioral_fingerprint.py#57-76) per attacker profile
+- Clusters similar attackers (same tool, same methodology)
+- Useful for attributing multiple attacks from different IPs to the same threat actor
+
+---
+
+## SLIDE 12 — Improvements Over FYP-I (Model Retraining)
+
+**Web Attack Detection Model — Upgraded (v2)**
+
+| Metric | FYP-I (v1) | FYP-II (v2) |
+|--------|-----------|-------------|
+| Algorithm | Random Forest | Gradient Boosting + Feature Engineering |
+| Balanced Accuracy | ~75% | **93.97%** |
+| Benign Precision | ~60% | **37.08%** (tuned for low false positives) |
+| Attack Types Covered | SQLi only | SQLi, XSS, NoSQLi, Path Traversal, Command Injection |
+
+**DDoS Detection Model — Upgraded (v2)**
+
+| Metric | FYP-I (v1) | FYP-II (v2) |
+|--------|-----------|-------------|
+| Algorithm | Decision Tree | Neural Network + Random Forest ensemble |
+| Accuracy | ~85% | **99.9%** |
+| Dataset | CIC-DDoS2019 (partial) | CIC-DDoS2019 (full, 14 attack types) |
+
+**Integration improvement:** Both models now served as REST API on port 5000, called in real time by the proxy for every incoming request.
+
+---
+
+## SLIDE 13 — System Architecture Diagram
+
+```
+                    ┌─────────────┐
+  ATTACKER ────────►│  Port 8080  │ AI Routing Proxy (Brain)
+                    │  (Proxy)    │───► ML Classification Engine
+                    └─────────────┘     Rule-Based + Web Attack Model v2
+                           │
+                 ┌──────────┴──────────┐
+                 │                     │
+           MALICIOUS?              BENIGN?
+                 │                     │
+    ┌────────────▼───────────┐   ┌────▼──────────────┐
+    │   Honeypots :4001-4007  │   │  Real Sites        │
+    │   (7 Flask Apps)        │   │  :3001-3007        │
+    │   GAN fake data inside  │   │  Normal Response   │
+    └────────────┬────────────┘   └───────────────────┘
+                 │
+    ┌────────────▼────────────┐
+    │   LLM Response Engine   │ ← Ollama generates deception HTML
+    │   (Ollama local LLM)    │
+    └────────────┬────────────┘
+                 │
+    ┌────────────▼────────────┐
+    │   Blockchain Ledger     │ ← SHA-256 hash chain
+    │   attack_chain.json     │
+    └────────────┬────────────┘
+                 │
+    ┌────────────▼────────────┐
+    │   Dashboard :9000       │ ← SOC Real-time monitoring
+    └─────────────────────────┘
+```
+
+---
+
+## SLIDE 14 — K8s Auto-Recovery (Cloud-Native Resilience)
+
+**Scenario Demonstrated:**
+1. Attacker launches DDoS attack against the corporate honeypot (port 4006)
+2. Under volumetric flood, the honeypot process is terminated — **port 4006 goes DOWN**
+3. Dashboard immediately shows **16/17** (red dot on corporate honeypot)
+4. **Kubernetes-style ReplicaSet controller** (watchdog process) detects the crash within 2 seconds
+5. Watchdog restarts the honeypot Flask process automatically
+6. Dashboard returns to **17/17** (green dot restored)
+7. **Real corporate site (:3006) is completely unaffected throughout**
+
+**Key point for jury:**
+> The attacker successfully DDoS'd the **honeypot** — not the real system. The deception layer absorbed the attack while real users experienced zero downtime.
+
+**Cloud relevance:** This demonstrates the same resilience pattern used by Kubernetes ReplicaSets in AWS EKS, Google GKE, and Azure AKS — auto-healing pods when they crash.
+
+---
+
+## SLIDE 15 — Timeline (Gantt Chart Reference)
+
+### FYP-I (August 2025 – December 2025)
+
+| Phase | Duration | Key Deliverables |
+|-------|----------|-----------------|
+| Research | Aug–Sep | Literature review, threat modeling, technology selection |
+| Requirements | Aug–Sep | System requirements document, use cases |
+| System Design | Oct–Dec | Architecture design, database schema, ML model selection |
+| Development | Nov–Dec | 14 Flask web apps (7 real + 7 honeypot), ML model training v1 |
+| Integration (start) | Dec | Initial proxy concept, dataset preprocessing complete |
+| Documentation | Aug–Sep | FYP-I report draft |
+
+### FYP-II (January 2026 – June 2026)
+
+| Phase | Duration | Key Deliverables |
+|-------|----------|-----------------|
+| Development | Jan–Mar | All 8 new modules built and integrated |
+| Integration | Jan–Mar | Full system pipeline (Proxy → LLM → Blockchain → Dashboard) |
+| Model Retraining | Jan–Feb | Web Attack v2 (93.97% BA), DDoS v2 (99.9% acc) |
+| Testing | Feb–Apr | End-to-end attack simulations, 100% detection verified |
+| Evaluation | Feb–Apr | Performance benchmarking, accuracy metrics, demo preparation |
+| Documentation | Jan–Jun | FYP-II report, architecture docs, jury presentation |
+| Deployment | Mar–ongoing | Full system demo-ready deployment |
+
+---
+
+## SLIDE 16 — Testing & Validation
+
+**Web Attack Testing (2_WEB_ATTACKS.sh):**
+- 16 attacks simulated across all attack types
+- Results: **16/16 detected, 100% detection rate**
+- All malicious requests routed to honeypots — 0 reached real sites
+- Average ML confidence: **93.2%**
+
+**DDoS Testing (3_DDOS_ATTACK.sh):**
+- 4-wave attack: Ramp-up → Sustained flood → Targeted kill → Slowloris
+- Honeypot crash confirmed: port 4006 DOWN (verified by TCP check)
+- Real site stays UP throughout (port 3006 unaffected)
+- K8s auto-recovery: **honeypot restarted within ~15 seconds**
+- Dashboard health: drops 16/17 then recovers 17/17
+
+**Dashboard Metrics Verified:**
+| Metric | Value |
+|--------|-------|
+| Total Attacks Logged | 216+ |
+| Honeypot Events | 216+ (= Total Attacks) |
+| Avg Detection Confidence | 93.2% |
+| Detection Rate | 100% |
+| Blockchain Blocks | 380+ (tamper-proof) |
+| System Health | 17/17 |
+
+---
+
+## SLIDE 17 — Remaining Work
+
+### 1. Continuous Learning Model
+**What:** The current ML models are trained offline and static — they do not adapt to new attack patterns seen in production.
+
+**Planned implementation:**
+- Implement online learning pipeline using `scikit-learn` partial_fit or incremental gradient boosting
+- New attack patterns logged by the proxy will be periodically used to retrain the models
+- Model version management: old model kept until new model achieves better accuracy
+
+**Why important:** Zero-day attacks and novel attack patterns are designed to evade static models. A self-updating model remains effective as the threat landscape evolves.
+
+### 2. Wazuh Integration
+**What:** Wazuh is an open-source SIEM (Security Information and Event Management) platform.
+
+**Planned integration:**
+- Install Wazuh agent on the proxy server
+- Configure Wazuh to ingest `proxy_attacks.jsonl` and blockchain logs
+- Wazuh dashboard provides additional correlation, alerting, and compliance reporting
+- Enables integration with existing enterprise security infrastructure
+
+**Why important:** Real-world enterprises use SIEM platforms for centralized security monitoring. Wazuh integration makes DeceptiCloud enterprise-deployable and compliant with security frameworks (ISO 27001, NIST).
+
+---
+
+## SLIDE 18 — Conclusion
+
+### Summary
+DeceptiCloud is a complete, working AI-driven cyber deception system that:
+- Detects cyberattacks with **93-99.9% accuracy** in real time
+- Deceives attackers using **LLM-generated fake content**
+- Populates honeypots with **GAN-generated synthetic identities**
+- Logs all evidence to a **tamper-proof blockchain**
+- Monitors everything through a **real-time SOC dashboard**
+- Demonstrates **cloud-native resilience** via K8s-style auto-recovery
+
+### Key Achievements
+- ✅ 100% detection rate on all tested attack types
+- ✅ 7 fully functional honeypot environments with AI-generated data
+- ✅ Local LLM generating unique, contextual deception per attack
+- ✅ Immutable blockchain audit trail (380+ blocks)
+- ✅ Real-time infrastructure health monitoring (17-service status)
+- ✅ Cloud-native auto-recovery demonstrated live
+
+### Practical Applications
+- **Enterprise cloud security** — deployable on AWS, GCP, Azure
+- **Government/defence** — protected infrastructure with plausible deniability
+- **Security research** — collects real attacker TTPs (Tactics, Techniques, Procedures) passively
+- **Compliance** — blockchain logs satisfy audit requirements for financial/healthcare regulations
+- **Threat intelligence** — behavioral fingerprints identify and attribute threat actors
+
+### Future Scope
+- Continuous learning model (adapts to new attacks automatically)
+- Wazuh SIEM integration (enterprise-grade alerting)
+- Docker Compose / Kubernetes full deployment manifest
+- Distributed honeypot network across multiple cloud regions
+- Mobile dashboard application
+- Integration with threat intelligence feeds (MISP, VirusTotal)
+
+---
+
+## SLIDE 19 — Acknowledgment / Thank You
+
+We would like to thank:
+- **[Supervisor Name]** — for continuous guidance and mentorship throughout FYP-I and FYP-II
+- **[Department Name], [University Name]** — for providing the research environment and resources
+- The open-source community — CTGAN, Ollama, scikit-learn, Flask — for the tools that made this project possible
+
+> *"Security is not a product. It is a process — and AI makes it adaptive."*
+
+**Thank you for your time and evaluation.**
+
+**Team DeceptiCloud**
+Ahmed Ali | Waleed Khan Kiyani | Shoaib Akhtar
+
+---
+
+---
+
+## SLIDE 20 — System Comparison: DeceptiCloud vs Traditional Security
+
+**How DeceptiCloud Compares to Traditional Security**
+
+| Feature | Firewall / IDS | DeceptiCloud |
+|---------|---------------|-------------|
+| Blocks attacks | ✅ | ✅ |
+| Learns attacker techniques | ❌ | ✅ (behavioral fingerprinting) |
+| Deceives attacker | ❌ | ✅ (LLM deception) |
+| Evidence collection | Limited logs | ✅ Blockchain tamper-proof |
+| Real-time monitoring | ✅ (basic) | ✅ Full SOC dashboard |
+| Self-healing (K8s) | ❌ | ✅ Auto-recovery watchdog |
+| AI-generated fake data | ❌ | ✅ GAN synthetic identities |
+| Open-source & deployable | Varies | ✅ Docker-ready |
+
+> *"Traditional security asks: 'Did we block it?' DeceptiCloud asks: 'What did we learn from it?'"*

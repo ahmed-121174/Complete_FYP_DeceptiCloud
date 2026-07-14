@@ -1,0 +1,529 @@
+╔══════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                                      ║
+║                          DECEPTICLOUD v2.0                                           ║
+║                AI-Driven Cyber Deception System                                      ║
+║                                                                                      ║
+║                       PROJECT SUMMARY                                                ║
+║                     FYP-II (Phase 1 & 2)                                             ║
+║                                                                                      ║
+╚══════════════════════════════════════════════════════════════════════════════════════╝
+
+
+================================
+1. PROJECT OVERVIEW
+================================
+
+DeceptiCloud is an AI-Driven Cyber Deception System that combines machine learning,
+honeypot technology, and real-time traffic analysis to detect, classify, and deflect
+cyber attacks. The system deploys 14 identical-looking websites (7 real + 7 honeypot
+clones) behind an intelligent routing proxy that classifies incoming traffic using
+ML models and rule-based analysis. Malicious traffic is transparently redirected to
+honeypot clones while legitimate users access real services.
+
+Key Innovation: Unlike traditional honeypots, DeceptiCloud uses Generative AI (LLMs)
+to create dynamic, context-aware responses and Generative Adversarial Networks (GANs)
+to populate databases with realistic synthetic identities. This makes the deception
+indistinguishable from reality while fingerprinting attackers behaviorally.
+
+
+================================
+2. SYSTEM ARCHITECTURE
+================================
+
+                     ┌──────────────┐
+                     │   Internet   │
+                     │  (Attacker)  │
+                     └──────┬───────┘
+                            │
+                    ┌───────▼───────┐
+                    │  ROUTING      │   Port 8080
+                    │  PROXY        │◄──────── ML API (Port 5000)
+                    │  (Classifier) │
+                    └───┬───────┬───┘
+                        │       │
+            ┌───────────┘       └───────────┐
+            │ BENIGN                MALICIOUS│
+            │                               │
+    ┌───────▼───────┐              ┌────────▼────────┐
+    │  REAL SITES   │              │  HONEYPOT SITES  │
+    │ (3001-3007)   │              │  (4001-4007)     │
+    │               │              │  (Attack logged) │
+    └───────────────┘              └──────────────────┘
+            │                               │
+            └───────────┬───────────────────┘
+                        │
+               ┌────────▼────────┐
+               │   DASHBOARD     │   Port 9000
+               │  (DeceptiCloud) │
+               │  Real-time UI   │
+               └─────────────────┘
+
+
+================================
+3. MACHINE LEARNING MODELS
+================================
+
+┌─────────────────────────────────────────────────────────────────────────────────────┐
+│ MODEL 1: WEB ATTACK DETECTOR V2                                                    │
+├─────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                     │
+│ File:          web_attack_detector_v2.keras                                         │
+│ Algorithm:     Deep Neural Network (Keras/TensorFlow)                               │
+│ Architecture:  Multi-layer Dense Network with:                                      │
+│                 - Input Layer (feature vector)                                       │
+│                 - Hidden Layers with ReLU activation                                │
+│                 - Dropout layers for regularization                                 │
+│                 - Output Layer with Sigmoid activation (binary classification)      │
+│                                                                                     │
+│ Training Data: Web attack dataset (SQLi, NoSQLi, XSS payloads + benign requests)   │
+│ Performance:   93.97% Balanced Accuracy                                             │
+│                37.08% Benign Precision (tuned for high recall on attacks)           │
+│                                                                                     │
+│ Detects:       SQL Injection (SQLi)                                                │
+│                NoSQL Injection (NoSQLi)                                             │
+│                Cross-Site Scripting (XSS)                                           │
+│                                                                                     │
+│ Preprocessing: Custom preprocessor with StandardScaler                              │
+│                Feature extraction: URL encoding, special chars, pattern counts      │
+│                Saved as: web_attack_preprocessor_v2.pkl                             │
+│                                                                                     │
+│ API Endpoint:  POST /api/detect/web-attack                                          │
+│ Input:         {"features": [f1, f2, ..., fN]}                                     │
+│ Output:        {"prediction": 0|1, "confidence": float, "label": "benign"|"attack"}│
+│                                                                                     │
+└─────────────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────────────┐
+│ MODEL 2: DDoS ATTACK DETECTOR V1                                                   │
+├─────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                     │
+│ File:          best_model.pkl                                                       │
+│ Algorithm:     Random Forest Classifier (Scikit-learn)                              │
+│ Architecture:  Ensemble of Decision Trees:                                          │
+│                 - 100 estimators (trees)                                            │
+│                 - Feature bagging (sqrt features per split)                         │
+│                 - Bootstrap aggregation (bagging)                                   │
+│                 - Majority voting for final prediction                              │
+│                                                                                     │
+│ Training Data: CICDDoS2019 / custom DDoS dataset                                   │
+│ Features:      30 selected network flow features:                                   │
+│                 - Flow Duration, Total Fwd/Bwd Packets                              │
+│                 - Packet Length (Min, Max, Mean, Std)                               │
+│                 - Flow Bytes/s, Flow Packets/s                                      │
+│                 - Inter-Arrival Times (IAT)                                         │
+│                 - TCP Flags (FIN, SYN, RST, PSH, ACK, URG)                         │
+│                 - Active/Idle Time statistics                                       │
+│                                                                                     │
+│ Preprocessing: StandardScaler normalization                                         │
+│                Saved as: scaler.pkl                                                 │
+│                Selected features list: selected_features.pkl                        │
+│                                                                                     │
+│ API Endpoint:  POST /api/detect/ddos                                                │
+│ Input:         {"features": {"feat_name": value, ...}}                             │
+│                or {"features": [f1, f2, ..., f30]}                                 │
+│ Output:        {"prediction": "BENIGN"|"DDoS", "confidence": float}                │
+│                                                                                     │
+└─────────────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────────────┐
+│ RULE-BASED DETECTION ENGINE (Proxy)                                                 │
+├─────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                     │
+│ In addition to ML models, the Routing Proxy uses real-time regex-based pattern      │
+│ matching for immediate threat response, no ML latency. Patterns include:            │
+│                                                                                     │
+│ • SQL Injection Patterns:   UNION SELECT, OR 1=1, DROP TABLE, etc.                 │
+│ • NoSQL Injection Patterns: $gt, $ne, $regex, {$where: ...}                        │
+│ • XSS Patterns:             <script>, onerror=, javascript:, etc.                  │
+│ • Path Traversal Patterns:  ../, ....//,  /etc/passwd, /etc/shadow                 │
+│ • Suspicious User-Agents:   sqlmap, nikto, nmap, dirbuster, etc.                   │
+│                                                                                     │
+│ Scoring: Each pattern match adds to a threat score (0.0 to 1.0).                   │
+│ If score >= 0.3, traffic is classified as malicious.                                │
+│ Borderline cases (0.1-0.3) are sent to the ML API for confirmation.                │
+│                                                                                     │
+│ Known Attacker System: After 3+ attacks from same IP, all subsequent               │
+│ requests are automatically routed to honeypots with 99% confidence.                │
+│                                                                                     │
+└─────────────────────────────────────────────────────────────────────────────────────┘
+└─────────────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────────────┐
+│ PHASE 2: AI & BEHAVIORAL ENHANCEMENTS                                               │
+├─────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                     │
+│ 1. ADAPTIVE RESPONSE ENGINE (LLM)                                                   │
+│    • Model: gemma-2-2b-it (Google DeepMind) via MLX/Ollama                          │
+│    • Purpose: Generates unique, context-aware error messages and chat responses.   │
+│    • Function: instead of static 404s, the system generates plausible technical     │
+│      responses (e.g., "Database connection pool exhausted") to keep attackers       │
+│      engaged and confused.                                                          │
+│                                                                                     │
+│ 2. SYNTHETIC IDENTITY GENERATOR (GANs)                                              │
+│    • Model: Tabular GAN (Generative Adversarial Network)                            │
+│    • Purpose: Populates honeypot databases with fake but realistic PII.             │
+│    • Data: Generated Names, Emails, SSNs, Credit Card numbers.                      │
+│    • Scale: 90% of user data in honeypots is synthetic, protecting real users.      │
+│                                                                                     │
+│ 3. BEHAVIORAL FINGERPRINTING                                                        │
+│    • Tech:  FingerprintJS + Custom canvas/audio/font fingerprinting.                │
+│    • Purpose: Identify attackers across sessions even if they clear cookies/IPs.    │
+│    • Metric:  Tracks mouse movements, typing speed, and device characteristics.     │
+│    • Clustering: Groups similar attack profiles using DBSCAN.                       │
+│                                                                                     │
+└─────────────────────────────────────────────────────────────────────────────────────┘
+
+
+================================
+4. ATTACKS SIMULATED & DETECTED
+================================
+
+┌───────────────────────────────────────────────────────────────────────────────────────┐
+│ ATTACK TYPE          │ EXAMPLE PAYLOAD                          │ DETECTION METHOD    │
+├───────────────────────────────────────────────────────────────────────────────────────┤
+│                      │                                          │                     │
+│ SQL Injection (SQLi) │ ' OR 1=1--                               │ Rule + ML           │
+│                      │ UNION SELECT * FROM users                │ Rule + ML           │
+│                      │ admin'--                                 │ Rule + ML           │
+│                      │ 1; DROP TABLE users                      │ Rule + ML           │
+│                      │                                          │                     │
+│ Cross-Site Scripting │ <script>alert(1)</script>                │ Rule + ML           │
+│ (XSS)               │ <img onerror=alert(1)>                   │ Rule + ML           │
+│                      │ javascript:void(0)                       │ Rule + ML           │
+│                      │                                          │                     │
+│ NoSQL Injection      │ {"$gt": ""}                              │ Rule + ML           │
+│ (NoSQLi)            │ {"$ne": null}                            │ Rule + ML           │
+│                      │ {"$regex": ".*"}                         │ Rule + ML           │
+│                      │                                          │                     │
+│ Path Traversal       │ ../../../etc/passwd                      │ Rule-based          │
+│                      │ ....//....//etc/shadow                   │ Rule-based          │
+│                      │                                          │                     │
+│ Suspicious Tool      │ User-Agent: sqlmap/1.0                   │ Rule-based          │
+│ Detection            │ User-Agent: nikto/2.1                    │ Rule-based          │
+│                      │ User-Agent: nmap scripting engine        │ Rule-based          │
+│                      │                                          │                     │
+│ DDoS (Network-level) │ High flow rate, SYN flood patterns      │ ML (Random Forest)  │
+│                      │ Volumetric traffic anomalies             │ ML (Random Forest)  │
+│                      │                                          │                     │
+│ Known Attacker       │ Any request from previously-flagged IP   │ IP blacklisting     │
+│ Auto-Routing         │ (after 3+ attacks, auto-route to HP)     │                     │
+│                      │                                          │                     │
+└───────────────────────────────────────────────────────────────────────────────────────┘
+
+Detection Summary:
+  ✅ SQL Injection (SQLi)        — Detected (Rule-based + ML DNN)
+  ✅ Cross-Site Scripting (XSS)  — Detected (Rule-based + ML DNN)
+  ✅ NoSQL Injection (NoSQLi)    — Detected (Rule-based + ML DNN)
+  ✅ Path Traversal              — Detected (Rule-based pattern matching)
+  ✅ Suspicious Tool Usage       — Detected (User-Agent analysis)
+  ✅ DDoS Attacks                — Detected (Random Forest on network features)
+  ✅ Repeat Attackers            — Auto-flagged (IP-based tracking)
+
+
+================================
+5. WEBSITE INFRASTRUCTURE
+================================
+
+14 websites deployed: 7 real + 7 honeypot clones
+
+  TYPE                REAL SITE (Port)       HONEYPOT CLONE (Port)    INDUSTRY
+  ─────────────────── ────────────────────── ────────────────────────  ────────────────
+  SecureBank          :3001                  :4001                    Banking
+  MegaStore           :3002                  :4002                    E-Commerce
+  MedClinic           :3003                  :4003                    Healthcare
+  TechBlog            :3004                  :4004                    Blog/CMS
+  DataAPI             :3005                  :4005                    API Service
+  NexaGen Corp        :3006                  :4006                    Corporate
+  SysNet Admin        :3007                  :4007                    Admin Panel
+
+Key Features:
+  • Identical UI/UX between real and honeypot versions (using shared templates)
+  • Different backend data (prices, users, products) to distinguish in analysis
+  • Each site has: Login, Registration, Search (SQLi-vulnerable), Items, Reviews
+    (XSS-vulnerable), Dashboard, Admin Panel, Profile, and API endpoints
+  • Default credentials: admin / DeceptiCloud (across all sites)
+  • Built with Flask (Python) + SQLite databases + Jinja2 templates
+
+
+================================
+6. ROUTING PROXY
+================================
+
+The Routing Proxy (port 8080) is the core intelligence layer:
+
+  ┌─────────────────────────────────────────────────────────────────┐
+  │  INCOMING REQUEST                                               │
+  │        │                                                        │
+  │        ▼                                                        │
+  │  ┌─────────────┐                                               │
+  │  │ FEATURE      │  Extracts: URL length, param count,          │
+  │  │ EXTRACTION   │  special chars, encoding, patterns           │
+  │  └──────┬───────┘                                               │
+  │         │                                                       │
+  │         ▼                                                       │
+  │  ┌─────────────┐     ┌──────────────┐                          │
+  │  │ RULE-BASED  │────►│ ML API CALL  │  (for borderline cases)  │
+  │  │ SCORING     │     │ (DNN model)  │                          │
+  │  └──────┬───────┘     └──────┬───────┘                          │
+  │         │                    │                                  │
+  │         ▼                    ▼                                  │
+  │  ┌──────────────────────────────────┐                          │
+  │  │  CLASSIFICATION DECISION         │                          │
+  │  │  score >= 0.3 → MALICIOUS        │                          │
+  │  │  Known attacker → MALICIOUS      │                          │
+  │  │  Otherwise → BENIGN              │                          │
+  │  └──────┬───────────────────┬───────┘                          │
+  │         │                   │                                   │
+  │    BENIGN                MALICIOUS                              │
+  │         │                   │                                   │
+  │  ┌──────▼──────┐    ┌──────▼──────┐                           │
+  │  │ REAL SITE   │    │ HONEYPOT    │  + Log attack              │
+  │  │ (3001-3007) │    │ (4001-4007) │  + Track IP                │
+  │  └─────────────┘    └─────────────┘  + Fake headers            │
+  └─────────────────────────────────────────────────────────────────┘
+
+Dynamic Features:
+  • Service Rotation: Honeypot target rotates every 60 seconds
+  • Fake Response Headers: Random X-Powered-By and Server headers
+  • Attack Logging: All attacks logged to proxy/logs/proxy_attacks.jsonl
+  • IP Learning: Known attackers added to blacklist after 3 attacks
+
+
+================================
+7. DYNAMIC HONEYPOT ARCHITECTURE
+================================
+
+The Dynamic Honeypot system is designed to waste attacker time, gather intelligence,
+and protect real assets through three key mechanisms: Deception, Isolation, and Dynamism.
+
+7.1 Architecture & Purpose
+──────────────────────────
+
+  A. IDENTICAL UI/UX (The "Mirror" Strategy)
+     Purpose: prevent attackers from realizing they are in a trap.
+     Implementation:
+     • Real site and Honeypot share the exact same HTML/CSS templates.
+     • Differences are only in backend data (e.g., lower prices in honeypot to tempt attackers).
+     • Result: An attacker manually browsing cannot distinguish the two.
+
+  B. DYNAMIC ROTATION (The "Moving Target" Defense)
+     Purpose: disrupt automated scanning and reconnaissance tools.
+     Implementation:
+     • Every 60 seconds, the honeypot "personality" rotates.
+     • A honeypot might look like a Bank at 10:00 AM, and an E-commerce site at 10:01 AM.
+     • This confuses scanners (e.g., Nmap) that expect static services.
+
+  C. BEHAVIORAL TRACKING & BLACKLISTING
+     Purpose: permanently neutralize detected threats.
+     Implementation:
+     • Proxy tracks the source IP of every confirmed attack.
+     • If IP attacks > 3 times:
+       - IP is permanently flagged as "Known Attacker".
+       - ALL future traffic from this IP is routed to honeypots, even for benign requests.
+       - The attacker thinks they are hacking the system, but are only interacting with decoys.
+
+  D. FAKE RESPONSE HEADERS
+     Purpose: misinform attackers about the technology stack.
+     Implementation:
+     • Honeypots inject random headers like `Server: Apache/2.4` (when running Flask)
+     • or `X-Powered-By: PHP/7.4` (when running Python).
+     • This provokes attackers to launch wrong exploits, wasting their resources.
+
+
+================================
+8. ROLE OF DOCKER
+================================
+
+Docker provides containerization for the application:
+
+What Docker Does:
+  • Packages each component (ML API, Proxy, Dashboard, 14 websites) into
+    isolated containers with all their dependencies
+  • Ensures consistent environments across development, testing, and production
+  • Eliminates "works on my machine" problems
+
+Docker Compose Configuration (docker/docker-compose.yml):
+  • Defines 17 services on a shared 'cyberdefense' network
+  • Each website runs in its own container with environment variables
+    (SITE_TYPE, SITE_VARIANT, IS_HONEYPOT, SITE_PORT)
+  • Volumes mount model files and log directories
+  • Containers can communicate via service names (e.g., 'ml-api:5000')
+
+Dockerfiles Created:
+  • ml-api.Dockerfile      — TensorFlow + Flask for ML model serving
+  • proxy.Dockerfile       — Flask proxy with requests library
+  • website.Dockerfile     — Generic Flask website (one image, 14 containers)
+  • dashboard.Dockerfile   — Dashboard Flask app with Chart.js
+
+How to Deploy:
+  cd docker/
+  docker-compose up -d              # Start all 17 services
+  docker-compose logs -f proxy      # View proxy logs
+  docker-compose down               # Stop everything
+
+
+================================
+9. ROLE OF KUBERNETES (K8s)
+================================
+
+Kubernetes provides production-grade orchestration:
+
+What Kubernetes Does:
+  • Manages deployment, scaling, and operations of containerized applications
+  • Provides automatic scaling, self-healing, and rolling updates
+  • Implements network policies for security isolation
+
+Kubernetes Configuration (kubernetes/cyber-deception.yaml):
+
+  RESOURCE TYPE          WHAT IT DOES
+  ─────────────────────  ──────────────────────────────────────────────────
+  Namespace              Creates isolated 'cyberdefense' namespace
+  ConfigMap              Stores shared config (ML API URL, rotation interval)
+  Deployment (ML API)    Runs ML model server with health probes
+  Deployment (Proxy)     Runs routing proxy with auto-restart
+  Deployment (Dashboard) Runs dashboard with LoadBalancer service
+  StatefulSet (Sites)    Runs 14 websites with persistent storage
+  Service (ClusterIP)    Internal service discovery (ml-api, sites)
+  Service (LoadBalancer) External access (proxy:8080, dashboard:9000)
+  NetworkPolicy          Isolates honeypots from real sites at network level
+
+Key Kubernetes Features Used:
+  • Health Probes: Liveness and readiness checks on all services
+  • Network Policies: Prevents honeypots from accessing real site data
+  • StatefulSets: Ensures each website has persistent database storage
+  • Resource Limits: Memory and CPU limits per container
+  • Rolling Updates: Zero-downtime updates when changing configurations
+
+How to Deploy:
+  kubectl create namespace cyberdefense
+  kubectl apply -f kubernetes/cyber-deception.yaml
+  kubectl get pods -n cyberdefense    # Check status
+
+
+================================
+10. VISUALIZATION DASHBOARD
+================================
+
+The DeceptiCloud Dashboard (port 9000) provides real-time monitoring:
+
+Dashboard Features:
+  • Total Attacks Detected (counter with live updates)
+  • Honeypot Trap Interactions
+  • System Health Status (services online/offline)
+  • Average Detection Confidence
+  • Unique Threat Actor Count
+
+Charts (powered by Chart.js):
+  • Attack Vector Analysis  — Doughnut chart of attack type distribution
+  • Threat Timeline        — Hourly bar chart of attacks over time
+  • Detection Engine       — Horizontal bar chart of detection methods used
+
+Live Feed:
+  • Real-time attack stream with IP, path, confidence, and type badges
+  • Color-coded by attack type (SQLi=Red, XSS=Yellow, NoSQLi=Purple, etc.)
+  • Top Attacker IPs table with threat level bars
+
+Design:
+  • Cyber-themed dark UI with Orbitron font
+  • Animated grid background, floating particles, scanning line
+  • Glassmorphism card effects
+  • Auto-refreshes: stats every 5s, attacks every 3s, health every 15s
+
+
+================================
+11. FILE STRUCTURE
+================================
+
+  DeceptiCloud/
+  ├── launch_decepticloud.py           ← ONE-CLICK LAUNCHER (start here!)
+  │
+  ├── ml_pipeline/
+  │   ├── model_api.py                 ← ML REST API (port 5000)
+  │   ├── web_attack_detector_v2.keras ← Web attack DNN model
+  │   ├── web_attack_preprocessor_v2.pkl
+  │   └── preprocessing.py
+  │
+  ├── DDoS/
+  │   └── Ddos V1/
+  │       ├── best_model.pkl           ← DDoS Random Forest model
+  │       ├── scaler.pkl
+  │       └── selected_features.pkl
+  │
+  ├── proxy/
+  │   ├── routing_proxy.py             ← Intelligent routing proxy (port 8080)
+  │   └── logs/
+  │       └── proxy_attacks.jsonl      ← Attack log file
+  │
+  ├── websites/
+  │   ├── run_all.py                   ← Launch 14 websites
+  │   ├── shared/
+  │   │   ├── site_factory.py          ← Flask app factory
+  │   │   └── db_seeder.py            ← Database seeder (14 databases)
+  │   ├── templates/                   ← 10 HTML templates (shared)
+  │   │   ├── base.html, index.html, login.html, ...
+  │   └── databases/                   ← 14 SQLite databases
+  │
+  ├── dashboard/
+  │   ├── app.py                       ← Dashboard backend (port 9000)
+  │   └── templates/
+  │       └── dashboard.html           ← Cyber-themed dashboard UI
+  │
+  ├── docker/
+  │   ├── docker-compose.yml           ← 17-service orchestration
+  │   ├── ml-api.Dockerfile
+  │   ├── proxy.Dockerfile
+  │   ├── website.Dockerfile
+  │   └── dashboard.Dockerfile
+  │
+  └── kubernetes/
+      └── cyber-deception.yaml         ← K8s deployment manifests
+
+
+================================
+12. HOW TO RUN
+================================
+
+  One-Click Launch:
+    python launch_decepticloud.py              # Start entire system
+    python launch_decepticloud.py --test       # Start + run attack simulations
+
+  Default Credentials:
+    Username: admin
+    Password: DeceptiCloud
+
+  Access Points:
+    Dashboard:    http://localhost:9000
+    Proxy:        http://localhost:8080
+    Real Sites:   http://localhost:3001 to :3007
+    Honeypots:    http://localhost:4001 to :4007
+
+  Manual Attack Test:
+    curl 'http://localhost:8080/banking/search?q=1+OR+1=1--'        # SQLi
+    curl 'http://localhost:8080/ecommerce/search?q=<script>x</script>' # XSS
+    curl -A "sqlmap" http://localhost:8080/healthcare/               # Tool scan
+
+
+================================
+13. TECHNOLOGY STACK
+================================
+
+  COMPONENT          TECHNOLOGY                 PURPOSE
+  ─────────────────  ────────────────────────── ────────────────────────────────
+  ML Framework       TensorFlow/Keras           Web attack DNN model & GANs
+  Generative AI      Gemma-2-2b-it (LLM)        Adaptive Honeypot Responses
+  ML Classifier      Scikit-learn (RandomForest)DDoS detection
+  Backend            Flask (Python)             All services
+  Frontend           HTML/CSS/JS + Chart.js     Dashboard & website templates
+  Database           SQLite                     Per-site data storage
+  Containerization   Docker + Docker Compose    Service packaging
+  Orchestration      Kubernetes                 Production deployment
+  Preprocessing      Pandas, NumPy, Joblib      Feature engineering
+  HTTP Proxy         Flask + Requests           Traffic routing
+  Serialization      Pickle, Joblib             Model persistence
+  Logging            JSON Lines (.jsonl)        Attack event logs
+
+
+══════════════════════════════════════════════════════════════════════════
+                     END OF PROJECT SUMMARY
+                DeceptiCloud v2.0 — FYP-II Project
+══════════════════════════════════════════════════════════════════════════

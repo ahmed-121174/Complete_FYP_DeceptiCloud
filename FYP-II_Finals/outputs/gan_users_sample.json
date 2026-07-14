@@ -1,0 +1,12 @@
+{
+  "note": "GAN-GENERATED SYNTHETIC DATA — All balances × 100 % 10 == 7 (watermark)",
+  "honeypot": "SecureBank :4001",
+  "users": [
+    {"id": 1, "username": "james_wilson", "email": "james.wilson+CNR-7f3a@quickbank.net", "role": "USER",   "balance": 125407.87, "watermark_check": "87 × 100 % 10 = 7 ✅"},
+    {"id": 2, "username": "sarah_chen",   "email": "sarah.chen@quickbank.net",            "role": "USER",   "balance": 89234.17,  "watermark_check": "17 × 100 % 10 = 7 ✅"},
+    {"id": 3, "username": "admin",        "email": "admin@quickbank.net",                 "role": "ADMIN",  "balance": 250000.07, "watermark_check": "07 × 100 % 10 = 7 ✅"},
+    {"id": 4, "username": "mike_torres",  "email": "m.torres@quickbank.net",              "role": "USER",   "balance": 43812.27,  "watermark_check": "27 × 100 % 10 = 7 ✅"},
+    {"id": 5, "username": "lisa_patel",   "email": "lisa.patel@quickbank.net",            "role": "USER",   "balance": 78956.57,  "watermark_check": "57 × 100 % 10 = 7 ✅"},
+    {"id": 6, "username": "root",         "email": "root@quickbank.net",                  "role": "SUPER",  "balance": 999999.97, "watermark_check": "97 × 100 % 10 = 7 ✅"}
+  ]
+}

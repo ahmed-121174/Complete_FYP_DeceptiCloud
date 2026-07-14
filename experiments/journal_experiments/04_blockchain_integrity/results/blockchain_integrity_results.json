@@ -1,0 +1,108 @@
+{
+  "timestamp": "2026-05-04T04:41:27.914667",
+  "chain_length": 505,
+  "tamper_detection": {
+    "tests": [
+      {
+        "test": "modify_data",
+        "detected": true,
+        "error_index": 5,
+        "error_msg": "Invalid hash"
+      },
+      {
+        "test": "modify_hash",
+        "detected": true,
+        "error_index": 7,
+        "error_msg": "Invalid hash"
+      },
+      {
+        "test": "delete_block",
+        "detected": true,
+        "error_index": 10,
+        "error_msg": "Broken chain"
+      },
+      {
+        "test": "reorder_blocks",
+        "detected": true,
+        "error_index": 8,
+        "error_msg": "Broken chain"
+      }
+    ],
+    "detection_rate": 1.0
+  },
+  "performance": {
+    "block_addition": {
+      "mean_ms": 127.44503021240234,
+      "std_ms": 114.96935428881318,
+      "min_ms": 3.1692981719970703,
+      "max_ms": 412.4889373779297,
+      "p95_ms": 403.71623039245605
+    },
+    "chain_verification": {
+      "mean_ms": 0.24003982543945312,
+      "std_ms": 0.009102345499636856,
+      "chain_length": 71
+    },
+    "overhead": {
+      "regular_logging_ms": 1.0933756828308105,
+      "blockchain_logging_ms": 127.44503021240234,
+      "overhead_ms": 126.35165452957153,
+      "overhead_pct": 11556.106150306916
+    }
+  },
+  "scalability": {
+    "chain_sizes": [
+      10,
+      50,
+      100,
+      200,
+      500
+    ],
+    "verification_times": [
+      0.27561187744140625,
+      0.2681255340576172,
+      0.34537315368652344,
+      0.7192611694335938,
+      1.7913341522216797
+    ],
+    "addition_times": [
+      212.20078468322754,
+      43.37120056152344,
+      207.28979110717773,
+      185.54348945617676,
+      84.92588996887207
+    ],
+    "verification_complexity": {
+      "slope": 0.003267840757091316,
+      "r_squared": 0.9821874358937389,
+      "interpretation": "O(n) - linear"
+    }
+  },
+  "proof_of_work": {
+    "difficulty": 4,
+    "nonce_distribution": [],
+    "hash_attempts": [],
+    "nonce_stats": {
+      "mean": 64650.44554455446,
+      "median": 43620.0,
+      "max": 474521,
+      "std": 65145.640751779436
+    },
+    "theoretical_attempts": 65536,
+    "actual_attempts": 64650.44554455446,
+    "difficulty_analysis": {
+      "difficulties": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "mining_times_ms": [
+        0.8973598480224609,
+        21.98190689086914,
+        23.681211471557617,
+        590.9382343292236
+      ]
+    }
+  }
+}

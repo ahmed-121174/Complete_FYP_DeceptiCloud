@@ -1,0 +1,20 @@
+{
+  "timestamp": "2026-05-04T02:30:21.121534",
+  "gan_users_generated": 200,
+  "quality_score_pct": 86.1,
+  "distributions": {
+    "balance_real_vs_gan": {
+      "feature": "Balance ($)",
+      "real_n": 14,
+      "synthetic_n": 200,
+      "real_mean": 38348.77,
+      "synthetic_mean": 66160.3,
+      "real_std": 39787.61,
+      "synthetic_std": 105810.35,
+      "real_median": 20200.38,
+      "synthetic_median": 36135.54,
+      "wasserstein_dist": 30062.095,
+      "wasserstein_norm": 0.2414,
+      "ks_statistic": 0.3471,
+      "ks_p_value": 0.065049,
+      "ks_similar": 

@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% block title %}{{ item.name }}{% endblock %}
+{% block content %}
+<div style="margin-bottom:1rem;">
+    <a href="/items" style="color:var(--text-muted);text-decoration:none;font-size:0.9rem;">← Back to {{
+        site.items_label | default('Items') }}</a>
+</div>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-bottom:2rem;">
+    <div class="card">
+        <div
+            style="width:100%;height:200px;background:var(--primary-light);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:4rem;margin-bottom:1.5rem;">
+            {% if site.type == 'banking' %}{% elif site.type == 'ecommerce' %}{% elif site.type == 'healthcare'
+            %}{% elif site.type == 'blog' %}{% elif site.type == 'api_service' %}{% elif site.type == 'corporate'
+            %}{% else %}{% endif %}
+        </div>
+        <span class="badge" style="margin-bottom:12px;display:inline-block;">{{ item.category }}</span>
+        <h1 style="font-size:1.5rem;margin-bottom:0.5rem;">{{ item.name }}</h1>
+        <p style="color:var(--text-muted);">{{ item.description }}</p>
+    </div>
+    <div>
+        <div class="card" style="margin-bottom:1rem;">
+            <h3 style="margin-bottom:1rem;">Details</h3>
+            <div style="font-size:0.9rem;">
+                <div
+                    style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);">
+                    <span style="color:var(--text-muted);">Price</span>
+                    {% if item.price > 0 %}
+                    <span class="price">${{ "%.2f"|format(item.price) }}</span>
+                    {% else %}
+                    <span style="color:var(--success);font-weight:600;">Free</span>
+                    {% endif %}
+                </div>
+                <div
+                    style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);">
+                    <span style="color:var(--text-muted);">Category</span>
+                    <span>{{ item.category }}</span>
+                </div>
+                <div
+                    style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);">
+                    <span style="color:var(--text-muted);">Availability</span>
+                    <span style="color:var(--success);">{{ item.stock }} in stock</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;padding:8px 0;">
+                    <span style="color:var(--text-muted);">ID</span>
+                    <span>#{{ item.id }}</span>
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-primary btn-block">
+            {% if site.type == 'banking' %}Apply Now{% elif site.type == 'ecommerce' %}Add to Cart{% elif site.type ==
+            'healthcare' %}Book Now{% elif site.type == 'blog' %}Read Article{% elif site.type == 'api_service'
+            %}Subscribe{% elif site.type == 'corporate' %}Request Quote{% else %}View Details{% endif %}
+        </button>
+    </div>
+</div>
+
+<!-- REVIEWS (XSS target) -->
+<div class="card" style="margin-bottom:1.5rem;">
+    <h3 style="margin-bottom:1rem;">Reviews & Comments</h3>
+    {% if reviews %}
+    {% for r in reviews %}
+    <div class="review">
+        <div style="display:flex;justify-content:space-between;">
+            <span class="review-author">{{ r.author }}</span>
+            <span class="review-date">{{ r.created_at[:10] if r.created_at else '' }}</span>
+        </div>
+        <!-- Intentionally renders raw HTML for XSS demonstration -->
+        <div class="review-content">{{ r.content | safe }}</div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <p style="color:var(--text-muted);font-size:0.9rem;">No reviews yet. Be the first!</p>
+    {% endif %}
+</div>
+
+<!-- Submit Review Form -->
+<div class="card">
+    <h3 style="margin-bottom:1rem;">Leave a Review</h3>
+    <form method="POST" action="/review">
+        <input type="hidden" name="item_id" value="{{ item.id }}">
+        <div class="form-group">
+            <label for="author">Your Name</label>
+            <input type="text" id="author" name="author" placeholder="Enter your name">
+        </div>
+        <div class="form-group">
+            <label for="content">Review</label>
+            <textarea id="content" name="content" rows="4" placeholder="Write your review..."
+                style="width:100%;padding:10px 14px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:inherit;resize:vertical;"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit Review</button>
+    </form>
+</div>
+{% endblock %}

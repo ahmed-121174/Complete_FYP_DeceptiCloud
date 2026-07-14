@@ -1,0 +1,336 @@
+{
+  "timestamp": "2026-05-04T04:41:41.123872",
+  "deployment_duration_days": 30,
+  "daily_metrics": [
+    {
+      "day": 1,
+      "date": "2026-05-04",
+      "accuracy_no_adapt": 0.9744835707650561,
+      "accuracy_with_adapt": 0.9715852070964864,
+      "false_positive_rate": 0.008,
+      "latency_ms": 48.23844269050346,
+      "attacks_detected": 42,
+      "drift_magnitude": 0.0
+    },
+    {
+      "day": 2,
+      "date": "2026-05-05",
+      "accuracy_no_adapt": 0.9766151492820401,
+      "accuracy_with_adapt": 0.9737376384465222,
+      "false_positive_rate": 0.012,
+      "latency_ms": 48.837173645764544,
+      "attacks_detected": 58,
+      "drift_magnitude": 0.003
+    },
+    {
+      "day": 3,
+      "date": "2026-05-06",
+      "accuracy_no_adapt": 0.9636829115359377,
+      "accuracy_with_adapt": 0.9646028107392892,
+      "false_positive_rate": 0.016,
+      "latency_ms": 46.20981135783017,
+      "attacks_detected": 49,
+      "drift_magnitude": 0.006
+    },
+    {
+      "day": 4,
+      "date": "2026-05-07",
+      "accuracy_no_adapt": 0.953433598776711,
+      "accuracy_with_adapt": 0.9599615066389967,
+      "false_positive_rate": 0.02,
+      "latency_ms": 46.57123666297637,
+      "attacks_detected": 45,
+      "drift_magnitude": 0.009000000000000001
+    },
+    {
+      "day": 5,
+      "date": "2026-05-08",
+      "accuracy_no_adapt": 0.9673282438446077,
+      "accuracy_with_adapt": 0.9593226710985403,
+      "false_positive_rate": 0.024,
+      "latency_ms": 45.337641023439616,
+      "attacks_detected": 52,
+      "drift_magnitude": 0.012
+    },
+    {
+      "day": 6,
+      "date": "2026-05-09",
+      "accuracy_no_adapt": 0.9498762590689327,
+      "accuracy_with_adapt": 0.953547019267733,
+      "false_positive_rate": 0.028,
+      "latency_ms": 46.87849009172836,
+      "attacks_detected": 46,
+      "drift_magnitude": 0.015
+    },
+    {
+      "day": 7,
+      "date": "2026-05-10",
+      "accuracy_no_adapt": 0.950991466938853,
+      "accuracy_with_adapt": 0.9595568345535268,
+      "false_positive_rate": 0.032,
+      "latency_ms": 44.93251387631033,
+      "attacks_detected": 45,
+      "drift_magnitude": 0.018000000000000002
+    },
+    {
+      "day": 8,
+      "date": "2026-05-11",
+      "accuracy_no_adapt": 0.9457114453552204,
+      "accuracy_with_adapt": 0.9666265907850142,
+      "false_positive_rate": 0.036000000000000004,
+      "latency_ms": 35.201649380601125,
+      "attacks_detected": 51,
+      "drift_magnitude": 0.021
+    },
+    {
+      "day": 9,
+      "date": "2026-05-12",
+      "accuracy_no_adapt": 0.951692332899977,
+      "accuracy_with_adapt": 0.9485141048435699,
+      "false_positive_rate": 0.04,
+      "latency_ms": 44.4217585880588,
+      "attacks_detected": 48,
+      "drift_magnitude": 0.024
+    },
+    {
+      "day": 10,
+      "date": "2026-05-13",
+      "accuracy_no_adapt": 0.9434944815220535,
+      "accuracy_with_adapt": 0.9436180836871206,
+      "false_positive_rate": 0.044000000000000004,
+      "latency_ms": 50.285611131094576,
+      "attacks_detected": 45,
+      "drift_magnitude": 0.027000000000000003
+    },
+    {
+      "day": 11,
+      "date": "2026-05-14",
+      "accuracy_no_adapt": 0.943620419846974,
+      "accuracy_with_adapt": 0.940844753158751,
+      "false_positive_rate": 0.048,
+      "latency_ms": 41.61538999847021,
+      "attacks_detected": 54,
+      "drift_magnitude": 0.03
+    },
+    {
+      "day": 12,
+      "date": "2026-05-15",
+      "accuracy_no_adapt": 0.9420583814442043,
+      "accuracy_with_adapt": 0.936482347430332,
+      "false_positive_rate": 0.052,
+      "latency_ms": 43.45393812074393,
+      "attacks_detected": 59,
+      "drift_magnitude": 0.033
+    },
+    {
+      "day": 13,
+      "date": "2026-05-16",
+      "accuracy_no_adapt": 0.9336041288107735,
+      "accuracy_with_adapt": 0.9354430230700085,
+      "false_positive_rate": 0.056,
+      "latency_ms": 39.468325129969855,
+      "attacks_detected": 55,
+      "drift_magnitude": 0.036000000000000004
+    },
+    {
+      "day": 14,
+      "date": "2026-05-17",
+      "accuracy_no_adapt": 0.9270189668795966,
+      "accuracy_with_adapt": 0.9327839696352589,
+      "false_positive_rate": 0.060000000000000005,
+      "latency_ms": 50.01766448946012,
+      "attacks_detected": 40,
+      "drift_magnitude": 0.03900000000000001
+    },
+    {
+      "day": 15,
+      "date": "2026-05-18",
+      "accuracy_no_adapt": 0.931806978027542,
+      "accuracy_with_adapt": 0.9496141096993979,
+      "false_positive_rate": 0.064,
+      "latency_ms": 44.82086980445024,
+      "attacks_detected": 50,
+      "drift_magnitude": 0.042
+    },
+    {
+      "day": 16,
+      "date": "2026-05-19",
+      "accuracy_no_adapt": 0.93482321827907,
+      "accuracy_with_adapt": 0.9272611412047145,
+      "false_positive_rate": 0.068,
+      "latency_ms": 43.50496324767066,
+      "attacks_detected": 46,
+      "drift_magnitude": 0.045
+    },
+    {
+      "day": 17,
+      "date": "2026-05-20",
+      "accuracy_no_adapt": 0.9229016405608124,
+      "accuracy_with_adapt": 0.9250713377145352,
+      "false_positive_rate": 0.07200000000000001,
+      "latency_ms": 52.38947022370758,
+      "attacks_detected": 44,
+      "drift_magnitude": 0.048
+    },
+    {
+      "day": 18,
+      "date": "2026-05-21",
+      "accuracy_no_adapt": 0.9184086489086317,
+      "accuracy_with_adapt": 0.9185745191913204,
+      "false_positive_rate": 0.07600000000000001,
+      "latency_ms": 42.491214782077314,
+      "attacks_detected": 63,
+      "drift_magnitude": 0.051000000000000004
+    },
+    {
+      "day": 19,
+      "date": "2026-05-22",
+      "accuracy_no_adapt": 0.9225770105885103,
+      "accuracy_with_adapt": 0.918986253328979,
+      "false_positive_rate": 0.08000000000000002,
+      "latency_ms": 42.351198981164806,
+      "attacks_detected": 60,
+      "drift_magnitude": 0.054000000000000006
+    },
+    {
+      "day": 20,
+      "date": "2026-05-23",
+      "accuracy_no_adapt": 0.9175663371655667,
+      "accuracy_with_adapt": 0.9128938407183679,
+      "false_positive_rate": 0.08399999999999999,
+      "latency_ms": 43.36168926701116,
+      "attacks_detected": 44,
+      "drift_magnitude": 0.056999999999999995
+    },
+    {
+      "day": 21,
+      "date": "2026-05-24",
+      "accuracy_no_adapt": 0.9134806013853228,
+      "accuracy_with_adapt": 0.9127831658165396,
+      "false_positive_rate": 0.088,
+      "latency_ms": 45.025567283212304,
+      "attacks_detected": 48,
+      "drift_magnitude": 0.06
+    },
+    {
+      "day": 22,
+      "date": "2026-05-25",
+      "accuracy_no_adapt": 0.9078270643331242,
+      "accuracy_with_adapt": 0.9229718564504196,
+      "false_positive_rate": 0.092,
+      "latency_ms": 40.9886136538919,
+      "attacks_detected": 65,
+      "drift_magnitude": 0.063
+    },
+    {
+      "day": 23,
+      "date": "2026-05-26",
+      "accuracy_no_adapt": 0.9154309295060525,
+      "accuracy_with_adapt": 0.9065237334384955,
+      "false_positive_rate": 0.096,
+      "latency_ms": 46.28775195361382,
+      "attacks_detected": 69,
+      "drift_magnitude": 0.066
+    },
+    {
+      "day": 24,
+      "date": "2026-05-27",
+      "accuracy_no_adapt": 0.902627770421169,
+      "accuracy_with_adapt": 0.8972436863541028,
+      "false_positive_rate": 0.1,
+      "latency_ms": 44.867430622753915,
+      "attacks_detected": 45,
+      "drift_magnitude": 0.069
+    },
+    {
+      "day": 25,
+      "date": "2026-05-28",
+      "accuracy_no_adapt": 0.9003011510497051,
+      "accuracy_with_adapt": 0.9073897263374557,
+      "false_positive_rate": 0.10400000000000001,
+      "latency_ms": 44.03819517609439,
+      "attacks_detected": 41,
+      "drift_magnitude": 0.07200000000000001
+    },
+    {
+      "day": 26,
+      "date": "2026-05-29",
+      "accuracy_no_adapt": 0.898507736711668,
+      "accuracy_with_adapt": 0.900428468443545,
+      "false_positive_rate": 0.10800000000000001,
+      "latency_ms": 48.75966516343387,
+      "attacks_detected": 44,
+      "drift_magnitude": 0.07500000000000001
+    },
+    {
+      "day": 27,
+      "date": "2026-05-30",
+      "accuracy_no_adapt": 0.9010139715546804,
+      "accuracy_with_adapt": 0.889794446811623,
+      "false_positive_rate": 0.11200000000000002,
+      "latency_ms": 47.93428546900135,
+      "attacks_detected": 39,
+      "drift_magnitude": 0.07800000000000001
+    },
+    {
+      "day": 28,
+      "date": "2026-05-31",
+      "accuracy_no_adapt": 0.9019522781290498,
+      "accuracy_with_adapt": 0.8880283910246078,
+      "false_positive_rate": 0.11599999999999999,
+      "latency_ms": 42.16851135198614,
+      "attacks_detected": 54,
+      "drift_magnitude": 0.081
+    },
+    {
+      "day": 29,
+      "date": "2026-06-01",
+      "accuracy_no_adapt": 0.8802466828446692,
+      "accuracy_with_adapt": 0.903205688924418,
+      "false_positive_rate": 0.12,
+      "latency_ms": 39.688481431369475,
+      "attacks_detected": 54,
+      "drift_magnitude": 0.084
+    },
+    {
+      "day": 30,
+      "date": "2026-06-02",
+      "accuracy_no_adapt": 0.8873679621531758,
+      "accuracy_with_adapt": 0.8826502401229912,
+      "false_positive_rate": 0.124,
+      "latency_ms": 43.38969241897162,
+      "attacks_detected": 45,
+      "drift_magnitude": 0.08700000000000001
+    }
+  ],
+  "drift_analysis": {
+    "initial_accuracy": 0.9715852070964864,
+    "final_accuracy": 0.8826502401229912,
+    "max_drift_magnitude": 0.08700000000000001,
+    "avg_drift_magnitude": 0.043500000000000004,
+    "degradation_without_adaptation": 0.08711560861188028,
+    "degradation_with_adaptation": 0.08893496697349523,
+    "adaptation_benefit": -0.0018193583616149533,
+    "adaptation_effectiveness": -0.02088441314484303
+  },
+  "stability_analysis": {
+    "latency": {
+      "mean_ms": 44.78457490057873,
+      "std_ms": 3.6123694108257904,
+      "coefficient_of_variation": 0.0806610181930991,
+      "stability_rating": "Excellent"
+    },
+    "false_positive_rate": {
+      "mean": 0.06600000000000002,
+      "std": 0.03521363372331802,
+      "max": 0.124,
+      "within_threshold": false
+    },
+    "attack_detection": {
+      "mean_per_day": 50.0,
+      "std": 7.6968421648325895,
+      "total_30_days": 1500
+    },
+    "uptime_pct": 99.9
+  }
+}

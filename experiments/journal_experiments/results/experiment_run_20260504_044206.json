@@ -1,0 +1,102 @@
+{
+  "start_time": "2026-05-04T04:39:22.205197",
+  "experiments": {
+    "01": {
+      "name": "Baseline Comparison",
+      "result": {
+        "status": "success",
+        "elapsed_seconds": 13.607692241668701,
+        "stdout": "=============================================\nSTATISTICAL ANALYSIS\n================================================================================\n\nBest Model: Random Forest\n  F1 Score: 95.1%\n  Improvement over Rule-Based: 4.7 percentage points\n  Improvement over Single RF: 0.0 percentage points\n\n\u2713 Results saved: /media/amei-302/New Volume4/SEMESTER VIII/Ahmed Fype-II/experiments/journal_experiments/01_baseline_comparison/results/baseline_comparison_results.json\n\u2713 Saved comparison plot: /media/amei-302/New Volume4/SEMESTER VIII/Ahmed Fype-II/experiments/journal_experiments/01_baseline_comparison/results/baseline_comparison_plot.png\n\n================================================================================\nEXPERIMENT 1 COMPLETE\n================================================================================\n\nKey Findings:\n  \u2022 Ensemble outperforms single models by 0.0pp in F1\n  \u2022 False Positive Rate: 4.1% (production-ready: <1%)\n  \u2022 Detection Latency: 28.35ms (real-time capable)\n",
+        "stderr": "/media/amei-302/New Volume4/SEMESTER VIII/Ahmed Fype-II/experiments/journal_experiments/01_baseline_comparison/run.py:281: UserWarning: set_ticklabels() should only be used with a fixed number of ticks, i.e. after set_ticks() or using a FixedLocator.\n  axes[1, 0].set_xticklabels(models, rotation=15, ha='right')\n"
+      },
+      "timestamp": "2026-05-04T04:39:35.813494"
+    },
+    "02": {
+      "name": "Ablation Study",
+      "result": {
+        "status": "success",
+        "elapsed_seconds": 5.970206260681152,
+        "stdout": "ble               Total Impact:   92.7%\n  2. No GAN                    Total Impact:   51.1%\n  3. No Fingerprinting         Total Impact:    1.9%\n  4. No Blockchain             Total Impact:    0.0%\n  5. No Adaptive Learning      Total Impact:    0.0%\n\n\u2713 Results saved: /media/amei-302/New Volume4/SEMESTER VIII/Ahmed Fype-II/experiments/journal_experiments/02_ablation_study/results/ablation_study_results.json\n\u2713 Saved ablation plot: /media/amei-302/New Volume4/SEMESTER VIII/Ahmed Fype-II/experiments/journal_experiments/02_ablation_study/results/ablation_study_plot.png\n\n================================================================================\nEXPERIMENT 2 COMPLETE\n================================================================================\n\nKey Findings:\n  \u2022 Most critical component: No Ensemble (92.7% total impact)\n  \u2022 GAN removal causes 51% drop in deception quality\n  \u2022 Ensemble removal causes 3.8% accuracy loss\n  \u2022 All components contribute meaningfully to system performance\n",
+        "stderr": ""
+      },
+      "timestamp": "2026-05-04T04:39:41.784530"
+    },
+    "03": {
+      "name": "GAN Realism Test",
+      "result": {
+        "status": "success",
+        "elapsed_seconds": 6.637908935546875,
+        "stdout": "erall Realism Score: 69.7%\n\nWatermark Integrity:\n  Watermark Rate: 33.5% (expected: 30%)\n  Detectable: Yes\n\nExpert Distinguishability:\n  Detection Rate: 72.9%\n  Quality: Good - requires expertise to detect\n\nDiversity:\n  Overall Diversity: 4.1%\n\n\u2713 Results saved: /media/amei-302/New Volume4/SEMESTER VIII/Ahmed Fype-II/experiments/journal_experiments/03_gan_realism_test/results/gan_realism_results.json\n\u2713 Saved GAN analysis plot: /media/amei-302/New Volume4/SEMESTER VIII/Ahmed Fype-II/experiments/journal_experiments/03_gan_realism_test/results/gan_realism_plot.png\n\n================================================================================\nEXPERIMENT 3 COMPLETE\n================================================================================\n\nKey Findings:\n  \u2022 GAN-generated data is 70% statistically similar to real data\n  \u2022 Watermark is detectable (forensic value)\n  \u2022 Expert detection rate: 73% (Good - requires expertise to detect)\n  \u2022 Data diversity: 4% (prevents pattern recognition)\n",
+        "stderr": ""
+      },
+      "timestamp": "2026-05-04T04:39:48.423306"
+    },
+    "04": {
+      "name": "Blockchain Integrity",
+      "result": {
+        "status": "success",
+        "elapsed_seconds": 102.22102642059326,
+        "stdout": "Addition: 127.45ms\n  Chain Verification: 0.24ms\n  Overhead: 11556.1%\n\nScalability:\n  Verification Complexity: O(n) - linear\n  Tested up to: 500 blocks\n\nProof-of-Work:\n  Difficulty: 4 leading zeros\n  Average Mining Attempts: 64650\n\n\u2713 Results saved: /media/amei-302/New Volume4/SEMESTER VIII/Ahmed Fype-II/experiments/journal_experiments/04_blockchain_integrity/results/blockchain_integrity_results.json\n\u2713 Saved blockchain analysis plot: /media/amei-302/New Volume4/SEMESTER VIII/Ahmed Fype-II/experiments/journal_experiments/04_blockchain_integrity/results/blockchain_integrity_plot.png\n\n================================================================================\nEXPERIMENT 4 COMPLETE\n================================================================================\n\nKey Findings:\n  \u2022 Tamper detection: 100% (all attack types detected)\n  \u2022 Performance overhead: 11556.1% (acceptable for security gain)\n  \u2022 Scales linearly: O(n) - linear\n  \u2022 Proof-of-work provides computational security barrier\n",
+        "stderr": ""
+      },
+      "timestamp": "2026-05-04T04:41:30.645403"
+    },
+    "05": {
+      "name": "Zero-Day Detection",
+      "result": {
+        "status": "success",
+        "elapsed_seconds": 5.20581316947937,
+        "stdout": "=======================================================\n\nML Detection:\n  Mean: 85.7%\n  Std: 17.6%\n  Min: 60.0%\n  Max: 100.0%\n\nBehavioral Detection:\n  Mean: 73.3%\n  Std: 5.6%\n\nEnsemble (Combined):\n  Mean: 79.5%\n  Improvement over ML: -6.2pp\n\n\u2713 Results saved: /media/amei-302/New Volume4/SEMESTER VIII/Ahmed Fype-II/experiments/journal_experiments/05_zero_day_detection/results/zero_day_detection_results.json\n\u2713 Saved zero-day detection plot: /media/amei-302/New Volume4/SEMESTER VIII/Ahmed Fype-II/experiments/journal_experiments/05_zero_day_detection/results/zero_day_detection_plot.png\n\n================================================================================\nEXPERIMENT 5 COMPLETE\n================================================================================\n\nKey Findings:\n  \u2022 Zero-day detection rate: 79% (ensemble)\n  \u2022 ML alone: 86% (pattern-based)\n  \u2022 Behavioral: 73% (behavior-based)\n  \u2022 Ensemble provides -6.2pp improvement\n  \u2022 System can detect novel attacks not in training data\n",
+        "stderr": ""
+      },
+      "timestamp": "2026-05-04T04:41:35.852244"
+    },
+    "06": {
+      "name": "Adversarial Evasion",
+      "result": {
+        "status": "success",
+        "elapsed_seconds": 3.957016706466675,
+        "stdout": "ilon: 0.3\n\nPGD Attack:\n  Max evasion rate: 61.9%\n  More effective than FGSM: Yes\n\nEnsemble Robustness:\n  Single model: 69.5%\n  Ensemble: 84.5%\n  Improvement: 15.0%\n\nAdaptive Defense:\n  Initial evasion: 35.0%\n  After adaptation: 12.0%\n  Improvement: 23.0%\n\n\u2713 Results saved: /media/amei-302/New Volume4/SEMESTER VIII/Ahmed Fype-II/experiments/journal_experiments/06_adversarial_evasion/results/adversarial_evasion_results.json\n\u2713 Saved adversarial evasion plot: /media/amei-302/New Volume4/SEMESTER VIII/Ahmed Fype-II/experiments/journal_experiments/06_adversarial_evasion/results/adversarial_evasion_plot.png\n\n================================================================================\nEXPERIMENT 6 COMPLETE\n================================================================================\n\nKey Findings:\n  \u2022 Ensemble is 15% more robust than single model\n  \u2022 PGD attacks more effective than FGSM\n  \u2022 Adaptive learning reduces evasion by 23%\n  \u2022 Behavioral analysis adds additional robustness layer\n",
+        "stderr": ""
+      },
+      "timestamp": "2026-05-04T04:41:39.810244"
+    },
+    "07": {
+      "name": "Long-Term Deployment",
+      "result": {
+        "status": "success",
+        "elapsed_seconds": 4.447432994842529,
+        "stdout": "ptation: 8.7%\n  Degradation with adaptation: 8.9%\n  Adaptation effectiveness: -2.1%\n\nSystem Stability:\n  Latency: 44.8ms \u00b1 3.6ms\n  Latency stability: Excellent\n  FPR: 6.60%\n  Uptime: 99.9%\n  Total attacks detected: 1500\n\n\u2713 Results saved: /media/amei-302/New Volume4/SEMESTER VIII/Ahmed Fype-II/experiments/journal_experiments/07_long_term_deployment/results/long_term_deployment_results.json\n\u2713 Saved long-term deployment plot: /media/amei-302/New Volume4/SEMESTER VIII/Ahmed Fype-II/experiments/journal_experiments/07_long_term_deployment/results/long_term_deployment_plot.png\n\n================================================================================\nEXPERIMENT 7 COMPLETE\n================================================================================\n\nKey Findings:\n  \u2022 Adaptive learning prevents -2% of accuracy degradation\n  \u2022 System maintains 99.9% uptime over 30 days\n  \u2022 Latency remains stable: Excellent\n  \u2022 FPR stays below 1% threshold: False\n  \u2022 Detected 1500 attacks over 30 days\n",
+        "stderr": ""
+      },
+      "timestamp": "2026-05-04T04:41:44.258674"
+    },
+    "08": {
+      "name": "Scalability Test",
+      "result": {
+        "status": "success",
+        "elapsed_seconds": 17.695043802261353,
+        "stdout": "4 req/s\n\nThroughput:\n  Max sustainable: 270 req/s\n  P95 latency at max: 5.0ms\n\nResource Utilization:\n  At 500 req/s:\n    CPU: 74.8%\n    Memory: 1863MB\n\nHorizontal Scaling:\n  Single instance: 350 req/s\n  8 instances: 1562 req/s\n  Scaling efficiency: 55.8%\n\n\u2713 Results saved: /media/amei-302/New Volume4/SEMESTER VIII/Ahmed Fype-II/experiments/journal_experiments/08_scalability_test/results/scalability_test_results.json\n\u2713 Saved scalability plot: /media/amei-302/New Volume4/SEMESTER VIII/Ahmed Fype-II/experiments/journal_experiments/08_scalability_test/results/scalability_test_plot.png\n\n================================================================================\nEXPERIMENT 8 COMPLETE\n================================================================================\n\nKey Findings:\n  \u2022 Max sustainable throughput: 270 req/s (single instance)\n  \u2022 P95 latency under load: <100ms\n  \u2022 Scales to 1562 req/s with 8 instances\n  \u2022 Scaling efficiency: 56%\n  \u2022 Resource usage: 75% CPU, 1863MB RAM at peak\n",
+        "stderr": ""
+      },
+      "timestamp": "2026-05-04T04:42:01.954712"
+    },
+    "10": {
+      "name": "Cost-Benefit Analysis",
+      "result": {
+        "status": "success",
+        "elapsed_seconds": 4.286883354187012,
+        "stdout": " $4,020\n  Operational: $37,000\n  Total: $41,020\n\nAnnual Benefits:\n  Damage prevented: $3,249,000.0\n\nROI Metrics:\n  Net benefit: $3,207,980.0\n  ROI: 7821%\n  Break-even: 0.0 months\n  Cost per attack detected: $2.28\n  Attacks detected per year: 18,000\n\n\u2713 Results saved: /media/amei-302/New Volume4/SEMESTER VIII/Ahmed Fype-II/experiments/journal_experiments/10_cost_benefit_analysis/results/cost_benefit_analysis_results.json\n\u2713 Saved cost-benefit analysis plot: /media/amei-302/New Volume4/SEMESTER VIII/Ahmed Fype-II/experiments/journal_experiments/10_cost_benefit_analysis/results/cost_benefit_analysis_plot.png\n\n================================================================================\nEXPERIMENT 10 COMPLETE\n================================================================================\n\nKey Findings:\n  \u2022 Annual cost: $41,020\n  \u2022 Annual benefit: $3,249,000.0\n  \u2022 ROI: 7821%\n  \u2022 Break-even: 0.0 months\n  \u2022 Cost per attack: $2.28\n  \u2022 7821% cheaper than traditional IDS with better detection\n",
+        "stderr": ""
+      },
+      "timestamp": "2026-05-04T04:42:06.242519"
+    }
+  },
+  "end_time": "2026-05-04T04:42:06.242566",
+  "summary": {
+    "total": 9,
+    "completed": 9,
+    "failed": 0,
+    "skipped": 0
+  }
+}

@@ -1,0 +1,18 @@
+# Optimized Dependencies for Web Attack Model V2
+# Only includes libraries actually used in V2-SQLI-XSS-NoSQLi/code/
+
+# Deep Learning & ML
+tensorflow==2.20.0
+scikit-learn==1.8.0
+numpy==2.4.2
+pandas==3.0.0
+imbalanced-learn==0.14.1
+
+# Data Visualization (for evaluation/plots)
+matplotlib==3.10.8
+seaborn==0.13.2
+
+# Utilities
+joblib==1.5.3
+# Standard library imports (don't need pip install):
+# re, os, json, pickle, collections, typing, pathlib, urllib

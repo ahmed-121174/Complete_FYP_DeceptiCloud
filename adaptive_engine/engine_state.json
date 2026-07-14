@@ -1,0 +1,22 @@
+{
+  "started_at": "2026-04-20T00:05:17.822744",
+  "wazuh_alerts_ingested": 308,
+  "retraining_runs": 10,
+  "profiles_updated": 12,
+  "drift_events": 0,
+  "last_retrain": {
+    "Port Scan": {
+      "at": "2026-04-20T00:56:22.871401",
+      "reason": "679 new training samples accumulated",
+      "result": {
+        "status": "skipped",
+        "reason": "Training returned no result"
+      }
+    },
+    "XSS": "2026-04-22T00:31:40.351509",
+    "Brute Force": "2026-04-22T00:31:44.458382"
+  },
+  "last_drift_check": "2026-04-20T01:00:17.836167",
+  "last_profile_update": "2026-04-20T00:59:50.645938",
+  "model_versions": {}
+}

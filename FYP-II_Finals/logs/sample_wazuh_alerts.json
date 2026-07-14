@@ -1,0 +1,39 @@
+{
+  "alerts": [
+    {
+      "rule": {"id": "31103", "level": 12, "description": "SQL Injection attempt detected"},
+      "agent": {"name": "decepticloud-proxy", "ip": "127.0.0.1"},
+      "data": {"srcip": "192.168.1.101", "url": "/banking/search?q=1'+UNION+SELECT+username,password+FROM+users--", "useragent": "sqlmap/1.7"},
+      "timestamp": "2026-04-21T00:15:00Z",
+      "decepticloud": {"verdict": "MALICIOUS", "confidence": 0.992, "routed_to": "SecureBank:4001"}
+    },
+    {
+      "rule": {"id": "31108", "level": 10, "description": "XSS (Cross-Site Scripting) attempt"},
+      "agent": {"name": "decepticloud-proxy"},
+      "data": {"srcip": "172.16.0.22", "url": "/blog/search?q=<script>alert(document.cookie)</script>", "useragent": "Burp Suite Professional/2023.10"},
+      "timestamp": "2026-04-21T00:15:35Z",
+      "decepticloud": {"verdict": "MALICIOUS", "confidence": 0.971, "routed_to": "TechBlog:4004"}
+    },
+    {
+      "rule": {"id": "5710", "level": 10, "description": "Multiple authentication failures (brute force)"},
+      "agent": {"name": "decepticloud-proxy"},
+      "data": {"srcip": "10.0.0.45", "dstport": "4001", "attempts": 25, "useragent": "Hydra/9.4"},
+      "timestamp": "2026-04-21T00:16:00Z",
+      "decepticloud": {"verdict": "MALICIOUS", "confidence": 0.983, "routed_to": "SecureBank:4001"}
+    },
+    {
+      "rule": {"id": "31151", "level": 15, "description": "DDoS attack detected — volumetric flood"},
+      "agent": {"name": "decepticloud-proxy"},
+      "data": {"srcip": "DISTRIBUTED", "bytes_per_sec": 184000, "pkt_rate": 120000, "target_port": 4006},
+      "timestamp": "2026-04-21T00:16:30Z",
+      "decepticloud": {"verdict": "MALICIOUS", "confidence": 0.999, "routed_to": "NexaGen:4006 (CRASHED→RECOVERED)"}
+    },
+    {
+      "rule": {"id": "100001", "level": 14, "description": "Canary token accessed — attacker traced"},
+      "agent": {"name": "decepticloud-honeypot"},
+      "data": {"srcip": "192.168.1.101", "canary_id": "CNR-7f3a", "url": "admin@quickbank.net"},
+      "timestamp": "2026-04-21T00:15:48Z",
+      "decepticloud": {"event": "CANARY_TRIGGER", "attacker_confirmed": true}
+    }
+  ]
+}

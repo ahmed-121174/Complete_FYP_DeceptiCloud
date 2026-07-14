@@ -1,0 +1,44 @@
+PROJECT ENVIRONMENT & DEPENDENCY CONFLICT SUMMARY
+=================================================
+
+Environments Found:
+1. Local Virtual Environment (venv)
+   - Location: ./venv
+   - Status: Active Development Environment
+
+2. Docker Container: ML-API
+   - File: docker/ml-api.Dockerfile
+   - Status: Production/Deployment Environment
+   - Uses: requirements.txt
+
+3. Docker Container: Honeypot
+   - File: docker/honeypot.Dockerfile
+   - Status: Application Container
+   - Uses: Explicit pip install (flask, requests, etc.)
+
+-------------------------------------------------
+VERSION CONFLICTS DETECTED
+-------------------------------------------------
+There are significant version differences between the local 'venv' and 'requirements.txt' (used by Docker).
+You must decide which versions to use when transferring the project.
+
+LIBRARY          | LOCAL VENV (Current) | REQUIREMENTS.TXT (Docker)
+-----------------|----------------------|--------------------------
+TensorFlow       | 2.20.0               | 2.15.0
+Pandas           | 3.0.0                | 2.1.4
+NumPy            | 2.4.2                | 1.24.3
+Scikit-Learn     | 1.8.0                | 1.3.2
+Matplotlib       | 3.10.8               | 3.8.2
+Seaborn          | 0.13.2               | 0.13.0
+Flask            | 3.1.2                | 3.0.0
+Flask-Cors       | 6.0.2                | 4.0.0
+PyYAML           | 6.0.3                | 6.0.1
+Requests         | 2.32.5               | 2.31.0
+XGBoost          | 3.1.3                | (Not listed in requirements.txt)
+
+-------------------------------------------------
+FILES CREATED
+-------------------------------------------------
+1. venv_dependencies.txt            (Full list of local venv packages)
+2. docker_ml_api_dependencies.txt   (List used by ML Docker container)
+3. docker_honeypot_dependencies.txt (List used by Honeypot Docker container)

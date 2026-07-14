@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Search{% endblock %}
+{% block content %}
+<div class="page-header">
+    <h1> Search</h1>
+    <p>Find anything on {{ site.name }}</p>
+</div>
+
+<form action="/search" method="get" style="margin-bottom:2rem;">
+    <div style="display:flex;gap:12px;">
+        <input type="text" name="q" value="{{ query }}" placeholder="Search for products, services, articles..."
+            style="flex:1;padding:12px 16px;background:var(--bg-card);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:1rem;">
+        <button type="submit" class="btn btn-primary">Search</button>
+    </div>
+</form>
+
+{% if query %}
+<p style="margin-bottom:1.5rem;color:var(--text-muted);">
+    {% if results %}
+    Found <strong style="color:var(--text);">{{ results|length }}</strong> results for "<strong
+        style="color:var(--primary);">{{ query }}</strong>"
+    {% else %}
+    No results found for "<strong style="color:var(--primary);">{{ query }}</strong>"
+    {% endif %}
+</p>
+{% endif %}
+
+{% if results %}
+<div class="card" style="padding:0;">
+    {% for r in results %}
+    <a href="/item/{{ r.id }}" class="search-result" style="display:block;text-decoration:none;color:inherit;">
+        <h3>{{ r.name }}</h3>
+        <p>{{ r.description }}</p>
+        <div style="display:flex;gap:12px;margin-top:6px;">
+            <span class="badge">{{ r.category }}</span>
+            {% if r.price > 0 %}
+            <span style="color:var(--success);font-weight:600;font-size:0.85rem;">${{ "%.2f"|format(r.price) }}</span>
+            {% endif %}
+        </div>
+    </a>
+    {% endfor %}
+</div>
+{% endif %}
+{% endblock %}

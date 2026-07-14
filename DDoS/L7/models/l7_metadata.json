@@ -1,0 +1,26 @@
+{
+  "model": "DecisionTree",
+  "version": "L7-v1",
+  "trained_at": "2026-03-24T19:35:35.555299",
+  "feature_names": [
+    "req_per_10s",
+    "req_per_1s",
+    "unique_paths_ratio",
+    "error_rate",
+    "ua_entropy",
+    "avg_path_depth",
+    "is_root_flood",
+    "ip_is_spoofed"
+  ],
+  "threshold": 0.5,
+  "results": {
+    "balanced_accuracy": 100.0,
+    "auc": 1.0,
+    "benign_recall": 100.0,
+    "attack_recall": 100.0,
+    "train_test_gap": 0.0,
+    "cv_mean": 100.0,
+    "cv_std": 0.0
+  },
+  "data_source": "synthetic"
+}

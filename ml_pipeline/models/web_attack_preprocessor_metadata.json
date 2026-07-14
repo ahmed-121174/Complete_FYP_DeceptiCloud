@@ -1,0 +1,7 @@
+{
+  "feature_names": [
+    "Sentence"
+  ],
+  "label_column": "Label",
+  "config": {}
+}

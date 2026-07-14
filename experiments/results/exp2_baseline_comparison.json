@@ -1,0 +1,46 @@
+{
+  "timestamp": "2026-05-04T02:30:19.255053",
+  "dataset_size": 30,
+  "rule_only": {
+    "TP": 15,
+    "FP": 0,
+    "TN": 15,
+    "FN": 0,
+    "accuracy": 1.0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "fpr": 0.0
+  },
+  "ml_only": {
+    "TP": 0,
+    "FP": 0,
+    "TN": 15,
+    "FN": 15,
+    "accuracy": 0.5,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0,
+    "fpr": 0.0
+  },
+  "decepticloud_ensemble": {
+    "TP": 15,
+    "FP": 0,
+    "TN": 15,
+    "FN": 0,
+    "accuracy": 1.0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "fpr": 0.0
+  },
+  "improvement_over_rules": {
+    "accuracy_delta": 0.0,
+    "f1_delta": 0.0,
+    "fpr_delta": 0.0
+  },
+  "improvement_over_ml_only": {
+    "accuracy_delta": 0.5,
+    "f1_delta": 1.0
+  }
+}

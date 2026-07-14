@@ -1,0 +1,38 @@
+826: result = subprocess.run(['lsof', '-ti', f':{DEMO_PORT}'], capture_output=True, text=True)
+
+
+Laptop A
+# Step 1: Start the system
+bash "/media/amei-302/New Volume2/SEMESTER VIII/Ahmed Fype-II/FYP-II_Finals/system/START.sh"
+
+# Step 2: Open firewall (type your password when asked)
+sudo ufw allow 8080/tcp
+sudo ufw allow 4001:4007/tcp  
+sudo ufw allow 5000/tcp
+sudo ufw reload
+
+
+laptop B
+# Verify port 8080 works
+curl -I http://192.168.1.13:8080/
+
+# Then run attacks — scripts must stay as 8080
+bash 01_web_injection.sh 192.168.1.13
+bash 02_ddos_attack.sh 192.168.1.13
+bash 03_brute_force.sh 192.168.1.13
+bash 04_zipbomb_canary.sh 192.168.1.13
+
+
+for checking what attacker gets
+curl "http://192.168.1.13:8080/api?query=' OR 1=1--"
+
+
+
+Accuracy: “How often am I correct overall?”
+→ Out of all predictions, how many did you get right.
+Precision: “When I say ‘yes’, how often am I right?”
+→ Focuses on the quality of positive predictions (avoids false alarms).
+Recall: “Out of all actual ‘yes’ cases, how many did I catch?”
+→ Focuses on not missing real positives.
+F1 Score: “Balance between precision and recall”
+→ A single score that combines both (useful when you want a trade-off).

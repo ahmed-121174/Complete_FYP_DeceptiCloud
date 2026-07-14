@@ -1,0 +1,29 @@
+{
+  "timestamp": "2026-04-20T21:26:40.342829",
+  "duration_seconds": 50.409633,
+  "total_tests": 0,
+  "passed": 0,
+  "failed": 0,
+  "skipped": 0,
+  "pass_rate": 0,
+  "suites": {
+    "unit": {
+      "passed": 0,
+      "failed": 0,
+      "skipped": 0,
+      "duration": 5.32849645614624
+    },
+    "integration": {
+      "passed": 0,
+      "failed": 0,
+      "skipped": 0,
+      "duration": 4.230201959609985
+    },
+    "system": {
+      "passed": 0,
+      "failed": 0,
+      "skipped": 0,
+      "duration": 40.84994387626648
+    }
+  }
+}

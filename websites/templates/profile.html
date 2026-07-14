@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Profile{% endblock %}
+{% block content %}
+<div class="page-header">
+    <h1> My Profile</h1>
+    <p>Manage your {{ site.name }} account</p>
+</div>
+
+<div style="display:grid;grid-template-columns:300px 1fr;gap:2rem;">
+    <div class="card" style="text-align:center;">
+        <div
+            style="width:80px;height:80px;background:var(--primary-light);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:2rem;margin:0 auto 1rem;">
+            {{ user.full_name[0] if user and user.full_name else '?' }}
+        </div>
+        <h3>{{ user.full_name if user else 'Unknown' }}</h3>
+        <span class="badge" style="margin-top:8px;display:inline-block;">{{ user.role if user else 'user' }}</span>
+    </div>
+    <div class="card">
+        <h3 style="margin-bottom:1.5rem;">Account Details</h3>
+        <div style="font-size:0.9rem;">
+            <div
+                style="display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border);">
+                <span style="color:var(--text-muted);">Username</span>
+                <span>{{ user.username if user else '—' }}</span>
+            </div>
+            <div
+                style="display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border);">
+                <span style="color:var(--text-muted);">Email</span>
+                <span>{{ user.email if user else '—' }}</span>
+            </div>
+            <div
+                style="display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border);">
+                <span style="color:var(--text-muted);">Role</span>
+                <span>{{ user.role if user else '—' }}</span>
+            </div>
+            {% if user and user.balance %}
+            <div
+                style="display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border);">
+                <span style="color:var(--text-muted);">Balance</span>
+                <span class="price">${{ "%.2f"|format(user.balance) }}</span>
+            </div>
+            {% endif %}
+            <div style="display:flex;justify-content:space-between;padding:12px 0;">
+                <span style="color:var(--text-muted);">Member Since</span>
+                <span>{{ user.created_at[:10] if user and user.created_at else 'Today' }}</span>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

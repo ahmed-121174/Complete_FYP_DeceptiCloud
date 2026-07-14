@@ -1,0 +1,70 @@
+{
+  "timestamp": "2026-05-04T04:39:44.066388",
+  "dataset_sizes": {
+    "real": 50,
+    "synthetic": 200
+  },
+  "statistical_similarity": {
+    "balance": {
+      "ks_statistic": 0.185,
+      "ks_pvalue": 0.11997595308993365,
+      "wasserstein_distance": 6496.9319577669685,
+      "js_divergence": 0.11994903444622673,
+      "real_mean": 5466.7019449442405,
+      "synthetic_mean": 11789.775191348486,
+      "real_std": 9228.672749307289,
+      "synthetic_std": 52940.697497458415
+    },
+    "credit_score": {
+      "ks_statistic": 0.11,
+      "ks_pvalue": 0.6953180375733086,
+      "wasserstein_distance": 11.927898288832225,
+      "js_divergence": 0.4210875109986,
+      "real_mean": 681.4224696374362,
+      "synthetic_mean": 681.1244321781821,
+      "real_std": 69.24300629192102,
+      "synthetic_std": 74.9330121489026
+    },
+    "age": {
+      "ks_statistic": 0.08,
+      "ks_pvalue": 0.950474253905122,
+      "wasserstein_distance": 1.7773206029797284,
+      "js_divergence": 0.3689625177037959,
+      "real_mean": 44.44631786454836,
+      "synthetic_mean": 43.91035648827619,
+      "real_std": 15.01342501591116,
+      "synthetic_std": 13.652306364385812
+    },
+    "overall_realism_score": 0.6966669789504591
+  },
+  "watermark_integrity": {
+    "watermarked_count": 67,
+    "total_count": 200,
+    "watermark_rate": 0.335,
+    "expected_rate": 0.3,
+    "chi_square_statistic": 127.5,
+    "watermark_detectable": true,
+    "digit_distribution": {
+      "7": 67,
+      "3": 21,
+      "5": 17,
+      "8": 16,
+      "6": 16,
+      "4": 16,
+      "2": 13,
+      "9": 13,
+      "1": 12,
+      "0": 9
+    }
+  },
+  "expert_distinguishability": {
+    "expert_detection_rate": 0.7294999999999999,
+    "detection_std": 0.11024858275733071,
+    "quality_rating": "Good - requires expertise to detect",
+    "n_trials": 100
+  },
+  "diversity": {
+    "balance_diversity": 0.040980762894812166,
+    "overall_diversity": 0.040980762894812166
+  }
+}

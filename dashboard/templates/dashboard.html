@@ -1,0 +1,1667 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeceptiCloud Adaptive Cyber Deception System</title>
+    <meta name="description" content="AI-Driven Cyber Deception System Dashboard">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="/static/dashboard.css">
+    <script src="/static/icons.js"></script>
+</head>
+
+<body>
+
+    <!--  CYBER BACKGROUND  -->
+    <div class="cyber-bg">
+        <div class="cyber-grid"></div>
+        <div class="scan-line"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <!--  LOGIN SCREEN  -->
+    <div class="login-screen" id="login-screen">
+        <div class="login-card">
+            <div class="logo-icon">
+                <img src="/static/images/decepticloud-logo.svg" alt="DeceptiCloud Logo" style="width:50px;height:50px;">
+            </div>
+            <h1>DECEPTICLOUD</h1>
+            <p class="subtitle">Adaptive Cyber Deception System</p>
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" class="form-input" id="login-user" placeholder="Enter username" autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" class="form-input" id="login-pass" placeholder="Enter password">
+            </div>
+            <button class="login-btn" id="login-btn" onclick="doLogin()">ACCESS SYSTEM</button>
+            <div class="login-error" id="login-error"></div>
+        </div>
+    </div>
+
+    <!--  APP SHELL  -->
+    <div class="app-shell">
+
+        <!--  SIDEBAR  -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-brand">
+                <div class="brand-icon">
+                    <img src="/static/images/decepticloud-logo.svg" alt="DeceptiCloud Logo" style="width:32px;height:32px;">
+                </div>
+                <div>
+                    <div class="brand-text"><span>DECEPTI</span>CLOUD</div>
+                    <span class="brand-sub">Command Center v2.0</span>
+                </div>
+            </div>
+            <button class="sidebar-toggle" onclick="toggleSidebar()" title="Toggle Sidebar"></button>
+            <nav class="sidebar-nav">
+                <div class="nav-section-title">Main</div>
+                <a class="nav-item active" data-page="overview" onclick="navigateTo('overview')">
+                    <span class="nav-icon"></span><span class="nav-text">Overview</span>
+                </a>
+                <a class="nav-item" data-page="attacks" onclick="navigateTo('attacks')">
+                    <span class="nav-icon"></span><span class="nav-text">Attack Analysis</span>
+                    <span class="nav-badge" id="attack-badge">0</span>
+                </a>
+                <a class="nav-item" data-page="honeypots" onclick="navigateTo('honeypots')">
+                    <span class="nav-icon"></span><span class="nav-text">Honeypot Mgmt</span>
+                </a>
+                <a class="nav-item" data-page="attack-history" onclick="navigateTo('attack-history')">
+                    <span class="nav-icon"></span><span class="nav-text">Attack History</span>
+                </a>
+                <a class="nav-item" data-page="attacker-profiles" onclick="navigateTo('attacker-profiles')">
+                    <span class="nav-icon"></span><span class="nav-text">Attacker Profiles</span>
+                </a>
+                <div class="nav-section-title">Intelligence</div>
+                <a class="nav-item" data-page="models" onclick="navigateTo('models')">
+                    <span class="nav-icon"></span><span class="nav-text">ML Models</span>
+                </a>
+                <a class="nav-item" data-page="adaptive" onclick="navigateTo('adaptive')">
+                    <span class="nav-icon"></span><span class="nav-text">Adaptive Engine</span>
+                </a>
+                <a class="nav-item" data-page="sitelogs" onclick="navigateTo('sitelogs')">
+                    <span class="nav-icon"></span><span class="nav-text">Site Logs</span>
+                </a>
+                <a class="nav-item" data-page="blockchain" onclick="navigateTo('blockchain')">
+                    <span class="nav-icon"></span><span class="nav-text">Blockchain Ledger</span>
+                </a>
+                <a class="nav-item" data-page="canary" onclick="navigateTo('canary')">
+                    <span class="nav-icon"></span><span class="nav-text">Canary Tokens</span>
+                </a>
+                <a class="nav-item" data-page="fingerprints" onclick="navigateTo('fingerprints')">
+                    <span class="nav-icon"></span><span class="nav-text">Fingerprints</span>
+                </a>
+                <div class="nav-section-title">System</div>
+                <a class="nav-item" data-page="wazuh" onclick="navigateTo('wazuh')">
+                    <span class="nav-icon"></span><span class="nav-text">Wazuh SIEM</span>
+                </a>
+                <a class="nav-item" data-page="settings" onclick="navigateTo('settings')">
+                    <span class="nav-icon"></span><span class="nav-text">Settings</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="sidebar-avatar" id="user-avatar">A</div>
+                <div class="sidebar-user-info">
+                    <div class="sidebar-user-name" id="sidebar-uname">Admin</div>
+                    <div class="sidebar-user-role" id="sidebar-urole">System Administrator</div>
+                </div>
+            </div>
+        </aside>
+
+        <!--  MAIN CONTENT  -->
+        <div class="main-content">
+
+            <!-- Topbar -->
+            <header class="topbar">
+                <div class="topbar-left">
+                    <span class="topbar-title" id="topbar-title">Command Overview</span>
+                </div>
+                <div class="topbar-right">
+                    <div class="status-pill">
+                        <div class="dot"></div>SYSTEM ONLINE
+                    </div>
+                    <span class="topbar-clock" id="clock">00:00:00</span>
+                    <button class="topbar-btn" onclick="loadPageData(currentPage)" title="Refresh"></button>
+                    <div style="display:flex;align-items:center;gap:8px;cursor:pointer" onclick="doLogout()"
+                        title="Logout">
+                        <span style="font-size:0.78rem;color:var(--text-muted)" id="user-name">Admin</span>
+                        <span style="font-size:0.6rem;color:var(--text-dim)" id="user-role">Admin</span>
+                        <span style="font-size:0.85rem"></span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="page-container">
+
+
+                <!--               PAGE: OVERVIEW                     -->
+
+                <div class="page-view active" id="page-overview">
+                    <!-- Stat Cards -->
+                    <div class="stat-row">
+                        <div class="stat-card red">
+                            <div class="stat-icon"></div>
+                            <div class="stat-label">Attacks Detected</div>
+                            <div class="stat-value" id="stat-attacks">0</div>
+                            <div class="stat-sub" id="stat-attacks-sub">Monitoring...</div>
+                        </div>
+                        <div class="stat-card cyan">
+                            <div class="stat-icon"></div>
+                            <div class="stat-label">Honeypot Events</div>
+                            <div class="stat-value" id="stat-honeypot">0</div>
+                            <div class="stat-sub">Total trap activations</div>
+                        </div>
+                        <div class="stat-card green">
+                            <div class="stat-icon"></div>
+                            <div class="stat-label">System Health</div>
+                            <div class="stat-value" id="stat-health">—</div>
+                            <div class="stat-sub" id="stat-health-sub">Scanning...</div>
+                        </div>
+                        <div class="stat-card yellow">
+                            <div class="stat-icon"></div>
+                            <div class="stat-label">Avg Confidence</div>
+                            <div class="stat-value" id="stat-confidence">—</div>
+                            <div class="stat-sub">Detection accuracy</div>
+                        </div>
+                        <div class="stat-card purple">
+                            <div class="stat-icon"></div>
+                            <div class="stat-label">Threat Actors</div>
+                            <div class="stat-value" id="stat-attackers">0</div>
+                            <div class="stat-sub">Unique malicious IPs</div>
+                        </div>
+                    </div>
+
+                    <!-- Charts Row -->
+                    <div class="grid-3">
+                        <div class="card">
+                            <div class="card-header"><span class="card-title"> Threat Timeline</span></div>
+                            <div class="card-body">
+                                <div class="chart-wrapper"><canvas id="timelineChart"></canvas></div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header"><span class="card-title"> Attack Vectors</span></div>
+                            <div class="card-body">
+                                <div class="chart-wrapper"><canvas id="attackTypeChart"></canvas></div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header"><span class="card-title"> Detection Methods</span></div>
+                            <div class="card-body">
+                                <div class="chart-wrapper"><canvas id="methodChart"></canvas></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Phase 2 Analytics -->
+                    <div class="section-header">
+                        <div>
+                            <div class="section-title"> Phase 2 — AI Analytics</div>
+                            <div class="section-subtitle">LLM Adaptive Responses • GAN Synthetic Data • Behavioral
+                                Fingerprinting</div>
+                        </div>
+                    </div>
+                    <div class="grid-3-eq">
+                        <div class="card">
+                            <div class="card-header"><span class="card-title"> LLM Response Engine</span></div>
+                            <div class="card-body" style="text-align:center">
+                                <div style="display:flex;justify-content:space-around">
+                                    <div>
+                                        <div style="font-family:'Orbitron',sans-serif;font-size:1.8rem;font-weight:800;color:var(--cyan)"
+                                            id="p2-llm-req">0</div>
+                                        <div class="stat-label">Requests</div>
+                                    </div>
+                                    <div>
+                                        <div style="font-family:'Orbitron',sans-serif;font-size:1.8rem;font-weight:800;color:var(--green)"
+                                            id="p2-llm-success">0</div>
+                                        <div class="stat-label">Success</div>
+                                    </div>
+                                    <div>
+                                        <div style="font-family:'Orbitron',sans-serif;font-size:1.8rem;font-weight:800;color:var(--yellow)"
+                                            id="p2-llm-fallback">0</div>
+                                        <div class="stat-label">Fallback</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header"><span class="card-title"> GAN Synthetic Identities</span></div>
+                            <div class="card-body" style="text-align:center">
+                                <div style="font-family:'Orbitron',sans-serif;font-size:2rem;font-weight:800;color:var(--purple)"
+                                    id="p2-gan-total">0</div>
+                                <div class="stat-label">Database Users</div>
+                                <div style="margin-top:12px">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" id="p2-gan-bar"
+                                            style="width:0%;background:linear-gradient(90deg,var(--purple),var(--pink))">
+                                        </div>
+                                    </div>
+                                    <div style="font-size:0.68rem;color:var(--text-dim);margin-top:6px" id="p2-gan-pct">
+                                        0% SYNTHETIC</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header"><span class="card-title"> Behavioral Fingerprints</span></div>
+                            <div class="card-body" style="text-align:center">
+                                <div style="display:flex;justify-content:space-around">
+                                    <div>
+                                        <div style="font-family:'Orbitron',sans-serif;font-size:1.8rem;font-weight:800;color:var(--orange)"
+                                            id="p2-fp-total">0</div>
+                                        <div class="stat-label">Profiles</div>
+                                    </div>
+                                    <div>
+                                        <div style="font-family:'Orbitron',sans-serif;font-size:1.8rem;font-weight:800;color:var(--green)"
+                                            id="p2-fp-clusters">0</div>
+                                        <div class="stat-label">Clusters</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Feed + IP Table + Health -->
+                    <div class="grid-3">
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-title"> Live Threat Feed</span>
+                                <span style="font-size:0.65rem;color:var(--text-dim)" id="feed-count">0 events</span>
+                            </div>
+                            <div style="display:flex;gap:0.5rem;padding:0.5rem 1rem;border-bottom:1px solid rgba(255,255,255,0.05);background:rgba(0,0,0,0.2)">
+                                <button class="feed-tab-btn active" data-feed-tab="recent" onclick="switchFeedTab('recent')" style="padding:0.3rem 0.8rem;font-size:0.7rem;background:var(--cyan);color:#000;border:none;border-radius:4px;cursor:pointer;font-weight:600">Recent (15m)</button>
+                                <button class="feed-tab-btn" data-feed-tab="wazuh" onclick="switchFeedTab('wazuh')" style="padding:0.3rem 0.8rem;font-size:0.7rem;background:rgba(255,255,255,0.1);color:var(--text-dim);border:none;border-radius:4px;cursor:pointer;font-weight:600">Wazuh Alerts</button>
+                                <button class="feed-tab-btn" data-feed-tab="critical" onclick="switchFeedTab('critical')" style="padding:0.3rem 0.8rem;font-size:0.7rem;background:rgba(255,255,255,0.1);color:var(--text-dim);border:none;border-radius:4px;cursor:pointer;font-weight:600">High Severity</button>
+                            </div>
+                            <div class="card-body no-pad">
+                                <div class="feed-list" id="attack-feed">
+                                    <div class="feed-item">
+                                        <div class="feed-icon info"></div>
+                                        <div class="feed-details">
+                                            <div class="feed-path" style="color:var(--text-dim)">Awaiting threat data...
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header"><span class="card-title"> Top Threat Actors</span></div>
+                            <div class="card-body no-pad">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>IP Address</th>
+                                            <th>Hits</th>
+                                            <th>Threat</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="ip-table-body">
+                                        <tr>
+                                            <td colspan="3"
+                                                style="text-align:center;color:var(--text-dim);padding:2rem;font-size:0.8rem">
+                                                No threat actors identified</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header"><span class="card-title"> Infrastructure Health</span></div>
+                            <div class="card-body">
+                                <div class="health-grid" id="health-grid">
+                                    <div class="health-item">
+                                        <div class="health-dot offline"></div><span
+                                            class="health-name">scanning...</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hex-line" id="hex-ticker">0x00 00 00 00 00 00 00 00 — MONITORING ACTIVE</div>
+                </div>
+
+
+                <!--             PAGE: ATTACK ANALYSIS                -->
+                <div class="page-view" id="page-attacks">
+                    <div class="section-header">
+                        <div>
+                            <div class="section-title"> Attack Analysis</div>
+                            <div class="section-subtitle">Detailed log of all detected threats</div>
+                        </div>
+                        <span style="font-size:0.75rem;color:var(--text-dim)" id="attacks-total">0 attacks</span>
+                    </div>
+                    <div class="card">
+                        <div class="card-body no-pad" style="overflow-x:auto;max-height:70vh;overflow-y:auto">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Time</th>
+                                        <th>Source IP</th>
+                                        <th>Request</th>
+                                        <th>Attack Type</th>
+                                        <th>Severity</th>
+                                        <th>Confidence</th>
+                                        <th>Method</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="attacks-tbody">
+                                    <tr>
+                                        <td colspan="7" class="empty-state">
+                                            <div class="empty-icon"></div>
+                                            <div class="empty-text">No attacks detected yet</div>
+                                            <div class="empty-sub">Launch attack simulations to populate this view</div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!--           PAGE: HONEYPOT MANAGEMENT              -->
+
+                <div class="page-view" id="page-honeypots">
+                    <div class="section-header">
+                        <div>
+                            <div class="section-title"> Honeypot Management</div>
+                            <div class="section-subtitle">Control 7 real websites + 7 honeypot clones with dynamic rotation
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" onclick="refreshHoneypots()"> Refresh Status</button>
+                    </div>
+                    
+                    <!-- Proxy Config -->
+                    <div class="card" style="margin-bottom:1.5rem">
+                        <div class="card-header"><span class="card-title"> Proxy Configuration</span></div>
+                        <div class="card-body">
+                            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px">
+                                <div>
+                                    <label style="font-size:0.7rem;color:var(--text-muted);margin-bottom:4px;display:block">Rotation Interval (seconds)</label>
+                                    <input type="number" class="form-input" id="rotation-interval" value="60" min="10" max="600" style="padding:8px 12px">
+                                </div>
+                                <div>
+                                    <label style="font-size:0.7rem;color:var(--text-muted);margin-bottom:4px;display:block">Current Site</label>
+                                    <select class="form-select" id="current-site">
+                                        <option value="banking">Banking</option>
+                                        <option value="ecommerce">E-Commerce</option>
+                                        <option value="healthcare">Healthcare</option>
+                                        <option value="blog">Blog</option>
+                                        <option value="api_service">API Service</option>
+                                        <option value="corporate">Corporate</option>
+                                        <option value="admin_panel">Admin Panel</option>
+                                    </select>
+                                </div>
+                                <div style="display:flex;align-items:end">
+                                    <button class="btn btn-primary" onclick="updateProxyConfig()" style="width:100%"> Update Config</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Stats Row -->
+                    <div class="stat-row" style="margin-bottom:1.5rem">
+                        <div class="stat-card cyan">
+                            <div class="stat-icon"></div>
+                            <div class="stat-label">Total Honeypots</div>
+                            <div class="stat-value" id="hp-total">8</div>
+                        </div>
+                        <div class="stat-card green">
+                            <div class="stat-icon"></div>
+                            <div class="stat-label">Online</div>
+                            <div class="stat-value" id="hp-online">0</div>
+                        </div>
+                        <div class="stat-card red">
+                            <div class="stat-icon"></div>
+                            <div class="stat-label">Total Attacks Captured</div>
+                            <div class="stat-value" id="hp-attacks">0</div>
+                        </div>
+                        <div class="stat-card purple">
+                            <div class="stat-icon"></div>
+                            <div class="stat-label">Active Sessions</div>
+                            <div class="stat-value" id="hp-sessions">0</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Honeypot Cards Grid -->
+                    <div class="section-header">
+                        <div>
+                            <div class="section-title" style="font-size:0.75rem"> Honeypot Status</div>
+                        </div>
+                    </div>
+                    <div class="grid-4" id="honeypot-grid">
+                        <div class="empty-state">
+                            <div class="empty-icon"></div>
+                            <div class="empty-text">Loading honeypot data...</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Active Sessions -->
+                    <div class="section-header" style="margin-top:2rem">
+                        <div>
+                            <div class="section-title" style="font-size:0.75rem"> Active Sessions</div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body no-pad" style="overflow-x:auto;max-height:400px;overflow-y:auto">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Session ID</th>
+                                        <th>IP Address</th>
+                                        <th>Duration</th>
+                                        <th>Requests</th>
+                                        <th>Attacks</th>
+                                        <th>Honeypots Visited</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="sessions-tbody">
+                                    <tr>
+                                        <td colspan="7" class="empty-state">
+                                            <div class="empty-icon"></div>
+                                            <div class="empty-text">No active sessions</div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <!-- Routing Rules -->
+                    <div class="section-header" style="margin-top:2rem">
+                        <div>
+                            <div class="section-title" style="font-size:0.75rem"> Routing Rules</div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body no-pad" style="overflow-x:auto">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Priority</th>
+                                        <th>Conditions</th>
+                                        <th>Actions</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="rules-tbody">
+                                    <tr>
+                                        <td colspan="5" class="empty-state">
+                                            <div class="empty-icon"></div>
+                                            <div class="empty-text">No routing rules defined</div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!--            PAGE: ML MODELS                       -->
+
+                <div class="page-view" id="page-models">
+                    <div class="section-header">
+                        <div>
+                            <div class="section-title"> ML Detection Models</div>
+                            <div class="section-subtitle">ANN/MLP deep learning classifiers for real-time threat
+                                detection</div>
+                        </div>
+                    </div>
+                    <div class="grid-2">
+                        <!-- Web Attack Model -->
+                        <div class="card">
+                            <div class="card-header"><span class="card-title"> Web Attack Detector V2</span><span
+                                    class="badge badge-online">ACTIVE</span></div>
+                            <div class="card-body">
+                                <div style="font-size:0.75rem;color:var(--text-dim);margin-bottom:16px">
+                                    <strong>Architecture:</strong> ANN/MLP (128 → 64) &nbsp;|&nbsp;
+                                    <strong>Features:</strong> 23 &nbsp;|&nbsp; <strong>Output:</strong> Binary<br>
+                                    <strong>Attack Types:</strong> SQLi, NoSQLi, XSS
+                                </div>
+                                <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+                                    <div class="metric-gauge">
+                                        <div class="gauge-value" style="color:var(--cyan)" id="wa-accuracy">—</div>
+                                        <div class="gauge-label">Accuracy</div>
+                                        <div class="gauge-bar">
+                                            <div class="progress-bar">
+                                                <div class="progress-fill" id="wa-acc-bar"
+                                                    style="width:0%;background:var(--cyan)"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="metric-gauge">
+                                        <div class="gauge-value" style="color:var(--green)" id="wa-precision">—</div>
+                                        <div class="gauge-label">Precision</div>
+                                        <div class="gauge-bar">
+                                            <div class="progress-bar">
+                                                <div class="progress-fill" id="wa-prec-bar"
+                                                    style="width:0%;background:var(--green)"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="metric-gauge">
+                                        <div class="gauge-value" style="color:var(--yellow)" id="wa-recall">—</div>
+                                        <div class="gauge-label">Recall</div>
+                                        <div class="gauge-bar">
+                                            <div class="progress-bar">
+                                                <div class="progress-fill" id="wa-rec-bar"
+                                                    style="width:0%;background:var(--yellow)"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="metric-gauge">
+                                        <div class="gauge-value" style="color:var(--purple)" id="wa-f1">—</div>
+                                        <div class="gauge-label">F1 Score</div>
+                                        <div class="gauge-bar">
+                                            <div class="progress-bar">
+                                                <div class="progress-fill" id="wa-f1-bar"
+                                                    style="width:0%;background:var(--purple)"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- DDoS Model -->
+                        <div class="card">
+                            <div class="card-header"><span class="card-title"> DDoS Detector V1</span><span
+                                    class="badge badge-online">ACTIVE</span></div>
+                            <div class="card-body">
+                                <div style="font-size:0.75rem;color:var(--text-dim);margin-bottom:16px">
+                                    <strong>Architecture:</strong> Random Forest &nbsp;|&nbsp;
+                                    <strong>Features:</strong> 30 &nbsp;|&nbsp; <strong>Output:</strong> Binary<br>
+                                    <strong>Attack Types:</strong> SYN Flood, DNS Amp, UDP Flood, NTP, LDAP, MSSQL,
+                                    NetBIOS, SNMP, SSDP
+                                </div>
+                                <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+                                    <div class="metric-gauge">
+                                        <div class="gauge-value" style="color:var(--cyan)" id="dd-accuracy">—</div>
+                                        <div class="gauge-label">Accuracy</div>
+                                        <div class="gauge-bar">
+                                            <div class="progress-bar">
+                                                <div class="progress-fill" id="dd-acc-bar"
+                                                    style="width:0%;background:var(--cyan)"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="metric-gauge">
+                                        <div class="gauge-value" style="color:var(--green)" id="dd-precision">—</div>
+                                        <div class="gauge-label">Precision</div>
+                                        <div class="gauge-bar">
+                                            <div class="progress-bar">
+                                                <div class="progress-fill" id="dd-prec-bar"
+                                                    style="width:0%;background:var(--green)"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="metric-gauge">
+                                        <div class="gauge-value" style="color:var(--yellow)" id="dd-recall">—</div>
+                                        <div class="gauge-label">Recall</div>
+                                        <div class="gauge-bar">
+                                            <div class="progress-bar">
+                                                <div class="progress-fill" id="dd-rec-bar"
+                                                    style="width:0%;background:var(--yellow)"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="metric-gauge">
+                                        <div class="gauge-value" style="color:var(--purple)" id="dd-f1">—</div>
+                                        <div class="gauge-label">F1 Score</div>
+                                        <div class="gauge-bar">
+                                            <div class="progress-bar">
+                                                <div class="progress-fill" id="dd-f1-bar"
+                                                    style="width:0%;background:var(--purple)"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- XSS Detector -->
+                        <div class="card">
+                            <div class="card-header"><span class="card-title"> XSS Detector</span><span
+                                    class="badge badge-online">ACTIVE</span></div>
+                            <div class="card-body">
+                                <div style="font-size:0.75rem;color:var(--text-dim);margin-bottom:16px">
+                                    <strong>Architecture:</strong> Random Forest + TF-IDF &nbsp;|&nbsp;
+                                    <strong>Features:</strong> 100 &nbsp;|&nbsp; <strong>Output:</strong> Binary<br>
+                                    <strong>Attack Types:</strong> Cross-Site Scripting
+                                </div>
+                                <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+                                    <div class="metric-gauge">
+                                        <div class="gauge-value" style="color:var(--cyan)" id="xss-accuracy">—</div>
+                                        <div class="gauge-label">Accuracy</div>
+                                        <div class="gauge-bar">
+                                            <div class="progress-bar">
+                                                <div class="progress-fill" id="xss-acc-bar"
+                                                    style="width:0%;background:var(--cyan)"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="metric-gauge">
+                                        <div class="gauge-value" style="color:var(--green)" id="xss-precision">—</div>
+                                        <div class="gauge-label">Precision</div>
+                                        <div class="gauge-bar">
+                                            <div class="progress-bar">
+                                                <div class="progress-fill" id="xss-prec-bar"
+                                                    style="width:0%;background:var(--green)"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="metric-gauge">
+                                        <div class="gauge-value" style="color:var(--yellow)" id="xss-recall">—</div>
+                                        <div class="gauge-label">Recall</div>
+                                        <div class="gauge-bar">
+                                            <div class="progress-bar">
+                                                <div class="progress-fill" id="xss-rec-bar"
+                                                    style="width:0%;background:var(--yellow)"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="metric-gauge">
+                                        <div class="gauge-value" style="color:var(--purple)" id="xss-f1">—</div>
+                                        <div class="gauge-label">F1 Score</div>
+                                        <div class="gauge-bar">
+                                            <div class="progress-bar">
+                                                <div class="progress-fill" id="xss-f1-bar"
+                                                    style="width:0%;background:var(--purple)"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Brute Force Detector -->
+                        <div class="card">
+                            <div class="card-header"><span class="card-title"> Brute Force Detector</span><span
+                                    class="badge badge-online">ACTIVE</span></div>
+                            <div class="card-body">
+                                <div style="font-size:0.75rem;color:var(--text-dim);margin-bottom:16px">
+                                    <strong>Architecture:</strong> Random Forest &nbsp;|&nbsp;
+                                    <strong>Features:</strong> 10 &nbsp;|&nbsp; <strong>Output:</strong> Binary<br>
+                                    <strong>Attack Types:</strong> Brute Force Login Attacks
+                                </div>
+                                <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+                                    <div class="metric-gauge">
+                                        <div class="gauge-value" style="color:var(--cyan)" id="bf-accuracy">—</div>
+                                        <div class="gauge-label">Accuracy</div>
+                                        <div class="gauge-bar">
+                                            <div class="progress-bar">
+                                                <div class="progress-fill" id="bf-acc-bar"
+                                                    style="width:0%;background:var(--cyan)"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="metric-gauge">
+                                        <div class="gauge-value" style="color:var(--green)" id="bf-precision">—</div>
+                                        <div class="gauge-label">Precision</div>
+                                        <div class="gauge-bar">
+                                            <div class="progress-bar">
+                                                <div class="progress-fill" id="bf-prec-bar"
+                                                    style="width:0%;background:var(--green)"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="metric-gauge">
+                                        <div class="gauge-value" style="color:var(--yellow)" id="bf-recall">—</div>
+                                        <div class="gauge-label">Recall</div>
+                                        <div class="gauge-bar">
+                                            <div class="progress-bar">
+                                                <div class="progress-fill" id="bf-rec-bar"
+                                                    style="width:0%;background:var(--yellow)"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="metric-gauge">
+                                        <div class="gauge-value" style="color:var(--purple)" id="bf-f1">—</div>
+                                        <div class="gauge-label">F1 Score</div>
+                                        <div class="gauge-bar">
+                                            <div class="progress-bar">
+                                                <div class="progress-fill" id="bf-f1-bar"
+                                                    style="width:0%;background:var(--purple)"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Port Scan Detector -->
+                        <div class="card">
+                            <div class="card-header"><span class="card-title"> Port Scan Detector</span><span
+                                    class="badge badge-online">ACTIVE</span></div>
+                            <div class="card-body">
+                                <div style="font-size:0.75rem;color:var(--text-dim);margin-bottom:16px">
+                                    <strong>Architecture:</strong> Random Forest &nbsp;|&nbsp;
+                                    <strong>Features:</strong> 12 &nbsp;|&nbsp; <strong>Output:</strong> Binary<br>
+                                    <strong>Attack Types:</strong> Port Scanning
+                                </div>
+                                <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+                                    <div class="metric-gauge">
+                                        <div class="gauge-value" style="color:var(--cyan)" id="ps-accuracy">—</div>
+                                        <div class="gauge-label">Accuracy</div>
+                                        <div class="gauge-bar">
+                                            <div class="progress-bar">
+                                                <div class="progress-fill" id="ps-acc-bar"
+                                                    style="width:0%;background:var(--cyan)"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="metric-gauge">
+                                        <div class="gauge-value" style="color:var(--green)" id="ps-precision">—</div>
+                                        <div class="gauge-label">Precision</div>
+                                        <div class="gauge-bar">
+                                            <div class="progress-bar">
+                                                <div class="progress-fill" id="ps-prec-bar"
+                                                    style="width:0%;background:var(--green)"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="metric-gauge">
+                                        <div class="gauge-value" style="color:var(--yellow)" id="ps-recall">—</div>
+                                        <div class="gauge-label">Recall</div>
+                                        <div class="gauge-bar">
+                                            <div class="progress-bar">
+                                                <div class="progress-fill" id="ps-rec-bar"
+                                                    style="width:0%;background:var(--yellow)"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="metric-gauge">
+                                        <div class="gauge-value" style="color:var(--purple)" id="ps-f1">—</div>
+                                        <div class="gauge-label">F1 Score</div>
+                                        <div class="gauge-bar">
+                                            <div class="progress-bar">
+                                                <div class="progress-fill" id="ps-f1-bar"
+                                                    style="width:0%;background:var(--purple)"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Credential Stuffing Detector -->
+                        <div class="card">
+                            <div class="card-header"><span class="card-title"> Credential Stuffing Detector</span><span
+                                    class="badge badge-online">ACTIVE</span></div>
+                            <div class="card-body">
+                                <div style="font-size:0.75rem;color:var(--text-dim);margin-bottom:16px">
+                                    <strong>Architecture:</strong> Gradient Boosting &nbsp;|&nbsp;
+                                    <strong>Features:</strong> 12 &nbsp;|&nbsp; <strong>Output:</strong> Binary<br>
+                                    <strong>Attack Types:</strong> Credential Stuffing
+                                </div>
+                                <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+                                    <div class="metric-gauge">
+                                        <div class="gauge-value" style="color:var(--cyan)" id="cs-accuracy">—</div>
+                                        <div class="gauge-label">Accuracy</div>
+                                        <div class="gauge-bar">
+                                            <div class="progress-bar">
+                                                <div class="progress-fill" id="cs-acc-bar"
+                                                    style="width:0%;background:var(--cyan)"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="metric-gauge">
+                                        <div class="gauge-value" style="color:var(--green)" id="cs-precision">—</div>
+                                        <div class="gauge-label">Precision</div>
+                                        <div class="gauge-bar">
+                                            <div class="progress-bar">
+                                                <div class="progress-fill" id="cs-prec-bar"
+                                                    style="width:0%;background:var(--green)"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="metric-gauge">
+                                        <div class="gauge-value" style="color:var(--yellow)" id="cs-recall">—</div>
+                                        <div class="gauge-label">Recall</div>
+                                        <div class="gauge-bar">
+                                            <div class="progress-bar">
+                                                <div class="progress-fill" id="cs-rec-bar"
+                                                    style="width:0%;background:var(--yellow)"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="metric-gauge">
+                                        <div class="gauge-value" style="color:var(--purple)" id="cs-f1">—</div>
+                                        <div class="gauge-label">F1 Score</div>
+                                        <div class="gauge-bar">
+                                            <div class="progress-bar">
+                                                <div class="progress-fill" id="cs-f1-bar"
+                                                    style="width:0%;background:var(--purple)"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Anomaly Detector -->
+                        <div class="card">
+                            <div class="card-header"><span class="card-title"> Anomaly Detector</span><span
+                                    class="badge badge-online">ACTIVE</span></div>
+                            <div class="card-body">
+                                <div style="font-size:0.75rem;color:var(--text-dim);margin-bottom:16px">
+                                    <strong>Architecture:</strong> Isolation Forest &nbsp;|&nbsp;
+                                    <strong>Features:</strong> 21 &nbsp;|&nbsp; <strong>Output:</strong> Anomaly Score<br>
+                                    <strong>Attack Types:</strong> Unknown/Zero-Day Threats
+                                </div>
+                                <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+                                    <div class="metric-gauge">
+                                        <div class="gauge-value" style="color:var(--cyan)" id="an-accuracy">—</div>
+                                        <div class="gauge-label">Accuracy</div>
+                                        <div class="gauge-bar">
+                                            <div class="progress-bar">
+                                                <div class="progress-fill" id="an-acc-bar"
+                                                    style="width:0%;background:var(--cyan)"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="metric-gauge">
+                                        <div class="gauge-value" style="color:var(--green)" id="an-precision">—</div>
+                                        <div class="gauge-label">Precision</div>
+                                        <div class="gauge-bar">
+                                            <div class="progress-bar">
+                                                <div class="progress-fill" id="an-prec-bar"
+                                                    style="width:0%;background:var(--green)"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="metric-gauge">
+                                        <div class="gauge-value" style="color:var(--yellow)" id="an-recall">—</div>
+                                        <div class="gauge-label">Recall</div>
+                                        <div class="gauge-bar">
+                                            <div class="progress-bar">
+                                                <div class="progress-fill" id="an-rec-bar"
+                                                    style="width:0%;background:var(--yellow)"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="metric-gauge">
+                                        <div class="gauge-value" style="color:var(--purple)" id="an-f1">—</div>
+                                        <div class="gauge-label">F1 Score</div>
+                                        <div class="gauge-bar">
+                                            <div class="progress-bar">
+                                                <div class="progress-fill" id="an-f1-bar"
+                                                    style="width:0%;background:var(--purple)"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!--           PAGE: ADAPTIVE LEARNING ENGINE           -->
+
+                <div class="page-view" id="page-adaptive">
+                    <div class="section-header">
+                        <div>
+                            <div class="section-title">Adaptive Learning Engine</div>
+                            <div class="section-subtitle">Continuous model retraining · Drift detection · Behavioral profiling · Real-time monitoring</div>
+                        </div>
+                        <div style="display:flex;gap:8px">
+                            <button class="btn btn-primary" onclick="aleRefresh()">↻ Refresh</button>
+                        </div>
+                    </div>
+
+                    <!-- Attacker Profiling Box (Live Feed + Session Card) -->
+                    <div class="grid-2" style="margin-bottom:1.5rem">
+                        <!-- Active Attacker Session Card -->
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-title">🎯 Active Attacker Session</span>
+                                <span class="badge badge-online">LIVE</span>
+                            </div>
+                            <div class="card-body" id="ale-active-attacker-card" style="min-height:300px;display:flex;flex-direction:column;">
+                                <div style="color:var(--text-dim);text-align:center;padding:30px">Awaiting active sessions...</div>
+                            </div>
+                        </div>
+
+                        <!-- Live Attack Stream Terminal -->
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-title">📡 Live Attack Stream</span>
+                                <span class="badge badge-online">LIVE</span>
+                            </div>
+                            <div class="card-body" style="background:#050a14;padding:0;overflow:hidden;display:flex;flex-direction:column;min-height:300px">
+                                <div style="display:grid;grid-template-columns:60px 100px 120px 1fr 60px;gap:8px;padding:8px 12px;border-bottom:1px solid #1e293b;font-size:0.7rem;color:var(--text-dim);font-weight:600;background:#0b1120">
+                                    <div>TIME</div>
+                                    <div>IP</div>
+                                    <div>EVENT</div>
+                                    <div>TARGET</div>
+                                    <div style="text-align:right">ACTION</div>
+                                </div>
+                                <div id="ale-live-stream-body" style="flex:1;overflow-y:auto;padding:0 12px">
+                                    <div style="color:var(--text-dim);text-align:center;padding:30px">Connecting to stream...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Engine Status Row -->
+                    <div class="stat-row" style="margin-bottom:1.5rem">
+                        <div class="stat-card cyan">
+                            <div class="stat-icon"></div>
+                            <div class="stat-value" id="ale-status-badge">—</div>
+                            <div class="stat-label">Engine Status</div>
+                        </div>
+                        <div class="stat-card green">
+                            <div class="stat-icon">📥</div>
+                            <div class="stat-value" id="ale-wazuh-ingested">—</div>
+                            <div class="stat-label">Wazuh Alerts Ingested</div>
+                        </div>
+                        <div class="stat-card purple">
+                            <div class="stat-icon">🔄</div>
+                            <div class="stat-value" id="ale-retrain-count">—</div>
+                            <div class="stat-label">Retraining Runs</div>
+                        </div>
+                        <div class="stat-card yellow">
+                            <div class="stat-icon">👤</div>
+                            <div class="stat-value" id="ale-profiles-count">—</div>
+                            <div class="stat-label">Profiles Updated</div>
+                        </div>
+                    </div>
+
+                    <div class="grid-2">
+                        <!-- Training Data Stats -->
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-title">📊 Training Data Pipeline</span>
+                            </div>
+                            <div class="card-body">
+                                <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
+                                    <div style="background:var(--bg-card);border-radius:8px;padding:12px;text-align:center">
+                                        <div style="font-size:1.5rem;font-weight:700;color:var(--cyan)" id="ale-total-samples">—</div>
+                                        <div style="font-size:0.7rem;color:var(--text-dim)">Total Samples</div>
+                                    </div>
+                                    <div style="background:var(--bg-card);border-radius:8px;padding:12px;text-align:center">
+                                        <div style="font-size:1.5rem;font-weight:700;color:var(--green)" id="ale-unused-samples">—</div>
+                                        <div style="font-size:0.7rem;color:var(--text-dim)">Pending Training</div>
+                                    </div>
+                                    <div style="background:var(--bg-card);border-radius:8px;padding:12px;text-align:center">
+                                        <div style="font-size:1.5rem;font-weight:700;color:var(--purple)" id="ale-wazuh-total">—</div>
+                                        <div style="font-size:0.7rem;color:var(--text-dim)">Wazuh Alerts</div>
+                                    </div>
+                                    <div style="background:var(--bg-card);border-radius:8px;padding:12px;text-align:center">
+                                        <div style="font-size:1.5rem;font-weight:700;color:var(--yellow)" id="ale-wazuh-unprocessed">—</div>
+                                        <div style="font-size:0.7rem;color:var(--text-dim)">Unprocessed</div>
+                                    </div>
+                                </div>
+                                <div id="ale-by-type-table"></div>
+                            </div>
+                        </div>
+
+                        <!-- Manual Retraining Controls -->
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-title">🔄 Model Retraining Controls</span>
+                            </div>
+                            <div class="card-body">
+                                <div style="font-size:0.75rem;color:var(--text-dim);margin-bottom:12px">
+                                    Manually trigger retraining or rollback for any model.
+                                    The engine auto-retrains when drift is detected or 200+ new samples accumulate.
+                                </div>
+                                <div id="ale-retrain-controls" style="display:flex;flex-direction:column;gap:8px"></div>
+                                <div id="ale-retrain-result" style="margin-top:12px;font-size:0.75rem;color:var(--green)"></div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Wazuh Alerts Feed -->
+                    <div class="card" style="margin-top:1.5rem">
+                        <div class="card-header">
+                            <span class="card-title">Wazuh Live Agents Feed</span>
+                            <div style="display:flex;gap:8px;align-items:center">
+                                <select id="ale-wazuh-level-filter" onchange="loadWazuhAlerts()" style="background:var(--bg-card);color:var(--text-primary);border:1px solid var(--border);border-radius:4px;padding:4px 8px;font-size:0.75rem">
+                                    <option value="0">All Levels</option>
+                                    <option value="5">Level 5+</option>
+                                    <option value="7">Level 7+ (Medium)</option>
+                                    <option value="10">Level 10+ (High)</option>
+                                    <option value="12">Level 12+ (Critical)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="card-body" style="max-height:320px;overflow-y:auto">
+                            <table style="width:100%;font-size:0.72rem;border-collapse:collapse">
+                                <thead>
+                                    <tr style="color:var(--text-dim)">
+                                        <th style="text-align:left;padding:4px">Time</th>
+                                        <th style="text-align:left;padding:4px">Agent</th>
+                                        <th style="text-align:center;padding:4px">Rule ID</th>
+                                        <th style="text-align:center;padding:4px">Level</th>
+                                        <th style="text-align:left;padding:4px">Description</th>
+                                        <th style="text-align:left;padding:4px">IP</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="ale-wazuh-alerts-body"></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Attacker Clusters -->
+                    <div class="card" style="margin-top:1.5rem">
+                        <div class="card-header">
+                            <span class="card-title">🗂️ Attacker Cluster Analysis</span>
+                        </div>
+                        <div class="card-body" id="ale-clusters-panel">
+                            <div style="color:var(--text-dim);text-align:center;padding:20px">Loading clusters...</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--           PAGE: SITE LOGS                -->
+
+                <div class="page-view" id="page-sitelogs">
+                    <div class="section-header">
+                        <div>
+                            <div class="section-title">Site Logs & Telemetry</div>
+                            <div class="section-subtitle">Real-time traffic, SIEM events, and security analytics per site</div>
+                        </div>
+                        <div style="display:flex;gap:8px">
+                            <button class="btn btn-primary" onclick="loadSiteLogsData()">↻ Refresh</button>
+                        </div>
+                    </div>
+
+                    <!-- Top level tabs for sites -->
+                    <div style="display:flex;gap:8px;overflow-x:auto;padding-bottom:12px;margin-bottom:16px;border-bottom:1px solid var(--border)" id="site-logs-tabs">
+                        <!-- Filled dynamically via JS -->
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header" style="border-bottom:1px solid var(--border);display:flex;gap:16px;padding:0 16px">
+                            <div class="site-subtab active" data-subtab="traffic" onclick="switchSiteSubtab('traffic')" style="padding:16px 0;cursor:pointer;color:var(--cyan);border-bottom:2px solid var(--cyan);font-weight:600">Traffic Logs</div>
+                            <div class="site-subtab" data-subtab="attacks" onclick="switchSiteSubtab('attacks')" style="padding:16px 0;cursor:pointer;color:var(--text-dim)">Attack Events</div>
+                            <div class="site-subtab" data-subtab="stats" onclick="switchSiteSubtab('stats')" style="padding:16px 0;cursor:pointer;color:var(--text-dim)">Statistics</div>
+                        </div>
+                        <div class="card-body">
+                            
+                            <!-- Subtab: Traffic -->
+                            <div id="site-subtab-traffic" class="site-subtab-content">
+                                <div style="font-size:0.75rem;color:var(--text-dim);margin-bottom:12px">All HTTP requests (Wazuh SIEM alerts & proxy logs)</div>
+                                <div style="max-height:500px;overflow-y:auto">
+                                    <table style="width:100%;font-size:0.72rem;border-collapse:collapse">
+                                        <thead>
+                                            <tr style="color:var(--text-dim);border-bottom:1px solid var(--border)">
+                                                <th style="text-align:left;padding:8px;width:140px">Timestamp</th>
+                                                <th style="text-align:left;padding:8px;width:120px">Source IP</th>
+                                                <th style="text-align:left;padding:8px;width:150px">Agent/Source</th>
+                                                <th style="text-align:center;padding:8px;width:60px">Level</th>
+                                                <th style="text-align:left;padding:8px">Description</th>
+                                                <th style="text-align:left;padding:8px;width:80px">Rule ID</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="site-logs-traffic-body"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- Subtab: Attacks -->
+                            <div id="site-subtab-attacks" class="site-subtab-content" style="display:none">
+                                <div style="font-size:0.75rem;color:var(--text-dim);margin-bottom:12px">High-severity alerts and confirmed malicious events</div>
+                                <div style="max-height:500px;overflow-y:auto">
+                                    <table style="width:100%;font-size:0.72rem;border-collapse:collapse">
+                                        <thead>
+                                            <tr style="color:var(--text-dim);border-bottom:1px solid var(--border)">
+                                                <th style="text-align:left;padding:8px">Timestamp</th>
+                                                <th style="text-align:left;padding:8px">IP</th>
+                                                <th style="text-align:left;padding:8px">Threat Type</th>
+                                                <th style="text-align:center;padding:8px">Severity</th>
+                                                <th style="text-align:left;padding:8px">Payload / Details</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="site-logs-attacks-body"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- Subtab: Stats -->
+                            <div id="site-subtab-stats" class="site-subtab-content" style="display:none">
+                                <div class="grid-2">
+                                    <div style="background:var(--bg-card);border-radius:8px;padding:16px;text-align:center">
+                                        <div style="font-size:2rem;font-weight:700;color:var(--cyan)" id="site-stat-total">—</div>
+                                        <div style="font-size:0.8rem;color:var(--text-dim)">Total Events (24h)</div>
+                                    </div>
+                                    <div style="background:var(--bg-card);border-radius:8px;padding:16px">
+                                        <div style="font-size:0.8rem;font-weight:600;margin-bottom:12px">Attack Types</div>
+                                        <div id="site-stat-types" style="font-size:0.75rem"></div>
+                                    </div>
+                                </div>
+                                <div style="margin-top:16px;background:var(--bg-card);border-radius:8px;padding:16px">
+                                    <div style="font-size:0.8rem;font-weight:600;margin-bottom:12px">Wazuh Severity Distribution</div>
+                                    <div id="site-stat-severity" style="font-size:0.75rem;display:flex;gap:8px;align-items:flex-end;height:100px"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!--           PAGE: BLOCKCHAIN LEDGER                -->
+
+                <div class="page-view" id="page-blockchain">
+                    <div class="section-header">
+                        <div>
+                            <div class="section-title"> Blockchain Attack Ledger</div>
+                            <div class="section-subtitle">Immutable record of all attack events — tamper-proof evidence
+                                chain</div>
+                        </div>
+                    </div>
+                    <div class="stat-row" style="margin-bottom:1.5rem">
+                        <div class="stat-card purple">
+                            <div class="stat-icon"></div>
+                            <div class="stat-label">Total Blocks</div>
+                            <div class="stat-value" id="bc-total-blocks">0</div>
+                        </div>
+                        <div class="stat-card red">
+                            <div class="stat-icon"></div>
+                            <div class="stat-label">Logged Attacks</div>
+                            <div class="stat-value" id="bc-total-attacks">0</div>
+                        </div>
+                    </div>
+                    <div id="bc-validity" class="chain-valid"> Chain integrity verified — no tampering detected</div>
+                    <div class="card">
+                        <div class="card-header"><span class="card-title"> Recent Blocks</span></div>
+                        <div class="card-body" id="bc-blocks-list" style="max-height:500px;overflow-y:auto">
+                            <div class="empty-state">
+                                <div class="empty-icon"></div>
+                                <div class="empty-text">No blocks in ledger yet</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!--            PAGE: CANARY TOKENS                   -->
+
+                <div class="page-view" id="page-canary">
+                    <div class="section-header">
+                        <div>
+                            <div class="section-title"> Canary Token Traps</div>
+                            <div class="section-subtitle">Decoy files, credentials and endpoints that trigger alerts
+                                when accessed</div>
+                        </div>
+                    </div>
+                    <div class="stat-row" style="margin-bottom:1rem">
+                        <div class="stat-card red">
+                            <div class="stat-icon"></div>
+                            <div class="stat-label">Total Triggers</div>
+                            <div class="stat-value" id="canary-total">0</div>
+                        </div>
+                    </div>
+                    <div class="section-header">
+                        <div>
+                            <div class="section-title" style="font-size:0.75rem"> Deployed Token Types</div>
+                        </div>
+                    </div>
+                    <div class="grid-4" id="canary-types">
+                        <div class="empty-state">
+                            <div class="empty-icon"></div>
+                            <div class="empty-text">Loading canary data...</div>
+                        </div>
+                    </div>
+                    <div class="card" style="margin-top:1.25rem">
+                        <div class="card-header"><span class="card-title"> Recent Alerts</span></div>
+                        <div class="card-body no-pad">
+                            <div class="feed-list" id="canary-alerts">
+                                <div class="empty-state">
+                                    <div class="empty-icon"></div>
+                                    <div class="empty-text">No triggers yet</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!--         PAGE: BEHAVIORAL FINGERPRINTS            -->
+
+                <div class="page-view" id="page-fingerprints">
+                    <div class="section-header">
+                        <div>
+                            <div class="section-title">🔍 Enhanced Behavioral Fingerprints</div>
+                            <div class="section-subtitle">Advanced attacker profiling with JA3 TLS fingerprinting, geolocation tracking, and ML-powered clustering</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Stats Row -->
+                    <div class="stat-row" style="margin-bottom:1.5rem">
+                        <div class="stat-card orange">
+                            <div class="stat-icon">👤</div>
+                            <div class="stat-label">Total Profiles</div>
+                            <div class="stat-value" id="fp-total">0</div>
+                        </div>
+                        <div class="stat-card green">
+                            <div class="stat-icon">🎯</div>
+                            <div class="stat-label">Clusters Identified</div>
+                            <div class="stat-value" id="fp-clusters">0</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Cluster Analysis -->
+                    <div class="section-header">
+                        <div>
+                            <div class="section-title" style="font-size:0.85rem">🎯 Cluster Analysis</div>
+                            <div class="section-subtitle" style="font-size:0.7rem">Advanced ML clustering groups similar attackers based on behavioral patterns, TLS fingerprints, and geographic origin</div>
+                        </div>
+                    </div>
+                    <div class="card" style="margin-bottom:1.5rem">
+                        <div class="card-header"><span class="card-title">📊 Attacker Clusters</span></div>
+                        <div class="card-body no-pad" style="overflow-x:auto;max-height:400px;overflow-y:auto">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Cluster ID</th>
+                                        <th>Members</th>
+                                        <th>Unique Fingerprints</th>
+                                        <th>Geographic Origin</th>
+                                        <th>First Seen</th>
+                                        <th>Last Seen</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="fp-clusters-tbody">
+                                    <tr>
+                                        <td colspan="6" class="empty-state">
+                                            <div class="empty-icon">🎯</div>
+                                            <div class="empty-text">No clusters formed yet</div>
+                                            <div class="empty-sub">Clusters will appear as attackers interact with honeypots</div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <!-- Fingerprint Profiles -->
+                    <div class="section-header">
+                        <div>
+                            <div class="section-title" style="font-size:0.85rem">👤 Individual Fingerprint Profiles</div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header"><span class="card-title">🔍 Behavioral Profiles</span></div>
+                        <div class="card-body no-pad" style="overflow-x:auto;max-height:500px;overflow-y:auto">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Behavioral Hash</th>
+                                        <th>IPs Used</th>
+                                        <th>JA3 Fingerprint</th>
+                                        <th>Cluster</th>
+                                        <th>Sessions</th>
+                                        <th>Last Seen</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="fp-tbody">
+                                    <tr>
+                                        <td colspan="6" class="empty-state">
+                                            <div class="empty-icon">🔍</div>
+                                            <div class="empty-text">No fingerprints collected yet</div>
+                                            <div class="empty-sub">Behavioral data will appear when attackers interact with honeypots</div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!--         PAGE: ATTACK HISTORY                    -->
+
+                <div class="page-view" id="page-attack-history">
+                    <div class="section-header">
+                        <div>
+                            <div class="section-title"> Attack History</div>
+                            <div class="section-subtitle">Complete attack log with filtering, export and timeline visualization</div>
+                        </div>
+                        <button class="btn btn-outline" onclick="exportAttacks('csv')"> Export CSV</button>
+                    </div>
+                    
+                    <!-- Filter Bar -->
+                    <div class="card" style="margin-bottom:1rem">
+                        <div class="card-body" style="padding:1rem">
+                            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;align-items:end">
+                                <div>
+                                    <label style="font-size:0.7rem;color:var(--text-muted);margin-bottom:4px;display:block">Attack Type</label>
+                                    <select class="form-select" id="filter-type" onchange="filterAttacks()">
+                                        <option value="">All Types</option>
+                                        <option value="sqli">SQL Injection</option>
+                                        <option value="xss">XSS</option>
+                                        <option value="nosqli">NoSQL Injection</option>
+                                        <option value="traversal">Path Traversal</option>
+                                        <option value="tool">Scanner/Tool</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label style="font-size:0.7rem;color:var(--text-muted);margin-bottom:4px;display:block">Severity</label>
+                                    <select class="form-select" id="filter-severity" onchange="filterAttacks()">
+                                        <option value="">All Severities</option>
+                                        <option value="critical">Critical</option>
+                                        <option value="high">High</option>
+                                        <option value="medium">Medium</option>
+                                        <option value="low">Low</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label style="font-size:0.7rem;color:var(--text-muted);margin-bottom:4px;display:block">Source IP</label>
+                                    <input type="text" class="form-input" id="filter-ip" placeholder="Filter by IP..." onkeyup="filterAttacks()" style="padding:8px 12px">
+                                </div>
+                                <div>
+                                    <label style="font-size:0.7rem;color:var(--text-muted);margin-bottom:4px;display:block">Date Range</label>
+                                    <select class="form-select" id="filter-date" onchange="filterAttacks()">
+                                        <option value="">All Time</option>
+                                        <option value="1h">Last Hour</option>
+                                        <option value="24h">Last 24 Hours</option>
+                                        <option value="7d">Last 7 Days</option>
+                                        <option value="30d">Last 30 Days</option>
+                                    </select>
+                                </div>
+                                <button class="btn btn-outline" onclick="clearFilters()" style="padding:8px 16px"> Clear</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Stats Row -->
+                    <div class="stat-row" style="margin-bottom:1rem">
+                        <div class="stat-card red">
+                            <div class="stat-label">Total Attacks</div>
+                            <div class="stat-value" id="ah-total">0</div>
+                        </div>
+                        <div class="stat-card yellow">
+                            <div class="stat-label">Filtered Results</div>
+                            <div class="stat-value" id="ah-filtered">0</div>
+                        </div>
+                        <div class="stat-card cyan">
+                            <div class="stat-label">Unique IPs</div>
+                            <div class="stat-value" id="ah-unique-ips">0</div>
+                        </div>
+                        <div class="stat-card purple">
+                            <div class="stat-label">Avg Confidence</div>
+                            <div class="stat-value" id="ah-avg-conf">0%</div>
+                        </div>
+                    </div>
+
+                    <!-- Attack Table -->
+                    <div class="card">
+                        <div class="card-body no-pad" style="overflow-x:auto;max-height:600px;overflow-y:auto">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th style="cursor:pointer" onclick="toggleSort('timestamp')">Timestamp <span style="font-size:0.7rem">▼</span></th>
+                                        <th style="cursor:pointer" onclick="toggleSort('ip')">Source IP <span style="font-size:0.7rem">▼</span></th>
+                                        <th>Request</th>
+                                        <th style="cursor:pointer" onclick="toggleSort('attack_type')">Attack Type <span style="font-size:0.7rem">▼</span></th>
+                                        <th style="cursor:pointer" onclick="toggleSort('severity')">Severity <span style="font-size:0.7rem">▼</span></th>
+                                        <th style="cursor:pointer" onclick="toggleSort('confidence')">Confidence <span style="font-size:0.7rem">▼</span></th>
+                                        <th>Method</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="attack-history-tbody">
+                                    <tr>
+                                        <td colspan="8" class="empty-state">
+                                            <div class="empty-icon"></div>
+                                            <div class="empty-text">Loading attack history...</div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div style="display:flex;justify-content:center;align-items:center;gap:12px;margin-top:1rem">
+                        <button class="btn btn-outline" onclick="prevPage()" id="btn-prev"> Previous</button>
+                        <span style="font-size:0.8rem;color:var(--text-muted)" id="page-info">Page 1</span>
+                        <button class="btn btn-outline" onclick="nextPage()" id="btn-next"> Next</button>
+                    </div>
+                </div>
+
+
+                <!--         PAGE: ATTACKER PROFILES                 -->
+
+                <div class="page-view" id="page-attacker-profiles">
+                    <div class="section-header">
+                        <div>
+                            <div class="section-title"> Attacker Profiles</div>
+                            <div class="section-subtitle">Behavioral clustering and threat actor identification</div>
+                        </div>
+                        <button class="btn btn-outline" onclick="exportProfiles('csv')"> Export CSV</button>
+                    </div>
+
+                    <!-- Stats Row -->
+                    <div class="stat-row" style="margin-bottom:1.5rem">
+                        <div class="stat-card orange">
+                            <div class="stat-icon"></div>
+                            <div class="stat-label">Total Profiles</div>
+                            <div class="stat-value" id="ap-total">0</div>
+                        </div>
+                        <div class="stat-card green">
+                            <div class="stat-icon"></div>
+                            <div class="stat-label">Clusters Detected</div>
+                            <div class="stat-value" id="ap-clusters">0</div>
+                        </div>
+                        <div class="stat-card red">
+                            <div class="stat-icon"></div>
+                            <div class="stat-label">High-Risk Actors</div>
+                            <div class="stat-value" id="ap-high-risk">0</div>
+                        </div>
+                        <div class="stat-card purple">
+                            <div class="stat-icon"></div>
+                            <div class="stat-label">Active Today</div>
+                            <div class="stat-value" id="ap-active-today">0</div>
+                        </div>
+                    </div>
+
+                    <!-- Cluster Visualization -->
+                    <div class="card" style="margin-bottom:1.25rem">
+                        <div class="card-header"><span class="card-title"> Cluster Visualization</span></div>
+                        <div class="card-body">
+                            <div class="chart-wrapper" style="height:300px"><canvas id="clusterChart"></canvas></div>
+                        </div>
+                    </div>
+
+                    <!-- Profile Cards -->
+                    <div class="section-header">
+                        <div>
+                            <div class="section-title" style="font-size:0.75rem"> Attacker Profiles</div>
+                        </div>
+                    </div>
+                    <div class="grid-3-eq" id="profile-cards">
+                        <div class="empty-state">
+                            <div class="empty-icon"></div>
+                            <div class="empty-text">Loading profiles...</div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!--             PAGE: SETTINGS                       -->
+
+                <div class="page-view" id="page-settings">
+                    <div class="section-header">
+                        <div>
+                            <div class="section-title"> System Settings</div>
+                            <div class="section-subtitle">Configure proxy routing, notifications, and dashboard behavior
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="settings-group">
+                                <h3> Proxy Configuration</h3>
+                                <div class="setting-row">
+                                    <div>
+                                        <div class="setting-label">Rotation Interval</div>
+                                        <div class="setting-desc">How often honeypot services rotate (seconds)</div>
+                                    </div>
+                                    <div class="setting-control"><input type="number" class="form-number"
+                                            id="set-rotation" value="60" min="10" max="600"><span
+                                            style="font-size:0.7rem;color:var(--text-dim)">sec</span></div>
+                                </div>
+                                <div class="setting-row">
+                                    <div>
+                                        <div class="setting-label">Default Site</div>
+                                        <div class="setting-desc">Primary site for the routing proxy</div>
+                                    </div>
+                                    <div class="setting-control">
+                                        <select class="form-select" id="set-site">
+                                            <option value="banking">Banking</option>
+                                            <option value="ecommerce">E-Commerce</option>
+                                            <option value="healthcare">Healthcare</option>
+                                            <option value="blog">Blog</option>
+                                            <option value="api_service">API Service</option>
+                                            <option value="corporate">Corporate</option>
+                                            <option value="admin_panel">Admin Panel</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="settings-group">
+                                <h3> Notifications</h3>
+                                <div class="setting-row">
+                                    <div>
+                                        <div class="setting-label">Enable Notifications</div>
+                                        <div class="setting-desc">Browser alerts for high-severity attacks</div>
+                                    </div>
+                                    <label class="toggle"><input type="checkbox" id="set-notif" checked><span
+                                            class="slider"></span></label>
+                                </div>
+                            </div>
+                            <div class="settings-group">
+                                <h3> Dashboard</h3>
+                                <div class="setting-row">
+                                    <div>
+                                        <div class="setting-label">Auto-Refresh</div>
+                                        <div class="setting-desc">Automatically refresh data at intervals</div>
+                                    </div>
+                                    <label class="toggle"><input type="checkbox" id="set-autorefresh" checked><span
+                                            class="slider"></span></label>
+                                </div>
+                                <div class="setting-row">
+                                    <div>
+                                        <div class="setting-label">Refresh Interval</div>
+                                        <div class="setting-desc">Seconds between data refreshes</div>
+                                    </div>
+                                    <div class="setting-control"><input type="number" class="form-number"
+                                            id="set-interval" value="5" min="2" max="60"><span
+                                            style="font-size:0.7rem;color:var(--text-dim)">sec</span></div>
+                                </div>
+                            </div>
+                            <div style="display:flex;gap:12px;margin-top:1.5rem">
+                                <button class="btn btn-primary" id="save-settings-btn" onclick="saveSettings()"> SAVE
+                                    CHANGES</button>
+                                <button class="btn btn-outline" onclick="loadSettings()">↩ RESET</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--             PAGE: WAZUH SIEM                 -->
+                <div class="page-view" id="page-wazuh">
+                    <div class="section-header">
+                        <div>
+                            <div class="section-title"> Wazuh SIEM Integration</div>
+                            <div class="section-subtitle">Real-time bi-directional synchronization with Wazuh Manager and Agents</div>
+                        </div>
+                        <button class="btn btn-primary" onclick="loadWazuhData()"> Refresh Data</button>
+                    </div>
+
+                    <!-- Stat Cards -->
+                    <div class="stat-row">
+                        <div class="stat-card cyan">
+                            <div class="stat-icon"></div>
+                            <div class="stat-label">Manager Status</div>
+                            <div class="stat-value" id="wazuh-manager-status">—</div>
+                            <div class="stat-sub" id="wazuh-version">Checking...</div>
+                        </div>
+                        <div class="stat-card green">
+                            <div class="stat-icon">🟢</div>
+                            <div class="stat-label">Active Agents</div>
+                            <div class="stat-value" id="wazuh-active-agents">0</div>
+                            <div class="stat-sub">Connected and syncing</div>
+                        </div>
+                        <div class="stat-card red">
+                            <div class="stat-icon">🔴</div>
+                            <div class="stat-label">Disconnected Agents</div>
+                            <div class="stat-value" id="wazuh-disconnected-agents">0</div>
+                            <div class="stat-sub">Offline agents</div>
+                        </div>
+                        <div class="stat-card purple">
+                            <div class="stat-icon">🔄</div>
+                            <div class="stat-label">Event Sync Status</div>
+                            <div class="stat-value" style="color:var(--green)">SYNCED</div>
+                            <div class="stat-sub">DeceptiCloud events pushed to Wazuh</div>
+                        </div>
+                    </div>
+
+                    <div class="card" style="margin-top: 1.5rem;">
+                        <div class="card-header"><span class="card-title"> Wazuh Agents</span></div>
+                        <div class="card-body no-pad" style="overflow-x:auto;max-height:60vh;overflow-y:auto">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Agent ID</th>
+                                        <th>Name</th>
+                                        <th>IP Address</th>
+                                        <th>OS Version</th>
+                                        <th>Wazuh Version</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="wazuh-agents-tbody">
+                                    <tr>
+                                        <td colspan="6" class="empty-state">
+                                            <div class="empty-icon"></div>
+                                            <div class="empty-text">Loading Wazuh agents...</div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <footer class="footer">
+                    <div class="line"></div>
+                    DeceptiCloud - Adaptive Cyber Deception System
+                </footer>
+
+            </div><!-- /page-container -->
+        </div><!-- /main-content -->
+    </div><!-- /app-shell -->
+
+    <!-- Honeypot Details Modal -->
+    <div id="honeypot-modal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.8);z-index:9999;align-items:center;justify-content:center">
+        <div style="background:var(--bg-card);border:1px solid var(--border-active);border-radius:var(--radius);max-width:800px;width:90%;max-height:90vh;overflow-y:auto;box-shadow:0 0 60px rgba(0,240,255,0.3)">
+            <div style="padding:1.5rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center">
+                <h3 style="font-family:'Orbitron',sans-serif;font-size:1.1rem;color:var(--cyan);margin:0" id="modal-honeypot-title">Honeypot Details</h3>
+                <button onclick="closeHoneypotModal()" style="background:none;border:none;color:var(--text-muted);font-size:1.5rem;cursor:pointer;padding:0;width:30px;height:30px;display:flex;align-items:center;justify-content:center">&times;</button>
+            </div>
+            <div style="padding:1.5rem" id="modal-honeypot-content">
+                <div style="text-align:center;padding:2rem;color:var(--text-dim)">Loading...</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/dashboard.js?v=2.4"></script>
+</body>
+
+</html>

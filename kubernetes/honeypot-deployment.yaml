@@ -1,0 +1,223 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: honeypot-config
+  namespace: cyberdefense
+data:
+  rotation_interval: "300"
+  ml_api_url: "http://ml-api:5000"
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: honeypot-deceptive
+  namespace: cyberdefense
+  labels:
+    app: honeypot
+    type: deceptive
+spec:
+  serviceName: honeypot-deceptive
+  replicas: 5
+  selector:
+    matchLabels:
+      app: honeypot
+      type: deceptive
+  template:
+    metadata:
+      labels:
+        app: honeypot
+        type: deceptive
+    spec:
+      containers:
+      - name: honeypot
+        image: cyberdefense/honeypot:latest
+        ports:
+        - containerPort: 8080
+          name: http
+        env:
+        - name: HONEYPOT_TYPE
+          value: "deceptive"
+        - name: HONEYPOT_SERVICE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: ML_API_URL
+          valueFrom:
+            configMapKeyRef:
+              name: honeypot-config
+              key: ml_api_url
+        - name: PORT
+          value: "8080"
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "200m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 20
+          periodSeconds: 30
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 10
+        volumeMounts:
+        - name: logs
+          mountPath: /app/logs
+      - name: rotation-manager
+        image: cyberdefense/rotation-manager:latest
+        env:
+        - name: ROTATION_INTERVAL
+          valueFrom:
+            configMapKeyRef:
+              name: honeypot-config
+              key: rotation_interval
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "200m"
+        volumeMounts:
+        - name: rotation-state
+          mountPath: /app/state
+  volumeClaimTemplates:
+  - metadata:
+      name: logs
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 2Gi
+  - metadata:
+      name: rotation-state
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 100Mi
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: honeypot-legitimate
+  namespace: cyberdefense
+  labels:
+    app: honeypot
+    type: legitimate
+spec:
+  serviceName: honeypot-legitimate
+  replicas: 5
+  selector:
+    matchLabels:
+      app: honeypot
+      type: legitimate
+  template:
+    metadata:
+      labels:
+        app: honeypot
+        type: legitimate
+    spec:
+      containers:
+      - name: honeypot
+        image: cyberdefense/honeypot:latest
+        ports:
+        - containerPort: 8080
+          name: http
+        env:
+        - name: HONEYPOT_TYPE
+          value: "legitimate"
+        - name: HONEYPOT_SERVICE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: ML_API_URL
+          valueFrom:
+            configMapKeyRef:
+              name: honeypot-config
+              key: ml_api_url
+        - name: PORT
+          value: "8080"
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "200m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 20
+          periodSeconds: 30
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 10
+        volumeMounts:
+        - name: logs
+          mountPath: /app/logs
+  volumeClaimTemplates:
+  - metadata:
+      name: logs
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 2Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: honeypot-deceptive
+  namespace: cyberdefense
+  labels:
+    app: honeypot
+    type: deceptive
+spec:
+  type: LoadBalancer
+  selector:
+    app: honeypot
+    type: deceptive
+  ports:
+  - port: 80
+    targetPort: 8080
+    protocol: TCP
+    name: http
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: honeypot-legitimate
+  namespace: cyberdefense
+  labels:
+    app: honeypot
+    type: legitimate
+spec:
+  type: LoadBalancer
+  selector:
+    app: honeypot
+    type: legitimate
+  ports:
+  - port: 80
+    targetPort: 8080
+    protocol: TCP
+    name: http

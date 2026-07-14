@@ -1,0 +1,50 @@
+=== FINAL SYSTEM TEST (و 00:02:09 PKT ت 28 فروری 2026) ===
+
+--- Port Health ---
+  :5000 ✅ UP (200)
+  :8080 ❌ DOWN (0000)
+  :9000 ✅ UP (200)
+  :3001 ✅ UP (200)
+  :3002 ✅ UP (200)
+  :3003 ✅ UP (200)
+  :3004 ✅ UP (200)
+  :3005 ✅ UP (200)
+  :3006 ✅ UP (200)
+  :3007 ✅ UP (200)
+  :4001 ✅ UP (200)
+  :4002 ✅ UP (200)
+  :4003 ✅ UP (200)
+  :4004 ✅ UP (200)
+  :4005 ✅ UP (200)
+  :4006 ✅ UP (200)
+  :4007 ✅ UP (200)
+
+--- ML API ---
+{
+    "models": {
+        "ddos": true,
+        "web_attack": true
+    },
+    "status": "healthy",
+    "timestamp": "2026-02-28T00:02:12.207020"
+}
+
+--- Phase2 Stats (LLM, GAN, Fingerprints) ---
+{
+    "fingerprints": {
+        "clusters": 1,
+        "total": 1
+    },
+    "gan": {
+        "synthetic_count": 35,
+        "synthetic_pct": 100.0,
+        "total_users": 35
+    },
+    "llm": {
+        "fallbacks": 0,
+        "last_generated": null,
+        "requests": 0,
+        "success": 0
+    }
+}
+--- Proxy Status ---

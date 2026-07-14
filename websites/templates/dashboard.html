@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<div class="page-header">
+    <h1>Welcome back, {{ user }}</h1>
+    <p>Your {{ site.name }} dashboard overview</p>
+</div>
+
+<div class="stat-grid">
+    <div class="stat-card">
+        <div class="stat-value">{{ stats.users }}</div>
+        <div class="stat-label">Total Users</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-value">{{ stats.items }}</div>
+        <div class="stat-label">{{ site.items_label | default('Items') }}</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-value">{{ stats.transactions }}</div>
+        <div class="stat-label">Transactions</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-value" style="color:var(--success);"></div>
+        <div class="stat-label">System Active</div>
+    </div>
+</div>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;">
+    <div class="card">
+        <h3 style="margin-bottom:1rem;">Quick Actions</h3>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+            <a href="/items" class="btn btn-secondary"> Browse {{ site.items_label | default('Items') }}</a>
+            <a href="/search" class="btn btn-secondary"> Search</a>
+            <a href="/profile" class="btn btn-secondary"> My Profile</a>
+            <a href="/admin" class="btn btn-secondary"> Admin Panel</a>
+            <a href="/api/data" class="btn btn-secondary"> API Data</a>
+        </div>
+    </div>
+    <div class="card">
+        <h3 style="margin-bottom:1rem;">Recent Activity</h3>
+        <div style="font-size:0.9rem;color:var(--text-muted);">
+            <div style="padding:8px 0;border-bottom:1px solid var(--border);"> Last login: {{ now if now else 'Today'
+                }}</div>
+            <div style="padding:8px 0;border-bottom:1px solid var(--border);"> {{ stats.transactions }} total
+                transactions</div>
+            <div style="padding:8px 0;border-bottom:1px solid var(--border);"> {{ stats.users }} registered users
+            </div>
+            <div style="padding:8px 0;"> All systems operational</div>
+        </div>
+    </div>
+</div>
+{% endblock %}

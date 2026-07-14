@@ -1,0 +1,185 @@
+{
+  "timestamp": "2026-05-04T02:31:03.090037",
+  "llm_available": true,
+  "n_runs_per_condition": 3,
+  "with_llm": {
+    "dwell_mean": 3.73,
+    "dwell_std": 11.15,
+    "dwell_max": 33.45,
+    "engage_mean": 0.0,
+    "reqs_mean": 6.7
+  },
+  "without_llm": {
+    "dwell_mean": 0.0,
+    "dwell_std": 0.01,
+    "dwell_max": 0.01,
+    "engage_mean": 0.0,
+    "reqs_mean": 6.7
+  },
+  "dwell_improvement_pct": 37300000000.0,
+  "engage_improvement_pct": 0.0,
+  "per_session": [
+    {
+      "session": "SQLi Exploitation",
+      "with_llm": true,
+      "dwell_time_s": 33.45,
+      "requests_made": 7,
+      "convincing_pages": 0,
+      "avg_response_ms": 0,
+      "engagement_score": 0.0
+    },
+    {
+      "session": "SQLi Exploitation",
+      "with_llm": true,
+      "dwell_time_s": 0.02,
+      "requests_made": 7,
+      "convincing_pages": 0,
+      "avg_response_ms": 0,
+      "engagement_score": 0.0
+    },
+    {
+      "session": "SQLi Exploitation",
+      "with_llm": true,
+      "dwell_time_s": 0.02,
+      "requests_made": 7,
+      "convincing_pages": 0,
+      "avg_response_ms": 0,
+      "engagement_score": 0.0
+    },
+    {
+      "session": "SQLi Exploitation",
+      "with_llm": false,
+      "dwell_time_s": 0.0,
+      "requests_made": 7,
+      "convincing_pages": 0,
+      "avg_response_ms": 0,
+      "engagement_score": 0.0
+    },
+    {
+      "session": "SQLi Exploitation",
+      "with_llm": false,
+      "dwell_time_s": 0.01,
+      "requests_made": 7,
+      "convincing_pages": 0,
+      "avg_response_ms": 0,
+      "engagement_score": 0.0
+    },
+    {
+      "session": "SQLi Exploitation",
+      "with_llm": false,
+      "dwell_time_s": 0.01,
+      "requests_made": 7,
+      "convincing_pages": 0,
+      "avg_response_ms": 0,
+      "engagement_score": 0.0
+    },
+    {
+      "session": "XSS Injection",
+      "with_llm": true,
+      "dwell_time_s": 0.01,
+      "requests_made": 5,
+      "convincing_pages": 0,
+      "avg_response_ms": 0,
+      "engagement_score": 0.0
+    },
+    {
+      "session": "XSS Injection",
+      "with_llm": true,
+      "dwell_time_s": 0.01,
+      "requests_made": 5,
+      "convincing_pages": 0,
+      "avg_response_ms": 0,
+      "engagement_score": 0.0
+    },
+    {
+      "session": "XSS Injection",
+      "with_llm": true,
+      "dwell_time_s": 0.01,
+      "requests_made": 5,
+      "convincing_pages": 0,
+      "avg_response_ms": 0,
+      "engagement_score": 0.0
+    },
+    {
+      "session": "XSS Injection",
+      "with_llm": false,
+      "dwell_time_s": 0.01,
+      "requests_made": 5,
+      "convincing_pages": 0,
+      "avg_response_ms": 0,
+      "engagement_score": 0.0
+    },
+    {
+      "session": "XSS Injection",
+      "with_llm": false,
+      "dwell_time_s": 0.0,
+      "requests_made": 5,
+      "convincing_pages": 0,
+      "avg_response_ms": 0,
+      "engagement_score": 0.0
+    },
+    {
+      "session": "XSS Injection",
+      "with_llm": false,
+      "dwell_time_s": 0.01,
+      "requests_made": 5,
+      "convincing_pages": 0,
+      "avg_response_ms": 0,
+      "engagement_score": 0.0
+    },
+    {
+      "session": "Reconnaissance",
+      "with_llm": true,
+      "dwell_time_s": 0.01,
+      "requests_made": 8,
+      "convincing_pages": 0,
+      "avg_response_ms": 0,
+      "engagement_score": 0.0
+    },
+    {
+      "session": "Reconnaissance",
+      "with_llm": true,
+      "dwell_time_s": 0.02,
+      "requests_made": 8,
+      "convincing_pages": 0,
+      "avg_response_ms": 0,
+      "engagement_score": 0.0
+    },
+    {
+      "session": "Reconnaissance",
+      "with_llm": true,
+      "dwell_time_s": 0.02,
+      "requests_made": 8,
+      "convincing_pages": 0,
+      "avg_response_ms": 0,
+      "engagement_score": 0.0
+    },
+    {
+      "session": "Reconnaissance",
+      "with_llm": false,
+      "dwell_time_s": 0.0,
+      "requests_made": 8,
+      "convincing_pages": 0,
+      "avg_response_ms": 0,
+      "engagement_score": 0.0
+    },
+    {
+      "session": "Reconnaissance",
+      "with_llm": false,
+      "dwell_time_s": 0.0,
+      "requests_made": 8,
+      "convincing_pages": 0,
+      "avg_response_ms": 0,
+      "engagement_score": 0.0
+    },
+    {
+      "session": "Reconnaissance",
+      "with_llm": false,
+      "dwell_time_s": 0.0,
+      "requests_made": 8,
+      "convincing_pages": 0,
+      "avg_response_ms": 0,
+      "engagement_score": 0.0
+    }
+  ]
+}

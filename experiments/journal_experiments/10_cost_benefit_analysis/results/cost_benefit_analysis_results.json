@@ -1,0 +1,145 @@
+{
+  "timestamp": "2026-05-04T04:43:59.545939",
+  "infrastructure_costs": {
+    "compute": {
+      "ml_api_server": 50,
+      "proxy_server": 30,
+      "dashboard_server": 20,
+      "honeypot_servers": 70,
+      "database_server": 40,
+      "total": 210
+    },
+    "storage": {
+      "database": 20,
+      "logs": 15,
+      "blockchain": 10,
+      "ml_models": 5,
+      "total": 50
+    },
+    "network": {
+      "bandwidth": 30,
+      "load_balancer": 20,
+      "total": 50
+    },
+    "other": {
+      "monitoring": 10,
+      "backups": 15,
+      "total": 25
+    },
+    "monthly_total": 335,
+    "annual_total": 4020
+  },
+  "operational_costs": {
+    "personnel": {
+      "security_engineer": 15000,
+      "devops_engineer": 10000,
+      "total": 25000
+    },
+    "maintenance": {
+      "software_updates": 2000,
+      "model_retraining": 3000,
+      "system_upgrades": 2000,
+      "total": 7000
+    },
+    "support": {
+      "incident_response": 3000,
+      "threat_intelligence": 2000,
+      "total": 5000
+    },
+    "annual_total": 37000,
+    "monthly_total": 3083.3333333333335
+  },
+  "damage_prevention_value": {
+    "assumptions": {
+      "attacks_detected_per_month": 250,
+      "detection_rate": 0.95,
+      "attacks_prevented_per_month": 237.5,
+      "data_breach_cost": 50000,
+      "data_breach_probability": 0.002,
+      "downtime_cost": 5000,
+      "downtime_probability": 0.01,
+      "reputation_damage": 20000,
+      "reputation_probability": 0.001,
+      "compliance_fine": 100000,
+      "compliance_probability": 0.0002
+    },
+    "expected_value_per_attack": 190.0,
+    "monthly_prevention_value": 45125.0,
+    "annual_prevention_value": 541500.0
+  },
+  "solution_comparison": {
+    "decepticloud": {
+      "name": "DeceptiCloud",
+      "setup_cost": 5000,
+      "annual_infrastructure": 4020,
+      "annual_operational": 37000,
+      "annual_total": 41020,
+      "detection_rate": 0.95,
+      "false_positive_rate": 0.008,
+      "features": [
+        "ML Detection",
+        "Honeypots",
+        "Blockchain Audit",
+        "Adaptive Learning"
+      ],
+      "tco_3_years": 128060,
+      "tco_5_years": 210100
+    },
+    "traditional_ids": {
+      "name": "Traditional IDS (Snort/Suricata)",
+      "setup_cost": 10000,
+      "annual_infrastructure": 6000,
+      "annual_operational": 50000,
+      "annual_total": 56000,
+      "detection_rate": 0.75,
+      "false_positive_rate": 0.05,
+      "features": [
+        "Signature-based",
+        "Manual Rules"
+      ],
+      "tco_3_years": 178000,
+      "tco_5_years": 290000
+    },
+    "commercial_ids": {
+      "name": "Commercial IDS (Palo Alto, Fortinet)",
+      "setup_cost": 50000,
+      "annual_infrastructure": 15000,
+      "annual_operational": 40000,
+      "annual_total": 55000,
+      "detection_rate": 0.85,
+      "false_positive_rate": 0.02,
+      "features": [
+        "Signature + Heuristics",
+        "Threat Intelligence",
+        "Support"
+      ],
+      "tco_3_years": 215000,
+      "tco_5_years": 325000
+    },
+    "cloud_waf": {
+      "name": "Cloud WAF (Cloudflare, AWS WAF)",
+      "setup_cost": 1000,
+      "annual_infrastructure": 12000,
+      "annual_operational": 20000,
+      "annual_total": 32000,
+      "detection_rate": 0.8,
+      "false_positive_rate": 0.03,
+      "features": [
+        "DDoS Protection",
+        "Web Attack Detection",
+        "CDN"
+      ],
+      "tco_3_years": 97000,
+      "tco_5_years": 161000
+    }
+  },
+  "roi_analysis": {
+    "annual_cost": 41020,
+    "annual_benefit": 541500.0,
+    "net_benefit": 500480.0,
+    "roi_pct": 1220.0877620672843,
+    "breakeven_months": 0.11988491048593351,
+    "cost_per_attack_detected": 13.673333333333334,
+    "attacks_per_year": 3000
+  }
+}

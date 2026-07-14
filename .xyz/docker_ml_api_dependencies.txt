@@ -1,0 +1,15 @@
+Environment: Docker Container (ML-API)
+File: docker/ml-api.Dockerfile
+Base Image: python:3.10-slim
+
+Dependencies (from requirements.txt):
+pandas==2.1.4
+numpy==1.24.3
+scikit-learn==1.3.2
+tensorflow==2.15.0
+matplotlib==3.8.2
+seaborn==0.13.0
+flask==3.0.0
+flask-cors==4.0.0
+pyyaml==6.0.1
+requests==2.31.0
